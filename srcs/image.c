@@ -17,7 +17,7 @@ void	put_pixel(t_env *e, int x, int y, unsigned int c)
 {
 	int i;
 
-	if (x >= 0 && y >= 0 && x <= e->image_x && y <= e->image_y)
+	if (x >= 0 && y >= 0 && x <= WIDTH && y <= HEIGHT)
 	{
 		i = ((x * e->bpp) / 8) +
 			(y * e->sizeline);

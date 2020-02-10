@@ -17,6 +17,30 @@ void	draw_grid(t_env *e)
 	t_pos pos;
 
 	pos.y = 0;
+	printf("WIDTH: %d ; HEIGHT: %d\n", HEIGHT, WIDTH);
+	while (pos.y < HEIGHT)
+	{
+		pos.x = 0;		
+		while (pos.x < WIDTH)
+		{
+			// printf("e->y2: %d, e->x2: %d \n", e->y2, e->x2);
+			put_pixel_color(e, 0x7570B3, &pos);
+			printf("POS: pos.x: %d ; pos.y: %d | \n", pos.x, pos.y);
+			// printf("e-x: %d ; pos.y: %d | ", pos.x, pos.y);
+			// printf("ELSE : e->x2: %d, e->y2: %d \n", e->x2, e->y2);
+			pos.x++;
+		}
+		pos.y++;
+	}
+}
+
+
+/*
+void	draw_grid(t_env *e)
+{
+	t_pos pos;
+
+	pos.y = 0;
 	while (pos.y < HEIGHT)
 	{
 		pos.x = 0;		
@@ -26,25 +50,19 @@ void	draw_grid(t_env *e)
 			e->y2 = pos.y / e->bloc_height;
 			if (e->y2 <= e->map_height && e->x2 <= e->map_width)
 			{
-				printf("e->y2: %d, e->x2: %d \n", e->y2, e->x2);
-				put_pixel_color(e, 0x7570B3, &pos);
-				/*
 				if (e->file[e->y2][e->x2] == 0)
+					put_pixel_color(e, 0x7570B3, &pos);
 				else if (e->file[e->y2][e->x2] == 1)
 					put_pixel_color(e, 0x888888, &pos);
 				else if (e->file[e->y2][e->x2] == 2)
 					put_pixel_color(e, 0x1B9E77, &pos);
 				else if (e->file[e->y2][e->x2] == 3)
 					put_pixel_color(e, 0xE7298A, &pos);
-					*/
 			}
 			else
 			{
-				printf("POS: pos.x: %d ; pos.y: %d | ", pos.x, pos.y);
-				printf("e-x: %d ; pos.y: %d\n", pos.x, pos.y);
-				printf("ELSE : e->x2: %d, e->y2: %d \n", e->x2, e->y2);
-				// put_pixel_color(e, WHITE, &pos);
-				// printf("OUTSIDE\n");
+				put_pixel_color(e, WHITE, &pos);
+				printf("OUTSIDE\n");
 			}
 			pos.x++;
 		}
@@ -52,14 +70,13 @@ void	draw_grid(t_env *e)
 	}
 }
 
-/*
 void		draw_line(t_env *e, t_vector *v)
 {
 	int		e2;
 
 	while (v->x1 != v->x2 || v->y1 != v->y2)
 	{
-		if (v->x1 < e->image_x)
+		if (v->x1 < WIDTH)
 			put_pixel(e, v->x1, v->y1, 7869695);
 		e2 = v->err;
 		if (e2 > -v->dx)
@@ -81,11 +98,11 @@ void		draw_inf_line(t_env *e, t_vector *v, int i)
 
 	e->x2 = v->x1 / e->bloc_width;
 	e->y2 = v->y1 / e->bloc_height;
-	while ((v->x1 > 0 && v->y1 > 0) && (v->x1 < e->image_x && v->y1 < e->image_y) && (e->tab[e->y2][e->x2] == 0))
+	while ((v->x1 > 0 && v->y1 > 0) && (v->x1 < WIDTH && v->y1 < HEIGHT) && (e->tab[e->y2][e->x2] == 0))
 	{
 		e->x2 = v->x1 / e->bloc_width;
 		e->y2 = v->y1 / e->bloc_height;
-		if (v->x1 < e->image_x)
+		if (v->x1 < WIDTH)
 			put_pixel(e, v->x1, v->y1, 7869695);
 		e2 = v->err;
 		if (e2 > -v->dx)
