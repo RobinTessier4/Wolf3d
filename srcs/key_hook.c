@@ -31,11 +31,11 @@ int		check_if_wall(t_env *e, int i)
 		x -= 2;
 	else if (i == 4)
 		x += 2;
-	e->x2 = x / e->bloc_width;
-	e->y2 = y / e->bloc_height;
-	if (e->y2 <= e->rows && e->x2 <= e->col)
+	e->current_bloc.x = x / e->bloc_width;
+	e->current_bloc.y = y / e->bloc_height;
+	if (e->current_bloc.y <= e->rows && e->current_bloc.x <= e->col)
 	{
-		if (e->tab[e->y2][e->x2] != 0)
+		if (e->tab[e->current_bloc.y][e->current_bloc.x] != 0)
 			return (1);
 	}
 	*/

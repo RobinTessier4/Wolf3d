@@ -12,61 +12,57 @@
 
 #include <wolf3d.h>
 
-void	draw_grid(t_env *e)
+void		draw_grid(t_env *e)
 {
-	t_pos pos;
+	t_pos	cursor;
 
-	pos.y = 0;
+	cursor.y = 0;
 	printf("WIDTH: %d ; HEIGHT: %d\n", HEIGHT, WIDTH);
-	while (pos.y < HEIGHT)
+	while (cursor.y < HEIGHT)
 	{
-		pos.x = 0;		
-		while (pos.x < WIDTH)
+		cursor.x = 0;		
+		while (cursor.x < WIDTH)
 		{
-			// printf("e->y2: %d, e->x2: %d \n", e->y2, e->x2);
-			put_pixel_color(e, 0x7570B3, &pos);
-			printf("POS: pos.x: %d ; pos.y: %d | \n", pos.x, pos.y);
-			// printf("e-x: %d ; pos.y: %d | ", pos.x, pos.y);
-			// printf("ELSE : e->x2: %d, e->y2: %d \n", e->x2, e->y2);
-			pos.x++;
+			put_pixel_color(e, 0x7570B3, &cursor);
+			printf("POS: cursor.x: %d ; cursor.y: %d | \n", cursor.x, cursor.y);
+			cursor.x++;
 		}
-		pos.y++;
+		cursor.y++;
 	}
 }
-
 
 /*
 void	draw_grid(t_env *e)
 {
-	t_pos pos;
+	t_pos cursor;
 
-	pos.y = 0;
-	while (pos.y < HEIGHT)
+	cursor.y = 0;
+	while (cursor.y < HEIGHT)
 	{
-		pos.x = 0;		
-		while (pos.x < WIDTH)
+		cursor.x = 0;		
+		while (cursor.x < WIDTH)
 		{
-			e->x2 = pos.x / e->bloc_width;
-			e->y2 = pos.y / e->bloc_height;
-			if (e->y2 <= e->map_height && e->x2 <= e->map_width)
+			e->current_bloc.x = cursor.x / e->bloc_width;
+			e->current_bloc.y = cursor.y / e->bloc_height;
+			if (e->current_bloc.y <= e->map_height && e->current_bloc.x <= e->map_width)
 			{
-				if (e->file[e->y2][e->x2] == 0)
-					put_pixel_color(e, 0x7570B3, &pos);
-				else if (e->file[e->y2][e->x2] == 1)
-					put_pixel_color(e, 0x888888, &pos);
-				else if (e->file[e->y2][e->x2] == 2)
-					put_pixel_color(e, 0x1B9E77, &pos);
-				else if (e->file[e->y2][e->x2] == 3)
-					put_pixel_color(e, 0xE7298A, &pos);
+				if (e->file[e->current_bloc.y][e->current_bloc.x] == 0)
+					put_pixel_color(e, 0x7570B3, &cursor);
+				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 1)
+					put_pixel_color(e, 0x888888, &cursor);
+				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 2)
+					put_pixel_color(e, 0x1B9E77, &cursor);
+				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 3)
+					put_pixel_color(e, 0xE7298A, &cursor);
 			}
 			else
 			{
-				put_pixel_color(e, WHITE, &pos);
+				put_pixel_color(e, WHITE, &cursor);
 				printf("OUTSIDE\n");
 			}
-			pos.x++;
+			cursor.x++;
 		}
-		pos.y++;
+		cursor.y++;
 	}
 }
 
@@ -96,12 +92,12 @@ void		draw_inf_line(t_env *e, t_vector *v, int i)
 {
 	int		e2;
 
-	e->x2 = v->x1 / e->bloc_width;
-	e->y2 = v->y1 / e->bloc_height;
-	while ((v->x1 > 0 && v->y1 > 0) && (v->x1 < WIDTH && v->y1 < HEIGHT) && (e->tab[e->y2][e->x2] == 0))
+	e->current_bloc.x = v->x1 / e->bloc_width;
+	e->current_bloc.y = v->y1 / e->bloc_height;
+	while ((v->x1 > 0 && v->y1 > 0) && (v->x1 < WIDTH && v->y1 < HEIGHT) && (e->tab[e->current_bloc.y][e->current_bloc.x] == 0))
 	{
-		e->x2 = v->x1 / e->bloc_width;
-		e->y2 = v->y1 / e->bloc_height;
+		e->current_bloc.x = v->x1 / e->bloc_width;
+		e->current_bloc.y = v->y1 / e->bloc_height;
 		if (v->x1 < WIDTH)
 			put_pixel(e, v->x1, v->y1, 7869695);
 		e2 = v->err;
@@ -151,8 +147,8 @@ void	ray_init(t_env *e)
 
 	e->plane->bloc_width = (e->x + e->xdir - e->xplane) * e->bloc_width;
 	e->plane->bloc_height = (e->y + e->ydir - e->yplane) * e->bloc_height;
-	e->plane->x2 = (e->x + e->xdir + e->xplane) * e->bloc_width;
-	e->plane->y2 = (e->y + e->ydir + e->yplane) * e->bloc_height;
+	e->plane->current_bloc.x = (e->x + e->xdir + e->xplane) * e->bloc_width;
+	e->plane->current_bloc.y = (e->y + e->ydir + e->yplane) * e->bloc_height;
 
 	e->lray->x1 = e->dir->x1;
 	e->lray->y1 = e->dir->y1;
@@ -160,8 +156,8 @@ void	ray_init(t_env *e)
 	e->lray->y2 = e->plane->bloc_height;
 	e->rray->x1 = e->dir->x1;
 	e->rray->y1 = e->dir->y1;
-	e->rray->x2 = e->plane->x2;
-	e->rray->y2 = e->plane->y2;
+	e->rray->x2 = e->plane->current_bloc.x;
+	e->rray->y2 = e->plane->current_bloc.y;
 }
 
 

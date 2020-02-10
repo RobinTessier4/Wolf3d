@@ -29,8 +29,8 @@
 
 #define VERBOSE 1
 
-#define WIDTH 50
-#define HEIGHT 50
+#define WIDTH 20
+#define HEIGHT 20
 
 #define BLACK 0
 #define WHITE 0xFFFFFF
@@ -58,19 +58,8 @@ typedef	struct	s_parse
 
 typedef struct s_env
 {
-/*
-	void 		*mlx; // delete
-	void 		*win; // delete
-	void 		*ptr; // delete
-	char 		*data; // delete
-	int			bpp; // delete
-	int			endlian; // delete
-	int			sizeline; // delete
-*/
+
 	t_mlx 		*mlx;
-	
-	int 		image_x; // delete 720
-	int 		image_y; // delete 480
 
 	t_parse		*map_lines;
 	int			map_width; 
@@ -91,8 +80,8 @@ typedef struct s_env
 
 	int 		bloc_width; //taille d'un bloc
 	int 		bloc_height;
-	int 		x2;
-	int 		y2;
+	t_pos		current_bloc; // e->y1 ; e->current_bloc.x
+	t_pos		cursor;
 	
 	int 		midray;
 	int 		leftray;
