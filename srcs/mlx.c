@@ -28,9 +28,9 @@ int		param_init(t_env *e)
 	e->ydir = -1;
 	e->xplane = 0.66;
 	e->yplane = 0;
-	e->x1 = WIDTH / e->map_width; //renommer x1 et x2
-	e->y1 = HEIGHT / e->map_height;
-	// printf("e->x1: %d, e->y1: %d\n", e->x1, e->y1);
+	e->bloc_width = WIDTH / e->map_width; //renommer x1 et x2
+	e->bloc_height = HEIGHT / e->map_height;
+	// printf("e->bloc_width: %d, e->bloc_height: %d\n", e->bloc_width, e->bloc_height);
 	return (0);
 }
 

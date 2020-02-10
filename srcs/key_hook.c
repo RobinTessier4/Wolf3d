@@ -21,8 +21,8 @@ int		check_if_wall(t_env *e, int i)
 	int x;
 	int y;
 
-	x = e->x * e->x1;
-	y = e->y * e->y1;
+	x = e->x * e->bloc_width;
+	y = e->y * e->bloc_height;
 //	if (e->dir->x == 1)
 //		y -= 2;
 	if (i == 2)
@@ -31,8 +31,8 @@ int		check_if_wall(t_env *e, int i)
 		x -= 2;
 	else if (i == 4)
 		x += 2;
-	e->x2 = x / e->x1;
-	e->y2 = y / e->y1;
+	e->x2 = x / e->bloc_width;
+	e->y2 = y / e->bloc_height;
 	if (e->y2 <= e->rows && e->x2 <= e->col)
 	{
 		if (e->tab[e->y2][e->x2] != 0)

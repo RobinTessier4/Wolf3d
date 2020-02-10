@@ -29,8 +29,8 @@
 
 #define VERBOSE 1
 
-#define WIDTH 720
-#define HEIGHT 480
+#define WIDTH 50
+#define HEIGHT 50
 
 #define BLACK 0
 #define WHITE 0xFFFFFF
@@ -89,8 +89,8 @@ typedef struct s_env
 	int 		rows;
 	int 		col;
 
-	int 		x1; //taille dun bloc
-	int 		y1;
+	int 		bloc_width; //taille d'un bloc
+	int 		bloc_height;
 	int 		x2;
 	int 		y2;
 	
