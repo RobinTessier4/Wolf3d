@@ -25,8 +25,9 @@ int			main(int ac, char **av)
 			{
 				if ((e.file = map_tab(&e)) != NULL)
 				{
+					if (HEIGHT < e.map_height || WIDTH < e.map_width)
+						return(error_msg("error: map dimension is too small", &e));
 					print_map(&e);
-					printf("map_height: %d , map_width: %d\n", e.map_height, e.map_width);
 					init_mlx(&e);
 					wolf(&e); // segfault is here
 					mlx_hook(e.mlx->wind, 2, 0, key_hook, &e);
