@@ -26,7 +26,7 @@ int			main(int ac, char **av)
 				if ((e.file = map_tab(&e)) != NULL)
 				{
 					if (HEIGHT < e.map_height || WIDTH < e.map_width)
-						return(error_msg("error: map dimension is too small", &e));
+						return(error_msg("error: window is too small", &e));
 					print_map(&e);
 					init_mlx(&e);
 					wolf(&e); // segfault is here

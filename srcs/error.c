@@ -30,5 +30,5 @@ int				error_msg(char *message, t_env *env)
 		ft_putendl_fd(message, 1);
 	if (env->map_lines)
 		del_map_lines(&env->map_lines);
-	return (-1);
+	return (1);
 }

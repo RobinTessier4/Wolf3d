@@ -28,6 +28,12 @@ typedef struct			s_pos
 	int					y;
 }						t_pos;
 
+typedef struct			s_pos_d
+{
+	double				x;
+	double				y;
+}						t_pos_d;
+
 typedef struct			s_img
 {
 	void				*ptr;

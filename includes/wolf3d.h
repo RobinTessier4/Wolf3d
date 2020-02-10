@@ -29,16 +29,16 @@
 
 #define VERBOSE 1
 
-#define WIDTH 20
-#define HEIGHT 20
+#define WIDTH 60
+#define HEIGHT 60
 
 #define BLACK 0
 #define WHITE 0xFFFFFF
 
 typedef struct	s_vector
 {
-	int 		x1;
-	int 		x2;
+	int 		x1; //t_pos start
+	int 		x2; //t_pos end
 	int 		y1;
 	int 		y2;
 	int 		dx;
@@ -62,25 +62,24 @@ typedef struct s_env
 	t_mlx 		*mlx;
 
 	t_parse		*map_lines;
-	int			map_width; 
-	int			map_height;
+	int			map_width; //nombre de colonnes
+	int			map_height; //nombre de lignes
 	int			line_cmp;
 	int			**file;
 	int			**tab;
 
-	double 		x;
-	double 		y;
-	double 		xdir;
-	double 		ydir;
-	double		xplane;
-	double		yplane;
+	t_pos_d		player; //x && y
+
+	t_pos_d		dir_p; //player direction xdir / ydir
+
+	t_pos_d		plane_p; //xplane & ypalne
 	double 		oldx;
 	int 		rows;
 	int 		col;
 
-	int 		bloc_width; //taille d'un bloc
+	int 		bloc_width; //taille d'un bloc = WIDTH / e->map_width;
 	int 		bloc_height;
-	t_pos		current_bloc; // e->y1 ; e->current_bloc.x
+	t_pos		current_bloc; // e->player.y1 = e->current_bloc.y / e->player.x1 = e->current_bloc.x 
 	t_pos		cursor;
 	
 	int 		midray;

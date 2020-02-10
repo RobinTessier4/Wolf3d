@@ -21,8 +21,8 @@ int		check_if_wall(t_env *e, int i)
 	int x;
 	int y;
 
-	x = e->x * e->bloc_width;
-	y = e->y * e->bloc_height;
+	x = e->player.x * e->bloc_width;
+	y = e->player.y * e->bloc_height;
 //	if (e->dir->x == 1)
 //		y -= 2;
 	if (i == 2)
@@ -51,43 +51,43 @@ int		key_hook(int key, t_env *e)
 		// mlx_destroy_image(e->mlx, e->ptr); 
 		exit(EXIT_SUCCESS);
 	}
-	if (key == W && e->y < HEIGHT && check_if_wall(e, 1) == 0)
+	if (key == W && e->player.y < HEIGHT && check_if_wall(e, 1) == 0)
 	{
-		e->y += e->ydir / 10;
-		e->x += e->xdir / 10;
+		e->player.y += e->dir_p.y / 10;
+		e->player.x += e->dir_p.x / 10;
 	}
-	if (key == S && e->y > 0 && check_if_wall(e, 2) == 0)
+	if (key == S && e->player.y > 0 && check_if_wall(e, 2) == 0)
 	{
-		e->y -= e->ydir / 10;
-		e->x -= e->xdir / 10;
+		e->player.y -= e->dir_p.y / 10;
+		e->player.x -= e->dir_p.x / 10;
 	}
-	if (key == A && e->x > 0 && check_if_wall(e, 3) == 0)
+	if (key == A && e->player.x > 0 && check_if_wall(e, 3) == 0)
 	{
-		e->y -= e->xdir / 10;
-		e->x += e->ydir / 10;
+		e->player.y -= e->dir_p.x / 10;
+		e->player.x += e->dir_p.y / 10;
 	}
-	if (key == D && e->x < WIDTH && check_if_wall(e, 4) == 0)
+	if (key == D && e->player.x < WIDTH && check_if_wall(e, 4) == 0)
 	{
-		e->y += e->xdir / 10;
-		e->x -= e->ydir / 10;
+		e->player.y += e->dir_p.x / 10;
+		e->player.x -= e->dir_p.y / 10;
 	}
 	if (key == ARROW_LEFT)
 	{
-		e->oldx = e->xdir;
-		e->xdir = e->xdir * cos(-0.05) - e->ydir * sin(-0.05);
-		e->ydir = e->oldx * sin(-0.05) + e->ydir * cos(-0.05);
-		e->oldx = e->xplane;
-		e->xplane = e->xplane * cos(-0.05) - e->yplane * sin(-0.05);
-		e->yplane = e->oldx * sin(-0.05) + e->yplane * cos(-0.05);
+		e->oldx = e->dir_p.x;
+		e->dir_p.x = e->dir_p.x * cos(-0.05) - e->dir_p.y * sin(-0.05);
+		e->dir_p.y = e->oldx * sin(-0.05) + e->dir_p.y * cos(-0.05);
+		e->oldx = e->plane_p.x;
+		e->plane_p.x = e->plane_p.x * cos(-0.05) - e->plane_p.y * sin(-0.05);
+		e->plane_p.y = e->oldx * sin(-0.05) + e->plane_p.y * cos(-0.05);
 	}
 	if (key == ARROW_RIGHT)
 	{
-		e->oldx = e->xdir;
-		e->xdir = e->xdir * cos(0.05) - e->ydir * sin(0.05);
-		e->ydir = e->oldx * sin(0.05) + e->ydir * cos(0.05);
-		e->oldx = e->xplane;
-		e->xplane = e->xplane * cos(0.05) - e->yplane * sin(0.05);
-		e->yplane = e->oldx * sin(0.05) + e->yplane * cos(0.05);
+		e->oldx = e->dir_p.x;
+		e->dir_p.x = e->dir_p.x * cos(0.05) - e->dir_p.y * sin(0.05);
+		e->dir_p.y = e->oldx * sin(0.05) + e->dir_p.y * cos(0.05);
+		e->oldx = e->plane_p.x;
+		e->plane_p.x = e->plane_p.x * cos(0.05) - e->plane_p.y * sin(0.05);
+		e->plane_p.y = e->oldx * sin(0.05) + e->plane_p.y * cos(0.05);
 	}
 	// mlx_destroy_image(e->mlx, e->ptr);
 	wolf(e);

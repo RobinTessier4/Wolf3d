@@ -22,12 +22,12 @@ int		param_init(t_env *e)
 		return (1);
 	if (!(e->rray = ft_memalloc(sizeof(t_vector))))
 		return (1);
-	e->x = 9.5;
-	e->y = 6.5;
-	e->xdir = 0;
-	e->ydir = -1;
-	e->xplane = 0.66;
-	e->yplane = 0;
+	e->player.x = 9.5;
+	e->player.y = 6.5;
+	e->dir_p.x = 0;
+	e->dir_p.y = -1;
+	e->plane_p.x = 0.66;
+	e->plane_p.y = 0;
 	e->bloc_width = WIDTH / e->map_width;
 	e->bloc_height = HEIGHT / e->map_height;
 	// printf("e->bloc_width: %d, e->bloc_height: %d\n", e->bloc_width, e->bloc_height);

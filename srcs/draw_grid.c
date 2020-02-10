@@ -17,14 +17,20 @@ void		draw_grid(t_env *e)
 	t_pos	cursor;
 
 	cursor.y = 0;
-	printf("WIDTH: %d ; HEIGHT: %d\n", HEIGHT, WIDTH);
+	printf("e->map_width: %d ; e->map_height: %d\n", e->map_width, e->map_height);
 	while (cursor.y < HEIGHT)
 	{
-		cursor.x = 0;		
+		cursor.x = 0;
 		while (cursor.x < WIDTH)
 		{
-			put_pixel_color(e, 0x7570B3, &cursor);
-			printf("POS: cursor.x: %d ; cursor.y: %d | \n", cursor.x, cursor.y);
+			e->current_bloc.x = cursor.x / e->bloc_width;
+			e->current_bloc.y = cursor.y / e->bloc_height;
+			if (e->current_bloc.x < e->map_width && e->current_bloc.y < e->map_height)
+			{
+				put_pixel_color(e, 0x7570B3, &cursor);
+				printf("cur_bloc.x: %d ; cur_bloc.y: %d\n", e->current_bloc.x, e->current_bloc.y);
+				// // printf("POS: cursor.x: %d ; cursor.y: %d | \n", cursor.x, cursor.y);
+			}
 			cursor.x++;
 		}
 		cursor.y++;
@@ -140,15 +146,15 @@ void	vector_init(t_env *e, t_vector *v)
 
 void	ray_init(t_env *e)
 {
-	e->dir->x1 = e->x * e->bloc_width;
-	e->dir->y1 = e->y * e->bloc_height;
-	e->dir->x2 = (e->x + e->xdir) * e->bloc_width;
-	e->dir->y2 = (e->y + e->ydir) * e->bloc_height;
+	e->dir->x1 = e->player.x * e->bloc_width;
+	e->dir->y1 = e->player.y * e->bloc_height;
+	e->dir->x2 = (e->player.x + e->dir_p.x) * e->bloc_width;
+	e->dir->y2 = (e->player.y + e->dir_p.y) * e->bloc_height;
 
-	e->plane->bloc_width = (e->x + e->xdir - e->xplane) * e->bloc_width;
-	e->plane->bloc_height = (e->y + e->ydir - e->yplane) * e->bloc_height;
-	e->plane->current_bloc.x = (e->x + e->xdir + e->xplane) * e->bloc_width;
-	e->plane->current_bloc.y = (e->y + e->ydir + e->yplane) * e->bloc_height;
+	e->plane->bloc_width = (e->player.x + e->dir_p.x - e->plane_p.x) * e->bloc_width;
+	e->plane->bloc_height = (e->player.y + e->dir_p.y - e->plane_p.y) * e->bloc_height;
+	e->plane->current_bloc.x = (e->player.x + e->dir_p.x + e->plane_p.x) * e->bloc_width;
+	e->plane->current_bloc.y = (e->player.y + e->dir_p.y + e->plane_p.y) * e->bloc_height;
 
 	e->lray->x1 = e->dir->x1;
 	e->lray->y1 = e->dir->y1;
@@ -168,8 +174,8 @@ void	player_position(t_env *e)
 	int x1;
 	int y1;
 
-	x = e->x * e->bloc_width;
-	y = e->y * e->bloc_height;
+	x = e->player.x * e->bloc_width;
+	y = e->player.y * e->bloc_height;
 	x1 = x - 2;
 	y1 = y - 2;
 	while (y1 != y + 2)
@@ -208,8 +214,8 @@ void	player_position(t_env *e)
 	t_pos pos1;
 	t_pos pos2;
 
-	pos1.x = e->x * e->bloc_width;
-	pos1.y = e->y * e->bloc_height;
+	pos1.x = e->player.x * e->bloc_width;
+	pos1.y = e->player.y * e->bloc_height;
 	pos2.x = pos1.x - 2;
 	pos2.y = pos1.y - 2;
 	while (pos2.y != pos1.y + 2)
