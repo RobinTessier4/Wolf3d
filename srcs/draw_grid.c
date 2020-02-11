@@ -27,9 +27,14 @@ void		draw_grid(t_env *e)
 			e->current_bloc.y = cursor.y / e->bloc_height;
 			if (e->current_bloc.x < e->map_width && e->current_bloc.y < e->map_height)
 			{
-				put_pixel_color(e, 0x7570B3, &cursor);
-				printf("cur_bloc.x: %d ; cur_bloc.y: %d\n", e->current_bloc.x, e->current_bloc.y);
-				// // printf("POS: cursor.x: %d ; cursor.y: %d | \n", cursor.x, cursor.y);
+				if (e->file[e->current_bloc.y][e->current_bloc.x] == 0)
+					put_pixel_color(e, 0x7570B3, &cursor);
+				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 1)
+					put_pixel_color(e, 0x888888, &cursor);
+				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 2)
+					put_pixel_color(e, 0x1B9E77, &cursor);
+				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 3)
+					put_pixel_color(e, 0xE7298A, &cursor);
 			}
 			cursor.x++;
 		}

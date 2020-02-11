@@ -29,8 +29,8 @@
 
 #define VERBOSE 1
 
-#define WIDTH 60
-#define HEIGHT 60
+#define WIDTH 780
+#define HEIGHT 420
 
 #define BLACK 0
 #define WHITE 0xFFFFFF
