@@ -42,59 +42,24 @@ void		draw_grid(t_env *e)
 	}
 }
 
-/*
-void	draw_grid(t_env *e)
-{
-	t_pos cursor;
-
-	cursor.y = 0;
-	while (cursor.y < HEIGHT)
-	{
-		cursor.x = 0;		
-		while (cursor.x < WIDTH)
-		{
-			e->current_bloc.x = cursor.x / e->bloc_width;
-			e->current_bloc.y = cursor.y / e->bloc_height;
-			if (e->current_bloc.y <= e->map_height && e->current_bloc.x <= e->map_width)
-			{
-				if (e->file[e->current_bloc.y][e->current_bloc.x] == 0)
-					put_pixel_color(e, 0x7570B3, &cursor);
-				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 1)
-					put_pixel_color(e, 0x888888, &cursor);
-				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 2)
-					put_pixel_color(e, 0x1B9E77, &cursor);
-				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 3)
-					put_pixel_color(e, 0xE7298A, &cursor);
-			}
-			else
-			{
-				put_pixel_color(e, WHITE, &cursor);
-				printf("OUTSIDE\n");
-			}
-			cursor.x++;
-		}
-		cursor.y++;
-	}
-}
-
 void		draw_line(t_env *e, t_vector *v)
 {
 	int		e2;
 
-	while (v->x1 != v->x2 || v->y1 != v->y2)
+	while (v->start.x != v->end.x || v->start.y != v->end.y)
 	{
-		if (v->x1 < WIDTH)
-			put_pixel(e, v->x1, v->y1, 7869695);
+		if (v->start.x < WIDTH)
+			put_pixel_color(e, 7869695, &v->start);
 		e2 = v->err;
 		if (e2 > -v->dx)
 		{
 			v->err -= v->dy;
-			v->x1 += v->sx;
+			v->start.x += v->sx;
 		}
 		if (e2 < v->dy)
 		{
 			v->err += v->dx;
-			v->y1 += v->sy;
+			v->start.y += v->sy;
 		}
 	}
 }
@@ -103,24 +68,24 @@ void		draw_inf_line(t_env *e, t_vector *v, int i)
 {
 	int		e2;
 
-	e->current_bloc.x = v->x1 / e->bloc_width;
-	e->current_bloc.y = v->y1 / e->bloc_height;
-	while ((v->x1 > 0 && v->y1 > 0) && (v->x1 < WIDTH && v->y1 < HEIGHT) && (e->tab[e->current_bloc.y][e->current_bloc.x] == 0))
+	e->current_bloc.x = v->start.x / e->bloc_width;
+	e->current_bloc.y = v->start.y / e->bloc_height;
+	while ((v->start.x > 0 && v->start.y > 0) && (v->start.x < WIDTH && v->start.y < HEIGHT) && (e->tab[e->current_bloc.y][e->current_bloc.x] == 0))
 	{
-		e->current_bloc.x = v->x1 / e->bloc_width;
-		e->current_bloc.y = v->y1 / e->bloc_height;
-		if (v->x1 < WIDTH)
-			put_pixel(e, v->x1, v->y1, 7869695);
+		e->current_bloc.x = v->start.x / e->bloc_width;
+		e->current_bloc.y = v->start.y / e->bloc_height;
+		if (v->start.x < WIDTH)
+			put_pixel_color(e, 7869695, &v->start);
 		e2 = v->err;
 		if (e2 > -v->dx)
 		{
 			v->err -= v->dy;
-			v->x1 += v->sx;
+			v->start.x += v->sx;
 		}
 		if (e2 < v->dy)
 		{
 			v->err += v->dx;
-			v->y1 += v->sy;
+			v->start.y += v->sy;
 		}
 		if (i == 1)
 			e->leftray++;
@@ -138,62 +103,38 @@ int	ft_abs(int nbr)
 	return (nbr);
 }
 
+/*
 void	vector_init(t_env *e, t_vector *v)
 {
 	if (!e)
 		return ;
-	v->dx = ft_abs(v->x2 - v->x1);
-	v->dy = ft_abs(v->y2 - v->y1);
-	v->sx = v->x1 < v->x2 ? 1 : -1;
-	v->sy = v->y1 < v->y2 ? 1 : -1;
+	v->dx = ft_abs(v->end.x - v->start.x);
+	v->dy = ft_abs(v->end.y - v->start.y);
+	v->sx = v->start.x < v->end.x ? 1 : -1;
+	v->sy = v->start.y < v->end.y ? 1 : -1;
 	v->err = (v->dx > v->dy ? v->dx : -v->dy) / 2;
 }
 
 void	ray_init(t_env *e)
 {
-	e->dir->x1 = e->player.x * e->bloc_width;
-	e->dir->y1 = e->player.y * e->bloc_height;
-	e->dir->x2 = (e->player.x + e->dir_p.x) * e->bloc_width;
-	e->dir->y2 = (e->player.y + e->dir_p.y) * e->bloc_height;
+	e->dir->start.x = e->player.x * e->bloc_width;
+	e->dir->start.y = e->player.y * e->bloc_height;
+	e->dir->end.x = (e->player.x + e->dir_p.x) * e->bloc_width;
+	e->dir->end.y = (e->player.y + e->dir_p.y) * e->bloc_height;
 
-	e->plane->bloc_width = (e->player.x + e->dir_p.x - e->plane_p.x) * e->bloc_width;
-	e->plane->bloc_height = (e->player.y + e->dir_p.y - e->plane_p.y) * e->bloc_height;
-	e->plane->current_bloc.x = (e->player.x + e->dir_p.x + e->plane_p.x) * e->bloc_width;
-	e->plane->current_bloc.y = (e->player.y + e->dir_p.y + e->plane_p.y) * e->bloc_height;
+	e->plane->start.x = (e->player.x + e->dir_p.x - e->plane_p.x) * e->bloc_width;
+	e->plane->start.y = (e->player.y + e->dir_p.y - e->plane_p.y) * e->bloc_height;
+	e->plane->end.x = (e->player.x + e->dir_p.x + e->plane_p.x) * e->bloc_width;
+	e->plane->end.y = (e->player.y + e->dir_p.y + e->plane_p.y) * e->bloc_height;
 
-	e->lray->x1 = e->dir->x1;
-	e->lray->y1 = e->dir->y1;
-	e->lray->x2 = e->plane->bloc_width;
-	e->lray->y2 = e->plane->bloc_height;
-	e->rray->x1 = e->dir->x1;
-	e->rray->y1 = e->dir->y1;
-	e->rray->x2 = e->plane->current_bloc.x;
-	e->rray->y2 = e->plane->current_bloc.y;
-}
-
-
-void	player_position(t_env *e)
-{
-	int x;
-	int y;
-	int x1;
-	int y1;
-
-	x = e->player.x * e->bloc_width;
-	y = e->player.y * e->bloc_height;
-	x1 = x - 2;
-	y1 = y - 2;
-	while (y1 != y + 2)
-	{
-		while (x1 != x + 2)
-		{
-			put_pixel(e, x1, y1, 16711680);
-			x1++;
-		}
-		x1 = x - 2;
-		y1++;
-	}
-	draw_vector(e);
+	e->lray->start.x = e->dir->start.x;
+	e->lray->start.y = e->dir->start.y;
+	e->lray->end.x = e->plane->start.x;
+	e->lray->end.y = e->plane->start.y;
+	e->rray->start.x = e->dir->start.x;
+	e->rray->start.y = e->dir->start.y;
+	e->rray->end.x = e->plane->end.x;
+	e->rray->end.y = e->plane->end.y;
 }
 
 void	draw_vector(t_env *e)
@@ -213,25 +154,25 @@ void	draw_vector(t_env *e)
 }
 */
 
-
 void	player_position(t_env *e)
 {
-	t_pos pos1;
-	t_pos pos2;
 
-	pos1.x = e->player.x * e->bloc_width;
-	pos1.y = e->player.y * e->bloc_height;
-	pos2.x = pos1.x - 2;
-	pos2.y = pos1.y - 2;
-	while (pos2.y != pos1.y + 2)
+	t_pos start;
+	t_pos end;
+
+	start.x = e->player.x * e->bloc_width;
+	start.y = e->player.y * e->bloc_height;
+	end.x = start.x - 2;
+	end.y = start.y - 2;
+	while (end.y != start.y + 2)
 	{
-		while (pos2.x != pos1.x + 2)
+		while (end.x != start.x + 2)
 		{
-			put_pixel_color(e, 16711680, &pos2);
-			pos2.x++;
+			put_pixel_color(e, 16711680, &end);
+			end.x++;
 		}
-		pos2.x = pos1.x - 2;
-		pos2.y++;
+		end.x = start.x - 2;
+		end.y++;
 	}
-	// draw_vector(e);
+//	draw_vector(e);
 }

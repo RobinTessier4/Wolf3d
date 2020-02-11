@@ -14,8 +14,7 @@
 
 void	wolf(t_env *e)
 {
-	printf("wolf.c\n");
-	draw_grid(e); // segfault is here
-//	player_position(e);
+	draw_grid(e);
+	player_position(e);
 	mlx_put_image_to_window(e->mlx->ptr, e->mlx->wind, e->mlx->img->ptr, 0, 0);
 }

@@ -37,10 +37,14 @@
 
 typedef struct	s_vector
 {
-	int 		x1; //t_pos start
-	int 		x2; //t_pos end
-	int 		y1;
-	int 		y2;
+	t_pos		start;
+	//int 		x1; //t_pos start
+	//int 		y1;
+
+	t_pos		end;
+	//int 		x2; //t_pos end
+	//int 		y2;
+	
 	int 		dx;
 	int 		dy;
 	int 		sx;
