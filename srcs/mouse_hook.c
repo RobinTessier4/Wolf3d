@@ -18,6 +18,6 @@ int		mouse_hook(int key, int x, int y, t_env *e)
 	x = 0;
 	y = 0;
 	
-	wolf(e);
+	draw_2D_map(e);
 	return (0);
 }

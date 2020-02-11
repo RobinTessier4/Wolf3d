@@ -134,6 +134,8 @@ int				error_msg(char *message, t_env *env);
 */
 
 void			print_map(t_env *e);
+//int			ft_abs(int nbr); on peut utiliser abs de math.h je crois donc pas utile
+
 
 /*
 ** image.c
@@ -141,15 +143,31 @@ void			print_map(t_env *e);
 
 void			put_pixel_color(t_env *e, int color, t_pos *pos);
 
+/*
+** wolf.c
+*/
 
-void			wolf(t_env *e);
-int				key_hook(int key, t_env *e);
-int				mouse_hook(int key, int x, int y, t_env *e);
-void			put_pixel(t_env *e, int x, int y, unsigned int c);
-void			draw_grid(t_env *e);
+void			draw_2D_map(t_env *e);
 void			player_position(t_env *e);
+void			draw_grid(t_env *e);
+
+/*
+** key_hook.c
+*/
+
+int				key_hook(int key, t_env *e);
+
+/*
+** mouse_hook.c
+*/
+
+int				mouse_hook(int key, int x, int y, t_env *e);
+
+/*
+** mlx.c
+*/
+
 int				param_init(t_env *e);
-void			new_image(t_env *e);
 t_env			*init_mlx(t_env *e);
 
 #endif

@@ -90,6 +90,6 @@ int		key_hook(int key, t_env *e)
 		e->plane_p.y = e->oldx * sin(0.05) + e->plane_p.y * cos(0.05);
 	}
 	// mlx_destroy_image(e->mlx, e->ptr);
-	wolf(e);
+	draw_2D_map(e);
 	return (0);
 }

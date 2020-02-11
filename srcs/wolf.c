@@ -12,7 +12,7 @@
 
 #include <wolf3d.h>
 
-void	wolf(t_env *e)
+void	draw_2D_map(t_env *e)
 {
 	draw_grid(e);
 	player_position(e);

@@ -12,6 +12,12 @@
 
 #include <wolf3d.h>
 
+static void	init_ptr(t_env *e)
+{
+	init_mlx(e);
+	param_init(e);
+}
+
 int			main(int ac, char **av)
 {
 	t_env	e;
@@ -27,9 +33,9 @@ int			main(int ac, char **av)
 				{
 					if (HEIGHT < e.map_height || WIDTH < e.map_width)
 						return(error_msg("error: window is too small", &e));
+					init_ptr(&e);
 					print_map(&e);
-					init_mlx(&e);
-					wolf(&e); // segfault is here
+					draw_2D_map(&e);
 					mlx_hook(e.mlx->wind, 2, 0, key_hook, &e);
 					// mlx_mouse_hook(e.win, mouse_hook, &e);
 					mlx_loop(e.mlx);

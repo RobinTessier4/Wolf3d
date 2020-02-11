@@ -30,7 +30,6 @@ int		param_init(t_env *e)
 	e->plane_p.y = 0;
 	e->bloc_width = WIDTH / e->map_width;
 	e->bloc_height = HEIGHT / e->map_height;
-	// printf("e->bloc_width: %d, e->bloc_height: %d\n", e->bloc_width, e->bloc_height);
 	return (0);
 }
 
@@ -38,6 +37,5 @@ t_env	*init_mlx(t_env *e)
 {
 	e->mlx = mlx_start(WIDTH, HEIGHT, "WOLF3D");
 	e->mlx->img->color = WHITE;
-	param_init(e); //peut pas etre dans cette fonction
 	return (e);
 }
