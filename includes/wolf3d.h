@@ -45,10 +45,13 @@ typedef struct	s_vector
 	//int 		x2; //t_pos end
 	//int 		y2;
 	
-	int 		dx;
-	int 		dy;
+	t_pos		dist; //distance ?
+	//int 		dx;
+	//int 		dy;
+
 	int 		sx;
 	int 		sy;
+
 	float 		a;
 	float 		b;
 	float 		err;
@@ -139,17 +142,14 @@ void			print_map(t_env *e);
 void			put_pixel_color(t_env *e, int color, t_pos *pos);
 
 
-void	wolf(t_env *e);
-int		key_hook(int key, t_env *e);
-int		mouse_hook(int key, int x, int y, t_env *e);
-void	put_pixel(t_env *e, int x, int y, unsigned int c);
-void	draw_grid(t_env *e);
-// int		**make_tab(t_env *e, char *str);
-// int		check_error(char *str, t_env *e);
-// char	**split_white_space(char *str);
-void	player_position(t_env *e);
-int		param_init(t_env *e);
-void	new_image(t_env *e);
-t_env	*init_mlx(t_env *e);
+void			wolf(t_env *e);
+int				key_hook(int key, t_env *e);
+int				mouse_hook(int key, int x, int y, t_env *e);
+void			put_pixel(t_env *e, int x, int y, unsigned int c);
+void			draw_grid(t_env *e);
+void			player_position(t_env *e);
+int				param_init(t_env *e);
+void			new_image(t_env *e);
+t_env			*init_mlx(t_env *e);
 
 #endif

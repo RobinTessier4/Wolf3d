@@ -35,7 +35,7 @@ int		check_if_wall(t_env *e, int i)
 	e->current_bloc.y = y / e->bloc_height;
 	if (e->current_bloc.y <= e->rows && e->current_bloc.x <= e->col)
 	{
-		if (e->tab[e->current_bloc.y][e->current_bloc.x] != 0)
+		if (e->file[e->current_bloc.y][e->current_bloc.x] != 0)
 			return (1);
 	}
 	*/

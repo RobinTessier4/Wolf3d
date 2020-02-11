@@ -194,7 +194,7 @@ int			check_error(char *str, t_env *e)
 		i++;
 	}
 	e->rows = i;
-	e->tab = make_tab(e, str);
+	e->file = make_tab(e, str);
 	free_char_tab(tab);
 	return (0);
 }

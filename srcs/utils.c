@@ -12,7 +12,12 @@
 
 #include <wolf3d.h>
 
-
+int		ft_abs(int nbr)
+{
+	if (nbr < 0)
+		nbr = -nbr;
+	return (nbr);
+}
 
 void	print_map(t_env *e)
 {
