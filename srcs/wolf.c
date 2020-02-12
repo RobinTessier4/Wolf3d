@@ -14,7 +14,10 @@
 
 void	draw_2D_map(t_env *e)
 {
+	fill_img(e->mlx, BLACK, WIDTH, HEIGHT);
 	draw_grid(e);
 	player_position(e);
+	draw_vector(e);
+	//raycasting(e);
 	mlx_put_image_to_window(e->mlx->ptr, e->mlx->wind, e->mlx->img->ptr, 0, 0);
 }

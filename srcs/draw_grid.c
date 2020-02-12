@@ -46,6 +46,8 @@ void		draw_line(t_env *e, t_vector *v)
 {
 	int		e2;
 
+	if (!e)
+		return ;
 	while (v->start.x != v->end.x || v->start.y != v->end.y)
 	{
 		if (v->start.x < WIDTH)
@@ -68,13 +70,15 @@ void		draw_inf_line(t_env *e, t_vector *v, int i)
 {
 	int		e2;
 
+	if (!e)
+		return ;
 	e->current_bloc.x = v->start.x / e->bloc_width;
 	e->current_bloc.y = v->start.y / e->bloc_height;
 	while ((v->start.x > 0 && v->start.y > 0) && (v->start.x < WIDTH && v->start.y < HEIGHT) && (e->file[e->current_bloc.y][e->current_bloc.x] == 0))
 	{
 		e->current_bloc.x = v->start.x / e->bloc_width;
 		e->current_bloc.y = v->start.y / e->bloc_height;
-		if (v->start.x < WIDTH)
+		 if (v->start.x < WIDTH)
 			put_pixel_color(e, 7869695, &v->start);
 		e2 = v->err;
 		if (e2 > -v->dist.x)
@@ -129,22 +133,35 @@ void	ray_init(t_env *e)
 	e->rray->end.y = e->plane->end.y;
 }
 
+/*
 void	draw_multi_vector(t_env *e)
 {
 	int i;
 
 	i = 0;
-	while (i < 200)
+	while (i < WIDTH)
 	{
 		e->oldx = e->lray->end.x;
-		e->lray->end.x = e->lray->end.x * cos(-0.005) - e->lray->end.y * sin(-0.005);
-		e->lray->end.y = e->oldx * sin (-0.005) + e->lray->end.y * cos(-0.005);
+		e->lray->end.x = e->lray->end.x * cos(-0.05) - e->lray->end.y * sin(-0.05);
+		e->lray->end.y = e->oldx * sin (-0.05) + e->lray->end.y * cos(-0.05);
 		e->lray->start.x = e->player.x * e->bloc_width;
 		e->lray->start.y = e->player.y * e->bloc_height;
 		vector_init(e, e->lray);
 		draw_inf_line(e, e->lray, 1);
 		i++;
 	}	
+}*/
+
+void	draw_one_by_one(t_env *e)
+{
+	e->leftray = 0;
+	e->oldx = e->lray->end.x;
+	e->lray->end.x = e->lray->end.x * cos(-0.05) - e->lray->end.y * sin(-0.05);
+	e->lray->end.y = e->oldx * sin (-0.05) + e->lray->end.y * cos(-0.05);
+	e->lray->start.x = e->player.x * e->bloc_width;
+	e->lray->start.y = e->player.y * e->bloc_height;
+	vector_init(e, e->lray);
+	draw_inf_line(e, e->lray, 1);
 }
 
 void	draw_vector(t_env *e)
@@ -161,7 +178,7 @@ void	draw_vector(t_env *e)
 	draw_line(e, e->plane);
 	draw_inf_line(e, e->lray, 1);
 	draw_inf_line(e, e->rray, 2);
-	draw_multi_vector(e);
+	//draw_multi_vector(e);
 }
 
 void	player_position(t_env *e)
@@ -184,5 +201,4 @@ void	player_position(t_env *e)
 		end.x = start.x - 2;
 		end.y++;
 	}
-	draw_vector(e);
 }
