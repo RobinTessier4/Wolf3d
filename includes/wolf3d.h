@@ -170,4 +170,11 @@ int				mouse_hook(int key, int x, int y, t_env *e);
 int				param_init(t_env *e);
 t_env			*init_mlx(t_env *e);
 
+/*
+** mlx.c
+*/
+
+void			draw_vector(t_env *e);
+void			draw_one_by_one(t_env *e);
+
 #endif
