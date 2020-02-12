@@ -129,6 +129,24 @@ void	ray_init(t_env *e)
 	e->rray->end.y = e->plane->end.y;
 }
 
+void	draw_multi_vector(t_env *e)
+{
+	int i;
+
+	i = 0;
+	while (i < 200)
+	{
+		e->oldx = e->lray->end.x;
+		e->lray->end.x = e->lray->end.x * cos(-0.005) - e->lray->end.y * sin(-0.005);
+		e->lray->end.y = e->oldx * sin (-0.005) + e->lray->end.y * cos(-0.005);
+		e->lray->start.x = e->player.x * e->bloc_width;
+		e->lray->start.y = e->player.y * e->bloc_height;
+		vector_init(e, e->lray);
+		draw_inf_line(e, e->lray, 1);
+		i++;
+	}
+}
+
 void	draw_vector(t_env *e)
 {
 	e->leftray = 0;
@@ -143,6 +161,7 @@ void	draw_vector(t_env *e)
 	draw_line(e, e->plane);
 	draw_inf_line(e, e->lray, 1);
 	draw_inf_line(e, e->rray, 2);
+	draw_multi_vector(e);
 }
 
 void	player_position(t_env *e)
