@@ -15,25 +15,31 @@
 // check if wall doesn't work 
 int			check_if_wall(t_env *e, int i)
 {
-	t_pos 	cur; //cur pour cursor
+	t_pos_d 	cur; //cur pour cursor
 
-	cur.x = e->player.x * e->bloc_width;
-	cur.y = e->player.y * e->bloc_height;
-	// if (e->dir->start.x == 1)
-	// 	cur.y -= 2;
-	if (i == 2)
-		cur.y += 2;
-	else if (i == 3)
-		cur.x -= 2;
-	else if (i == 4)
-		cur.x += 2;
-	e->current_bloc.x = cur.x / e->bloc_width;
-	e->current_bloc.y = cur.y / e->bloc_height;
-	if (e->current_bloc.y <= e->rows && e->current_bloc.x <= e->col)
+	cur = e->player;
+	if (i == 1)
 	{
-		if (e->file[e->current_bloc.y][e->current_bloc.x] != 0)
-			return (1);
+		cur.y += e->dir_p.y / 10;
+		cur.x += e->dir_p.x / 10;
 	}
+	else if (i == 2)
+	{
+		cur.y -= e->dir_p.y / 10;
+		cur.x -= e->dir_p.x / 10;
+	}
+	else if (i == 3)
+	{
+		cur.y -= e->dir_p.x / 10;
+		cur.x += e->dir_p.y / 10;
+	}
+	else if (i == 4)
+	{
+		cur.y += e->dir_p.x / 10;
+		cur.x -= e->dir_p.y / 10;
+	}
+	if (e->file[(int)cur.y][(int)cur.x] != 0)
+		return (1);
 	return (0);
 }
 

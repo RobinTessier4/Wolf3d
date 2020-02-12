@@ -144,7 +144,7 @@ void	draw_multi_vector(t_env *e)
 		vector_init(e, e->lray);
 		draw_inf_line(e, e->lray, 1);
 		i++;
-	}
+	}	
 }
 
 void	draw_vector(t_env *e)
