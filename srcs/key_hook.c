@@ -72,9 +72,36 @@ static void	rotation_key(int key, t_env *e)
 	if (key == ARROW_LEFT)
 	{
 		e->oldx = e->dir_p.x;
+		e->dir_p.x = e->dir_p.x * cos(-ROT_SPEED) - e->dir_p.y * sin(-ROT_SPEED);
+		e->dir_p.y = e->oldx * sin(-ROT_SPEED) + e->dir_p.y * cos(-ROT_SPEED);
+		
+		e->oldx = e->plane_p.x;
+		
+		e->plane_p.x = e->plane_p.x * cos(-ROT_SPEED) - e->plane_p.y * sin(-ROT_SPEED);
+		e->plane_p.y = e->oldx * sin(-ROT_SPEED) + e->plane_p.y * cos(-ROT_SPEED);
+	}
+	else if (key == ARROW_RIGHT)
+	{
+		e->oldx = e->dir_p.x;
+		e->dir_p.x = e->dir_p.x * cos(ROT_SPEED) - e->dir_p.y * sin(ROT_SPEED);
+		e->dir_p.y = e->oldx * sin(ROT_SPEED) + e->dir_p.y * cos(ROT_SPEED);
+		e->oldx = e->plane_p.x;
+		
+		e->plane_p.x = e->plane_p.x * cos(ROT_SPEED) - e->plane_p.y * sin(ROT_SPEED);
+		e->plane_p.y = e->oldx * sin(ROT_SPEED) + e->plane_p.y * cos(ROT_SPEED);
+	}
+}
+
+/*
+static void	rotation_key(int key, t_env *e)
+{
+	if (key == ARROW_LEFT)
+	{
+		e->oldx = e->dir_p.x;
 		e->dir_p.x = e->dir_p.x * cos(-0.05) - e->dir_p.y * sin(-0.05);
 		e->dir_p.y = e->oldx * sin(-0.05) + e->dir_p.y * cos(-0.05);
 		e->oldx = e->plane_p.x;
+		
 		e->plane_p.x = e->plane_p.x * cos(-0.05) - e->plane_p.y * sin(-0.05);
 		e->plane_p.y = e->oldx * sin(-0.05) + e->plane_p.y * cos(-0.05);
 	}
@@ -88,6 +115,8 @@ static void	rotation_key(int key, t_env *e)
 		e->plane_p.y = e->oldx * sin(0.05) + e->plane_p.y * cos(0.05);
 	}
 }
+*/
+
 
 int			key_hook(int key, t_env *e)
 {

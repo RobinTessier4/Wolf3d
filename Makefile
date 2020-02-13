@@ -24,14 +24,16 @@ SRC_FILES =	main.c \
 			key_hook.c \
 			mouse_hook.c \
 			wolf.c \
-			mlx.c \
+			init_env.c \
 			image.c \
 			draw_grid.c \
 			parse.c \
 			read_map.c \
 			raycasting.c \
 			error.c \
-			utils.c
+			utils.c \
+			vector.c
+
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

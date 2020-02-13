@@ -35,6 +35,13 @@
 #define BLACK 0
 #define WHITE 0xFFFFFF
 
+#define BLOC_SIZE 100
+#define BLOC_HEIGHT 100
+
+#define ROT_SPEED 0.05
+
+#define SPACE_BAR 256
+
 typedef struct	s_vector
 {
 	t_pos		start;
@@ -77,7 +84,7 @@ typedef struct s_env
 
 	t_pos_d		player; //x && y
 
-	t_pos_d		dir_p; //player direction xdir / ydir
+	t_pos_d		dir_p; //player direction xdir / ydir [-1, 0, 1]
 
 	t_pos_d		plane_p; //xplane & ypalne
 	double 		oldx;
@@ -94,7 +101,7 @@ typedef struct s_env
 	int 		rightray;
 	int			lineheight;
 
-	t_vector 	*dir;
+	t_vector 	*dir; //rayon central partant du player
 	t_vector 	*plane;
 	t_vector 	*lray;
 	t_vector 	*rray;
@@ -142,6 +149,8 @@ void			print_map(t_env *e);
 */
 
 void			put_pixel_color(t_env *e, int color, t_pos *pos);
+void			draw_line(t_env *e, t_vector *v);
+void			draw_inf_line(t_env *e, t_vector *v, int i);
 
 /*
 ** wolf.c
@@ -150,6 +159,7 @@ void			put_pixel_color(t_env *e, int color, t_pos *pos);
 void			draw_2D_map(t_env *e);
 void			player_position(t_env *e);
 void			draw_grid(t_env *e);
+void			draw_raycasting(t_env *e);
 
 /*
 ** key_hook.c
@@ -171,10 +181,28 @@ int				param_init(t_env *e);
 t_env			*init_mlx(t_env *e);
 
 /*
-** mlx.c
+** draw_grid.c.c
 */
 
+void			draw_inf_line(t_env *e, t_vector *v, int i);
+
+
+
+/*
+** vector.c
+*/
 void			draw_vector(t_env *e);
-void			draw_one_by_one(t_env *e);
+void	        vector_init(t_env *e, t_vector *v);
+void	        ray_init(t_env *e);
+void	        draw_rayons(t_env *e, t_vector *tmp);
+void	        draw_vector(t_env *e);
+//void			draw_one_by_one(t_env *e);
+
+
+/*
+** raycasting.c
+*/
+
+void			raycasting(t_env *e);
 
 #endif

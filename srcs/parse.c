@@ -14,8 +14,8 @@
 
 void				del_map_lines(t_parse **lst)
 {
-	t_parse	*tmp;
-	t_parse	*next;
+	t_parse			*tmp;
+	t_parse			*next;
 
 	tmp = *lst;
 	if (!tmp)
@@ -88,114 +88,3 @@ int					**map_tab(t_env *e)
 	del_map_lines(&e->map_lines);
 	return (tab);
 }
-
-/*
-char		*ft_read(int fd) // refaire le parseur avec get_next_line()
-{
-	char	*str;
-	char	buffer[129];
-	int		ret;
-	char	*tmp;
-	int		i; // variable i non utlisée
-
-	i = 0;
-	str = ft_strnew(0);
-	while ((ret = read(fd, buffer, 128)) > 0)
-	{
-		buffer[ret] = '\0';
-		tmp = str;
-		if (!(str = ft_strjoin(str, buffer)))
-			return (NULL);
-		free(tmp);
-		i++;
-	}
-	return (str);
-}
-
-int			count_col(char *str) // mettre en statique
-{
-	int i;
-	int count;
-
-	i = 0;
-	count = 0;
-	if (ft_isdigit(str[i]) == 0 && str[i] != '-' && str[i] != '+')
-		return (-1);
-	while (str[i])
-	{
-		if (str[i] != ' ' && ft_isdigit(str[i] == 0) && str[i] != '-' &&
-				str[i] != '+')
-			return (-1);
-		if (str[i] == ' ')
-		{
-			count++;
-			while (str[i] == ' ')
-				i++;
-		}
-		if (str[i] != '\0')
-			i++;
-	}
-	count++;
-	return (count);
-}
-
-void		free_char_tab(char **tab) // ft_tabdel + mettre en statique
-{
-	int i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
-int			check_endline(char *str) // mettre en statique
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			if (str[i + 1] == '\n')
-				return (-1);
-		i++;
-	}
-	return (0);
-}
-
-int			check_error(char *str, t_env *e)
-{
-	int		i;
-	int		count;
-	int		temp;
-	char	**tab;
-
-	count = 0;
-	i = 0;
-	temp = 0;
-	if (!(tab = ft_strsplit(str, '\n')))
-		return (1);
-	if (tab[i] == NULL || check_endline(str) == -1)
-		return (1);
-	e->col = count_col(tab[i]);
-	while (tab[i])
-	{
-		count = count_col(tab[i]);
-		if (count == -1 || (count != temp && temp != 0))
-		{
-			free_char_tab(tab);
-			return (1);
-		}
-		temp = count;
-		i++;
-	}
-	e->rows = i;
-	e->file = make_tab(e, str);
-	free_char_tab(tab);
-	return (0);
-}
-*/

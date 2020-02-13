@@ -33,3 +33,60 @@ void		put_pixel_color(t_env *e, int color, t_pos *pos)
 	e->mlx->img->color = color;
 	img_pixel_put(e->mlx, *pos);
 }
+
+void		draw_line(t_env *e, t_vector *v)
+{
+	int		e2;
+
+	if (!e)
+		return ;
+	while (v->start.x != v->end.x || v->start.y != v->end.y)
+	{
+		if (v->start.x < WIDTH)
+			put_pixel_color(e, 7869695, &v->start);
+		e2 = v->err;
+		if (e2 > -v->dist.x)
+		{
+			v->err -= v->dist.y;
+			v->start.x += v->sx;
+		}
+		if (e2 < v->dist.y)
+		{
+			v->err += v->dist.x;
+			v->start.y += v->sy;
+		}
+	}
+}
+
+void		draw_inf_line(t_env *e, t_vector *v, int i)
+{
+	int		e2;
+
+	e->current_bloc.x = v->start.x / e->bloc_width;
+	e->current_bloc.y = v->start.y / e->bloc_height;
+	while ((v->start.x > 0 && v->start.y > 0) && (v->start.x < WIDTH && v->start.y < HEIGHT) && (e->file[e->current_bloc.y][e->current_bloc.x] == 0))
+	{
+		e->current_bloc.x = v->start.x / e->bloc_width;
+		e->current_bloc.y = v->start.y / e->bloc_height;
+		 if (v->start.x < WIDTH)
+			put_pixel_color(e, 7869695, &v->start);
+		e2 = v->err;
+		if (e2 > -v->dist.x)
+		{
+			v->err -= v->dist.y;
+			v->start.x += v->sx;
+		}
+		if (e2 < v->dist.y)
+		{
+			v->err += v->dist.x;
+			v->start.y += v->sy;
+		}
+		if (i == 1)
+			e->leftray++;
+		else if (i == 2)
+			e->rightray++;
+		else
+			e->midray++;
+	}
+
+}
