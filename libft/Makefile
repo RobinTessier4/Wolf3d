@@ -119,20 +119,20 @@ draw: $(OBJ) $(DRAWOBJ)
 	@ranlib $(NAME)
 
 %.o: %.c
-	$(CC) $(FLAGS) -c $< -o $@ $(HEAD)
+	@$(CC) $(FLAGS) -c $< -o $@ $(HEAD)
 
 $(NAME): $(OBJS)
 	@echo "\033[32m["$(NAME)"] compilation de "$(NAME)"...\033[0m"
-	$(AR) $(NAME) $(OBJS)
-	ranlib $(NAME)
+	@$(AR) $(NAME) $(OBJS)
+	@ranlib $(NAME)
 
 clean:
 	@echo "\033[31m["$(NAME)"] suppression des objets...\033[0m"
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
 
 fclean:	clean
 	@echo "\033[31m["$(NAME)"] suppression de "$(NAME)"...\033[0m"
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
