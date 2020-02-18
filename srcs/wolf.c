@@ -12,12 +12,18 @@
 
 #include <wolf3d.h>
 
+void	draw_raycasting(t_env *e)
+{
+	fill_img(e->mlx, 0xB8DBD9, WIDTH, HEIGHT);
+	raycasting(e);
+	mlx_put_image_to_window(e->mlx->ptr, e->mlx->wind, e->mlx->img->ptr, 0, 0);
+}
+
 void	draw_2D_map(t_env *e)
 {
-	fill_img(e->mlx, BLACK, WIDTH, HEIGHT);
+	fill_img(e->mlx, WHITE, WIDTH, HEIGHT);
 	draw_grid(e);
 	player_position(e);
 	draw_vector(e);
-	// raycasting(e);
 	mlx_put_image_to_window(e->mlx->ptr, e->mlx->wind, e->mlx->img->ptr, 0, 0);
 }

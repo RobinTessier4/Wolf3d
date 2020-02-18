@@ -92,42 +92,25 @@ static void	rotation_key(int key, t_env *e)
 	}
 }
 
-/*
-static void	rotation_key(int key, t_env *e)
-{
-	if (key == ARROW_LEFT)
-	{
-		e->oldx = e->dir_p.x;
-		e->dir_p.x = e->dir_p.x * cos(-0.05) - e->dir_p.y * sin(-0.05);
-		e->dir_p.y = e->oldx * sin(-0.05) + e->dir_p.y * cos(-0.05);
-		e->oldx = e->plane_p.x;
-		
-		e->plane_p.x = e->plane_p.x * cos(-0.05) - e->plane_p.y * sin(-0.05);
-		e->plane_p.y = e->oldx * sin(-0.05) + e->plane_p.y * cos(-0.05);
-	}
-	else if (key == ARROW_RIGHT)
-	{
-		e->oldx = e->dir_p.x;
-		e->dir_p.x = e->dir_p.x * cos(0.05) - e->dir_p.y * sin(0.05);
-		e->dir_p.y = e->oldx * sin(0.05) + e->dir_p.y * cos(0.05);
-		e->oldx = e->plane_p.x;
-		e->plane_p.x = e->plane_p.x * cos(0.05) - e->plane_p.y * sin(0.05);
-		e->plane_p.y = e->oldx * sin(0.05) + e->plane_p.y * cos(0.05);
-	}
-}
-*/
-
-
 int			key_hook(int key, t_env *e)
 {
 	if (key == MAIN_PAD_ESC)
 	{
-		// mlx_destroy_image(e->mlx, e->ptr); 
+		// ft_destroy_image(e->mlx, e->mlx->img); 
 		exit(EXIT_SUCCESS);
 	}
 	wasd_key(key, e);
 	rotation_key(key, e);
-	// mlx_destroy_image(e->mlx, e->ptr);
-	draw_2D_map(e);
+	if (key == SPACE_BAR)
+	{
+		if (e->map == 1)
+			e->map = 0;
+		else if (e->map == 0)
+			e->map = 1;
+	}
+	if (e->map == 1)
+		draw_raycasting(e);
+	else if (e->map == 0)
+		draw_2D_map(e);
 	return (0);
 }

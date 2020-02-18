@@ -12,30 +12,29 @@
 
 #include <wolf3d.h>
 
-void		draw_horizon(t_env *e)
+static void	 virtual_init(t_virtual *v)
 {
-	t_pos	horizon_start;
-	t_pos	horizon_end;
-
-	horizon_start.x = 0;
-	horizon_start.y = HEIGHT/2; 
-	horizon_end.x = WIDTH;
-	horizon_end.y = HEIGHT/2; 
-	e->mlx->img->color = 65535;
-	drawline(e->mlx, horizon_start, horizon_end);
+	v->dist.x = fabs(v->start.x - v->end.x);
+	v->dist.y = fabs(v->start.y - v->end.y);
+	v->sx = v->start.x < v->end.x ? 1 : -1;
+	v->sy = v->start.y < v->end.y ? 1 : -1;
+	v->sx /= WIDTH;
+	v->sy /= WIDTH;
+	v->err = (v->dist.x > v->dist.y ? v->dist.x : -v->dist.y) / 2;
 }
 
-double		calc_size_ray(t_env *e, t_vector *v)
+double		calc_size_ray(t_env *e, t_virtual *v)
 {
-	int		e2;
-	double	size;
+	float	e2;
+	double	dist;
+	t_pos_d	current_bloc;
 
-	e->current_bloc.x = v->start.x / BLOC_SIZE;
-	e->current_bloc.y = v->start.y / BLOC_SIZE;
-	while (e->file[e->current_bloc.y][e->current_bloc.x] == 0)
+	current_bloc.x = v->start.x / BLOC_SIZE;
+	current_bloc.y = v->start.y / BLOC_SIZE;
+	while (v->start.x > 0 && v->start.y > 0 && e->file[(int)current_bloc.y][(int)current_bloc.x] == 0)
 	{
-		e->current_bloc.x = v->start.x / BLOC_SIZE;
-		e->current_bloc.y = v->start.y / BLOC_SIZE;
+		current_bloc.x = v->start.x / BLOC_SIZE;
+		current_bloc.y = v->start.y / BLOC_SIZE;
 		e2 = v->err;
 		if (e2 > -v->dist.x)
 		{
@@ -48,53 +47,66 @@ double		calc_size_ray(t_env *e, t_vector *v)
 			v->start.y += v->sy;
 		}
 	}
-	v->dist.x = abs(v->start.x - v->end.x);
-	v->dist.y = abs(v->start.y - v->end.y);
-	size = sqrt(v->dist.x * v->dist.x + v->dist.y * v->dist.y);
-	return (size);
+	v->dist.x = fabs(v->start.x - v->end.x);
+	v->dist.y = fabs(v->start.y - v->end.y);
+	dist = sqrt(v->dist.x * v->dist.x + v->dist.y * v->dist.y);
+	return (dist);
 }
 
 static void		draw_wall(t_env *e, double dist, int x)
 {
 	t_pos		start;
 	t_pos		end;
-	int			size;
-	// midheight = HEIGHT / 2
-	// size = BLOC_HEIGHT / dist
+	int			size_wall;
+	int			ecart;
+	double		angle;
 
-	if (dist > 0)
-		size = BLOC_HEIGHT / dist;
-	else
-		size = HEIGHT / 2;
+	size_wall = BLOC_HEIGHT / dist;
+	if (size_wall == 0)
+		return ;
+	if (x != WIDTH / 2)
+	{
+		ecart = abs((WIDTH / 2) - x) - 1;
+		// si ecart = 250, angle = 0.66/2 = 0.33
+		//angle = (0.445 * ecart) / (WIDTH / 2); // why 0.445??
+		angle = (0.575959 * ecart) / (WIDTH / 2);
+		size_wall /= cos(angle);
+		printf("x: %d ; size_wall: %d ; ecart : %d ; angle : %f\n", x, size_wall, ecart, angle);
+	}
 	start.x = x;
-	start.y = (HEIGHT / 2) - size;
+	start.y = (HEIGHT / 2) - size_wall;
 	end.x = x;
-	end.y = (HEIGHT / 2) + size;
+	end.y = (HEIGHT / 2) + size_wall;
 	drawline(e->mlx, start, end);
 }
 
 void			raycasting(t_env *e)
 {
 	int			x;
-	int			err;
+	float		err;
 	double		size;
-	t_vector	vector;
+	t_virtual	vector;
+	t_virtual	rayon;
 	
-	x = 0;
+	// vector ici est une copie du vector "plane" cf ray_init()
 	vector.start.x = (e->player.x + e->dir_p.x - e->plane_p.x) * BLOC_SIZE;
 	vector.start.y = (e->player.y + e->dir_p.y - e->plane_p.y) * BLOC_SIZE;
 	vector.end.x = (e->player.x + e->dir_p.x + e->plane_p.x) * BLOC_SIZE;
 	vector.end.y = (e->player.y + e->dir_p.y + e->plane_p.y) * BLOC_SIZE;
-	vector_init(e, &vector);
-	e->mlx->img->color = 0xF5CB5C;
+	virtual_init(&vector);
+	e->mlx->img->color = 0x5B507A;
+	
+	x = 0;
 	while (x < WIDTH)
 	{
-		e->lray->start.x = e->player.x * BLOC_SIZE;
-		e->lray->start.y = e->player.y * BLOC_SIZE;
-		e->lray->end = vector.start;
-		vector_init(e, e->lray);
-		size = calc_size_ray(e, e->lray);
-		printf("x: %d ; size: %f\n", x, size);
+		rayon.start.x = e->player.x * BLOC_SIZE;
+		rayon.start.y = e->player.y * BLOC_SIZE;
+
+		rayon.end = vector.start;
+		virtual_init(&rayon);
+		size = calc_size_ray(e, &rayon);
+		// apres calc_size_ray, lray.start s'est deplace de vector.start vers le point de collision avec le mur
+		// calc_size_ray retourne la distance entre le mur (lray.start) et le plan de projection (lray.end)
 		draw_wall(e, size, x);
 		err = vector.err;
 		if (err > -vector.dist.x)
@@ -109,26 +121,4 @@ void			raycasting(t_env *e)
 		}
 		x++;
 	}
-	draw_horizon(e);
 }
-
-/*
-void		draw_wall(t_env *e, t_pos cur)
-{
-	t_pos	start;
-	t_pos	end;
-	int		midheight;
-
-	e->leftray /= 2;
-	midheight = HEIGHT / 2;
-	start.x = cur.x;
-	start.y = e->leftray;
-	end.x = cur.x;
-	end.y = HEIGHT - e->leftray;
-	e->mlx->img->color = 0x4EA5D9;
-	printf("left ray = %d\n", e->leftray);
-	drawline(e->mlx, start, end);
-}
-*/
-
-

@@ -36,7 +36,7 @@ int			main(int ac, char **av)
 					init_ptr(&e);
 					print_map(&e);
 					printf("e.map_width: %d ; e.map_height: %d\n", e.map_width, e.map_height);
-					draw_2D_map(&e);
+					draw_raycasting(&e);
 					mlx_hook(e.mlx->wind, 2, 0, key_hook, &e);
 					// mlx_mouse_hook(e.win, mouse_hook, &e);
 					mlx_loop(e.mlx);

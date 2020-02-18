@@ -29,40 +29,42 @@
 
 #define VERBOSE 1
 
-#define WIDTH 780
-#define HEIGHT 420
+#define WIDTH 500
+#define HEIGHT 500
 
 #define BLACK 0
 #define WHITE 0xFFFFFF
 
-#define BLOC_SIZE 100
-#define BLOC_HEIGHT 100
+#define BLOC_SIZE 1
+#define BLOC_HEIGHT 200
 
 #define ROT_SPEED 0.05
 
-#define SPACE_BAR 256
+#define SPACE_BAR 49
 
 typedef struct	s_vector
 {
-	t_pos		start;
-	//int 		x1; //t_pos start
-	//int 		y1;
-
-	t_pos		end;
-	//int 		x2; //t_pos end
-	//int 		y2;
-	
-	t_pos		dist; //distance ?
-	//int 		dx;
-	//int 		dy;
-
+	t_pos		start; //x1 ; y1
+	t_pos		end; //x2 ; y2	
+	t_pos		dist; //distance ? dx; dy
 	int 		sx;
 	int 		sy;
-
 	float 		a;
 	float 		b;
 	float 		err;
 }				t_vector;
+
+typedef struct	s_virtual
+{
+	t_pos_d		start;
+	t_pos_d		end;
+	t_pos_d		dist; //distance ?
+	float 		sx;
+	float 		sy;
+	float 		a;
+	float 		b;
+	float 		err;
+}				t_virtual;
 
 typedef	struct	s_parse
 {
@@ -72,8 +74,9 @@ typedef	struct	s_parse
 
 typedef struct s_env
 {
-
 	t_mlx 		*mlx;
+
+	int			map; //permet d'afficher 2D en appuyant sur espace
 
 	t_parse		*map_lines;
 	int			map_width; //nombre de colonnes
@@ -81,6 +84,8 @@ typedef struct s_env
 	int			line_cmp;
 	int			**file;
 	int			**tab;
+
+	double		perp_size;
 
 	t_pos_d		player; //x && y
 
@@ -93,7 +98,7 @@ typedef struct s_env
 
 	int 		bloc_width; //taille d'un bloc = WIDTH / e->map_width;
 	int 		bloc_height;
-	t_pos		current_bloc; // e->player.y1 = e->current_bloc.y / e->player.x1 = e->current_bloc.x 
+	t_pos		current_bloc; // e->player.y1 = e->current_bloc.y / e->player.x1 = e->current_bloc.x
 	t_pos		cursor;
 	
 	int 		midray;

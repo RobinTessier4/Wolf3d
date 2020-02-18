@@ -22,7 +22,8 @@ int		param_init(t_env *e)
 		return (1);
 	if (!(e->rray = ft_memalloc(sizeof(t_vector))))
 		return (1);
-	e->player.x = 2;
+	e->map = 1;
+	e->player.x = 4;
 	e->player.y = 2;
 	e->dir_p.x = 0;
 	e->dir_p.y = -1;
@@ -36,6 +37,6 @@ int		param_init(t_env *e)
 t_env	*init_mlx(t_env *e)
 {
 	e->mlx = mlx_start(WIDTH, HEIGHT, "WOLF3D");
-	e->mlx->img->color = WHITE;
+	e->mlx->img->color = 0;
 	return (e);
 }
