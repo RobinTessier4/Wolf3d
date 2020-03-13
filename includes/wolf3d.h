@@ -36,7 +36,7 @@
 #define WHITE 0xFFFFFF
 
 #define BLOC_SIZE 1
-#define BLOC_HEIGHT 200
+#define BLOC_HEIGHT 120
 
 #define ROT_SPEED 0.05
 

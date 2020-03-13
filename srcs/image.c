@@ -42,6 +42,30 @@ void		draw_line(t_env *e, t_vector *v)
 	}
 }
 
+void		draw_text(t_env *e, t_vector *v)
+{
+	int		e2;
+
+	if (!e)
+		return ;
+	while (v->start.x != v->end.x || v->start.y != v->end.y)
+	{
+		if (v->start.x < WIDTH)
+			put_pixel_color(e, 7869695, &v->start);
+		e2 = v->err;
+		if (e2 > -v->dist.x)
+		{
+			v->err -= v->dist.y;
+			v->start.x += v->sx;
+		}
+		if (e2 < v->dist.y)
+		{
+			v->err += v->dist.x;
+			v->start.y += v->sy;
+		}
+	}
+}
+
 void		draw_inf_line(t_env *e, t_vector *v, int i)
 {
 	int		e2;
