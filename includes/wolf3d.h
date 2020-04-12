@@ -110,6 +110,8 @@ typedef struct s_env
 	t_vector 	*plane;
 	t_vector 	*lray;
 	t_vector 	*rray;
+
+	int			**text;
 }				t_env;
 
 /*
@@ -156,6 +158,7 @@ void			print_map(t_env *e);
 void			put_pixel_color(t_env *e, int color, t_pos *pos);
 void			draw_line(t_env *e, t_vector *v);
 void			draw_inf_line(t_env *e, t_vector *v, int i);
+void			text_init(t_env *e);
 
 /*
 ** wolf.c
@@ -201,6 +204,7 @@ void	        vector_init(t_env *e, t_vector *v);
 void	        ray_init(t_env *e);
 void	        draw_rayons(t_env *e, t_vector *tmp);
 void	        draw_vector(t_env *e);
+void			draw_text(t_env *e, t_vector *v, t_pos_d rayend);
 //void			draw_one_by_one(t_env *e);
 
 

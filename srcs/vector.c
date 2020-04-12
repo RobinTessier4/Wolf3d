@@ -57,8 +57,6 @@ void	        draw_rayons(t_env *e, t_vector *tmp)
 
 	while (tmp->start.x != tmp->end.x || tmp->start.y != tmp->end.y)
 	{
-		// TODO : incrementer lray->end.x && lray->end.y pour aller de gauche a droite
-		// lray->end par de plane->start et doit aller vers plane->end
 		e->lray->start.x = e->player.x * e->bloc_width;
 		e->lray->start.y = e->player.y * e->bloc_height;
 		

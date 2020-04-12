@@ -64,35 +64,36 @@ double		calc_size_ray(t_env *e, t_virtual *v)
 return (dist);
 }
 
-static void		draw_wall(t_env *e, double dist, int x)
+static void		draw_wall(t_env *e, double dist, int x, t_pos_d rayend)
 {
-	t_pos		start;
-	t_pos		end;
+//	t_pos		start;
+//	t_pos		end;
 	int			size_wall;
 	double		ecart;
 	double		angle;
 	double width;
+	t_vector *wall;
 
-	size_wall = BLOC_HEIGHT / dist;
-//	if (size_wall > HEIGHT)
-//	size_wall = HEIGHT;
+	if (!(wall = ft_memalloc(sizeof(t_vector))))
+	return ;
+size_wall = BLOC_HEIGHT / dist;
 	width = WIDTH;
 	if (size_wall == 0)
 		return ;
 	if (x != WIDTH / 2)
 	{
 		ecart = 2 * x / width - 1;
-		// si ecart = 250, angle = 0.66/2 = 0.33
-		//angle = (0.445 * ecart) / (WIDTH / 2); // why 0.445??
 		angle = (145 * ecart) / (WIDTH / 2);
 		size_wall /= cos(angle);
-	//	printf("dist: %f, x: %d ; size_wall: %d ; ecart : %f ; angle : %f\n", dist, x, size_wall, ecart, angle);
 	}
-	start.x = x;
-	start.y = (HEIGHT / 2) - size_wall;
-	end.x = x;
-	end.y = (HEIGHT / 2) + size_wall;
-	drawline(e->mlx, start, end);
+	wall->start.x = x;
+	wall->start.y = (HEIGHT / 2) - size_wall;
+	wall->end.x = x;
+	wall->end.y = (HEIGHT / 2) + size_wall;
+	vector_init(e, wall);
+
+	//drawline(e->mlx, start, end);
+	draw_text(e, wall, rayend);
 }
 
 void			raycasting(t_env *e)
@@ -107,7 +108,7 @@ void			raycasting(t_env *e)
 	double width;
 
 	width = WIDTH;
-	
+	text_init(e);
 	// vector ici est une copie du vector "plane" cf ray_init()
 	vector.start.x = (e->player.x + e->dir_p.x - e->plane_p.x) * BLOC_SIZE;
 	vector.start.y = (e->player.y + e->dir_p.y - e->plane_p.y) * BLOC_SIZE;
@@ -126,13 +127,11 @@ void			raycasting(t_env *e)
 
 	rayon.end.x = startx + ((vector.end.x - startx) * (x / width));
 	rayon.end.y = starty + ((vector.end.y - starty) * (x / width));
-	printf("rayon end x = %f y = %f\n", rayon.end.x, rayon.end.y);
-	printf("rayon start x = %f y = %f\n", vector.start.x, vector.start.y);
 		virtual_init(&rayon);
 		size = calc_size_ray(e, &rayon);
 		// apres calc_size_ray, lray.start s'est deplace de vector.start vers le point de collision avec le mur
 		// calc_size_ray retourne la distance entre le mur (lray.start) et le plan de projection (lray.end)
-		draw_wall(e, size, x);
+		draw_wall(e, size, x, rayon.end);
 		err = vector.err;
 		if (err > -vector.dist.x)
 		{

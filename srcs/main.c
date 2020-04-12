@@ -38,7 +38,7 @@ int			main(int ac, char **av)
 					printf("e.map_width: %d ; e.map_height: %d\n", e.map_width, e.map_height);
 					draw_raycasting(&e);
 					mlx_hook(e.mlx->wind, 2, 0, key_hook, &e);
-					// mlx_mouse_hook(e.win, mouse_hook, &e);
+					mlx_mouse_hook(e.mlx->wind, mouse_hook, &e);
 					mlx_loop(e.mlx);
 				}
 				else
