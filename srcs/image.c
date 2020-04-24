@@ -69,7 +69,7 @@ void		text_init(t_env *e)
 			ycolor = pos.y * 256 / texHeight;
 			xycolor = pos.y * 128 / texHeight + pos.x * 128 / texWidth;
 			tab[pos.y][pos.x] = xycolor + 256 * xycolor + 65536 * xycolor;
-			//	put_pixel_color(e, tab[pos.y][pos.x], &pos);
+//				put_pixel_color(e, tab[pos.y][pos.x], &pos);
 				pos.x++;
 		}
 		pos.x = 0;
@@ -78,7 +78,7 @@ void		text_init(t_env *e)
 	e->text = tab;
 }
 
-int		get_text(t_env *e, t_pos_d rayend, t_vector *v)
+int		get_text(t_env *e, t_pos_d rayend, int pos)
 {
 	int color;
 	int intx;
@@ -86,43 +86,76 @@ int		get_text(t_env *e, t_pos_d rayend, t_vector *v)
 	int x;
 	int y;
 
-	(void)v;
 	intx = (int)rayend.x;
 	inty = (int)rayend.y;
-
+//	printf("inty = %d\n", inty);
+//	printf("intx = %d\n", intx);
+//	printf("rayend y = %f\n", rayend.y);
+//	printf("rayend x = %f\n", rayend.x);
 
 	rayend.x = rayend.x - intx;
 	rayend.y = rayend.y - inty;
 	x = rayend.x * WIDTH;
 	y = rayend.y * HEIGHT;
-	color = e->text[y][x];
+	if (pos >= 499)
+	pos = 499;
+//	printf("x = %d\n", x);
+//	printf("y = %d\n", y);
+	if (inty == 0 || inty == 5)
+	{
+//	printf("check\n");
+	color = e->text[pos][x];
+	}
+	else
+	color = e->text[pos][y];
 	return (color);
 }
 
-void		draw_text(t_env *e, t_vector *v, t_pos_d rayend)
+void		draw_text(t_env *e, t_vector *wall, t_pos_d rayend)
+{
+	int		y;
+	int end;
+	double pos;
+
+
+	y = 0;
+	end = wall->start.y * 2;
+	if (!e)
+		return ;
+	while (wall->start.y != wall->end.y)
+		{
+			pos = (double)y / end;
+//	printf("y = %d\n", y);
+//	printf("pos = %f\n", pos);
+			put_pixel_color(e, get_text(e, rayend, pos * HEIGHT), &wall->start);
+			wall->start.y++;
+			y++;
+		}
+}
+
+/*void		draw_text(t_env *e, t_vector *wall, t_pos_d rayend)
 {
 	int		e2;
 
-	(void)rayend;
 	if (!e)
 		return ;
-	while (v->start.x != v->end.x || v->start.y != v->end.y)
+	while (wall->start.x != wall->end.x || wall->start.y != wall->end.y)
 	{
-		if (v->start.x < WIDTH)
-			put_pixel_color(e, get_text(e, rayend, v), &v->start);
-		e2 = v->err;
-		if (e2 > -v->dist.x)
+		if (wall->start.x < WIDTH)
+			put_pixel_color(e, get_text(e, rayend, wall), &wall->start);
+		e2 = wall->err;
+		if (e2 > -wall->dist.x)
 		{
-			v->err -= v->dist.y;
-			v->start.x += v->sx;
+			wall->err -= wall->dist.y;
+			wall->start.x += wall->sx;
 		}
-		if (e2 < v->dist.y)
+		if (e2 < wall->dist.y)
 		{
-			v->err += v->dist.x;
-			v->start.y += v->sy;
+			wall->err += wall->dist.x;
+			wall->start.y += wall->sy;
 		}
 	}
-}
+}*/
 
 void		draw_inf_line(t_env *e, t_vector *v, int i)
 {
