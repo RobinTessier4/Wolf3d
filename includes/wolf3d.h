@@ -42,6 +42,15 @@
 
 #define SPACE_BAR 49
 
+typedef struct	s_text
+{
+	void	*img;
+	char	*data;
+	int		bpp;
+	int		sizeline;
+	int		endian;
+}				t_text;
+
 typedef struct	s_vector
 {
 	t_pos		start; //x1 ; y1
@@ -74,44 +83,36 @@ typedef	struct	s_parse
 
 typedef struct s_env
 {
+	t_text		*text;
 	t_mlx 		*mlx;
-
 	int			map; //permet d'afficher 2D en appuyant sur espace
-
 	t_parse		*map_lines;
 	int			map_width; //nombre de colonnes
 	int			map_height; //nombre de lignes
 	int			line_cmp;
 	int			**file;
 	int			**tab;
-
 	double		perp_size;
-
 	t_pos_d		player; //x && y
-
 	t_pos_d		dir_p; //player direction xdir / ydir [-1, 0, 1]
-
 	t_pos_d		plane_p; //xplane & ypalne
 	double 		oldx;
 	int 		rows;
 	int 		col;
-
 	int 		bloc_width; //taille d'un bloc = WIDTH / e->map_width;
 	int 		bloc_height;
 	t_pos		current_bloc; // e->player.y1 = e->current_bloc.y / e->player.x1 = e->current_bloc.x
 	t_pos		cursor;
-	
 	int 		midray;
 	int 		leftray;
 	int 		rightray;
 	int			lineheight;
-
 	t_vector 	*dir; //rayon central partant du player
 	t_vector 	*plane;
 	t_vector 	*lray;
 	t_vector 	*rray;
+	int			**tex;
 
-	int			**text;
 }				t_env;
 
 /*

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = wolfd3d
+NAME = wolf3d
 
 CC = gcc -Wall -Wextra -Werror
 HEAD = -I includes -I libft/includes

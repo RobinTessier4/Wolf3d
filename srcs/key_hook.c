@@ -96,7 +96,7 @@ int			key_hook(int key, t_env *e)
 {
 	if (key == MAIN_PAD_ESC)
 	{
-		// ft_destroy_image(e->mlx, e->mlx->img); 
+		mlx_destroy_image(e->mlx->ptr, e->mlx->img); 
 		exit(EXIT_SUCCESS);
 	}
 	wasd_key(key, e);

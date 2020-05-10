@@ -14,7 +14,7 @@
 
 void	draw_raycasting(t_env *e)
 {
-	fill_img(e->mlx, 0xB8DBD9, WIDTH, HEIGHT);
+	fill_img(e->mlx, 0x2f6175, WIDTH, HEIGHT);
 	raycasting(e);
 	mlx_put_image_to_window(e->mlx->ptr, e->mlx->wind, e->mlx->img->ptr, 0, 0);
 }

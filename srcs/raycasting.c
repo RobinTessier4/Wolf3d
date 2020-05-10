@@ -112,18 +112,18 @@ void			raycasting(t_env *e)
 	double width;
 
 	width = WIDTH;
-	text_init(e);
 	// vector ici est une copie du vector "plane" cf ray_init()
 	vector.start.x = (e->player.x + e->dir_p.x - e->plane_p.x) * BLOC_SIZE;
 	vector.start.y = (e->player.y + e->dir_p.y - e->plane_p.y) * BLOC_SIZE;
 	vector.end.x = (e->player.x + e->dir_p.x + e->plane_p.x) * BLOC_SIZE;
 	vector.end.y = (e->player.y + e->dir_p.y + e->plane_p.y) * BLOC_SIZE;
 	virtual_init(&vector);
-	e->mlx->img->color = 0x5B507A;
+//	e->mlx->img->color = 0x5B507A;
 
 	startx = vector.start.x;
 	starty = vector.start.y;
 	x = 0;
+//	fill_img(e->mlx, 0xB8D8D9, WIDTH, HEIGHT);
 	while (x < WIDTH)
 	{
 		rayon.start.x = e->player.x * BLOC_SIZE;
