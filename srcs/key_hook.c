@@ -12,33 +12,52 @@
 
 #include <wolf3d.h>
 
-// check if wall doesn't work 
 int			check_if_wall(t_env *e, int i)
 {
 	t_pos_d 	cur; //cur pour cursor
-
 	cur = e->player;
+
 	if (i == 1)
 	{
-		cur.y += e->dir_p.y / 10;
-		cur.x += e->dir_p.x / 10;
+		cur.y += e->dir_p.y / 10 * 2;
+		cur.x += e->dir_p.x / 10 * 2;
+	//	if (e->file[(int)(cur.y + d.y)][(int)(cur.x + d.x)] != 0)
+	//	return (1);
 	}
 	else if (i == 2)
 	{
-		cur.y -= e->dir_p.y / 10;
-		cur.x -= e->dir_p.x / 10;
+		cur.y -= e->dir_p.y / 10 * 2;
+		cur.x -= e->dir_p.x / 10 * 2;
+	//	if (e->file[(int)(cur.y + 0.3)][(int)(cur.x + 0.3)] != 0)
+	//	return (1);
 	}
 	else if (i == 3)
 	{
-		cur.y -= e->dir_p.x / 10;
-		cur.x += e->dir_p.y / 10;
+		cur.y -= e->dir_p.x / 10 * 2;
+		cur.x += e->dir_p.y / 10 * 2;
+	//	if (e->file[(int)(cur.y + 0.3)][(int)(cur.x - 0.3)] != 0)
+	//	return (1);
 	}
 	else if (i == 4)
 	{
-		cur.y += e->dir_p.x / 10;
-		cur.x -= e->dir_p.y / 10;
+		cur.y += e->dir_p.x / 10 * 2;
+		cur.x -= e->dir_p.y / 10 * 2;
+	//	if (e->file[(int)(cur.y - 0.3)][(int)(cur.x + 0.3)] != 0)
+	//	return (1);
 	}
-	if (e->file[(int)cur.y][(int)cur.x] != 0)
+//	printf("cur.x = %f\n", cur.x);
+//	printf("cur.y = %f\n", cur.y);
+//	printf("dir x = %f\n",d.x);
+//	printf("dir y = %f\n", d.y);
+	/*	if ((e->file[(int)(cur.y + d)][(int)(cur.x)] != 0) ||
+		(e->file[(int)(cur.y)][(int)(cur.x + d)] != 0) ||
+		(e->file[(int)(cur.y - d)][(int)(cur.x)] != 0) ||
+		(e->file[(int)(cur.y)][(int)(cur.x - d)] != 0) ||
+		(e->file[(int)(cur.y - d)][(int)(cur.x - d)] != 0) ||
+		(e->file[(int)(cur.y + d)][(int)(cur.x + d)] != 0) ||
+		(e->file[(int)(cur.y + d)][(int)(cur.x - d)] != 0) ||
+		(e->file[(int)(cur.y - d)][(int)(cur.x + d)] != 0))*/
+	if (e->file[(int)(cur.y)][(int)(cur.x)] != 0)
 		return (1);
 	return (0);
 }
@@ -74,9 +93,9 @@ static void	rotation_key(int key, t_env *e)
 		e->oldx = e->dir_p.x;
 		e->dir_p.x = e->dir_p.x * cos(-ROT_SPEED) - e->dir_p.y * sin(-ROT_SPEED);
 		e->dir_p.y = e->oldx * sin(-ROT_SPEED) + e->dir_p.y * cos(-ROT_SPEED);
-		
+
 		e->oldx = e->plane_p.x;
-		
+
 		e->plane_p.x = e->plane_p.x * cos(-ROT_SPEED) - e->plane_p.y * sin(-ROT_SPEED);
 		e->plane_p.y = e->oldx * sin(-ROT_SPEED) + e->plane_p.y * cos(-ROT_SPEED);
 	}
@@ -86,7 +105,7 @@ static void	rotation_key(int key, t_env *e)
 		e->dir_p.x = e->dir_p.x * cos(ROT_SPEED) - e->dir_p.y * sin(ROT_SPEED);
 		e->dir_p.y = e->oldx * sin(ROT_SPEED) + e->dir_p.y * cos(ROT_SPEED);
 		e->oldx = e->plane_p.x;
-		
+
 		e->plane_p.x = e->plane_p.x * cos(ROT_SPEED) - e->plane_p.y * sin(ROT_SPEED);
 		e->plane_p.y = e->oldx * sin(ROT_SPEED) + e->plane_p.y * cos(ROT_SPEED);
 	}

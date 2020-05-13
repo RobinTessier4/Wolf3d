@@ -18,31 +18,36 @@ static void	init_ptr(t_env *e)
 	param_init(e);
 }
 
+int		ft_close(void)
+{
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
 int		text_test(t_env *e)
 {
 	int a;
 	int b;
-	t_text *text;
-//	void	*img;
+
 	a = 64;
 	b = 64;
-
-	if (!(text = ft_memalloc(sizeof(t_text))))
-		return (1);
-	if (!(text->data = ft_memalloc(sizeof(char) * 100000)))
-		return (1);
-	printf("check\n");
-	text->img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/colorstone.xpm", &a, &b);
-	printf("check\n");
-	text->data = mlx_get_data_addr(text->img, &text->bpp, &text->sizeline, &text->endian);
-	e->text = text;
-	printf("bpp = %d\n", e->text->bpp);
-	printf("sizeline = %d\n", e->text->sizeline);
-	printf("endian = %d\n", e->text->endian);
-	printf("str = %s\n", e->text->data);
-
-//e->text->data[x + (y * e->text->bpp)];
-
+	
+	e->text[0].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/stone1.xpm", &a, &b);
+	e->text[0].data = mlx_get_data_addr(e->text[0].img, &e->text[0].bpp, &e->text[0].sizeline, &e->text[0].endian);
+	e->text[1].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/stone2.xpm", &a, &b);
+	e->text[1].data = mlx_get_data_addr(e->text[1].img, &e->text[1].bpp, &e->text[1].sizeline, &e->text[1].endian);
+	e->text[2].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/stone3.xpm", &a, &b);
+	e->text[2].data = mlx_get_data_addr(e->text[2].img, &e->text[2].bpp, &e->text[2].sizeline, &e->text[2].endian);
+	e->text[3].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/stone4.xpm", &a, &b);
+	e->text[3].data = mlx_get_data_addr(e->text[3].img, &e->text[3].bpp, &e->text[3].sizeline, &e->text[3].endian);
+	e->text[4].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/greystone.xpm", &a, &b);
+	e->text[4].data = mlx_get_data_addr(e->text[4].img, &e->text[4].bpp, &e->text[4].sizeline, &e->text[4].endian);
+	e->text[5].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/mossy.xpm", &a, &b);
+	e->text[5].data = mlx_get_data_addr(e->text[5].img, &e->text[5].bpp, &e->text[5].sizeline, &e->text[5].endian);
+	e->text[6].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/purplestone.xpm", &a, &b);
+	e->text[6].data = mlx_get_data_addr(e->text[6].img, &e->text[6].bpp, &e->text[6].sizeline, &e->text[6].endian);
+	e->text[7].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/redbrick.xpm", &a, &b);
+	e->text[7].data = mlx_get_data_addr(e->text[7].img, &e->text[7].bpp, &e->text[7].sizeline, &e->text[7].endian);
 	return (0);
 }
 
@@ -68,7 +73,7 @@ int			main(int ac, char **av)
 					printf("e.map_width: %d ; e.map_height: %d\n", e->map_width, e->map_height);
 					draw_raycasting(e);
 					mlx_hook(e->mlx->wind, 2, 0, key_hook, e);
-					mlx_mouse_hook(e->mlx->wind, mouse_hook, e);
+					mlx_hook(e->mlx->wind, 17, 0L, ft_close, e);
 					mlx_loop(e->mlx->ptr);
 				}
 				else

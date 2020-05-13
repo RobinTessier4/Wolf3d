@@ -58,9 +58,9 @@ typedef struct			s_mlx
 
 typedef	struct			s_color
 {
-	int					green;
-	int					blue;
-	int					red;
+	unsigned char		green;
+	unsigned char		blue;
+	unsigned char		red;
 }						t_color;
 
 /*

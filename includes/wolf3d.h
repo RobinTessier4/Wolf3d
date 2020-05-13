@@ -36,9 +36,9 @@
 #define WHITE 0xFFFFFF
 
 #define BLOC_SIZE 1
-#define BLOC_HEIGHT 120
+#define BLOC_HEIGHT 95
 
-#define ROT_SPEED 0.05
+#define ROT_SPEED 0.07
 
 #define SPACE_BAR 49
 
@@ -83,7 +83,7 @@ typedef	struct	s_parse
 
 typedef struct s_env
 {
-	t_text		*text;
+	t_text		text[9];
 	t_mlx 		*mlx;
 	int			map; //permet d'afficher 2D en appuyant sur espace
 	t_parse		*map_lines;
@@ -98,7 +98,6 @@ typedef struct s_env
 	t_pos_d		plane_p; //xplane & ypalne
 	double 		oldx;
 	int 		rows;
-	int 		col;
 	int 		bloc_width; //taille d'un bloc = WIDTH / e->map_width;
 	int 		bloc_height;
 	t_pos		current_bloc; // e->player.y1 = e->current_bloc.y / e->player.x1 = e->current_bloc.x
@@ -112,7 +111,10 @@ typedef struct s_env
 	t_vector 	*lray;
 	t_vector 	*rray;
 	int			**tex;
-
+	unsigned char red;
+	unsigned char green;
+	unsigned char blue;
+	unsigned int color;
 }				t_env;
 
 /*
