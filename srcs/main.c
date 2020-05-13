@@ -53,28 +53,27 @@ int		text_test(t_env *e)
 
 int			main(int ac, char **av)
 {
-	t_env	*e;
+	t_env	e;
 	int 	fd;
 
-	e = ft_memalloc(sizeof(t_env));
 	if (ac == 2)
 	{
 		if ((fd = open(av[1], O_RDONLY)) > 0)
 		{
-			if (ft_read_input(fd, e) != NULL)
+			if (ft_read_input(fd, &e) != NULL)
 			{
-				if ((e->file = map_tab(e)) != NULL)
+				if ((e.file = map_tab(&e)) != NULL)
 				{
-					if (HEIGHT < e->map_height || WIDTH < e->map_width)
-						return(error_msg("error: window is too small", e));
-					init_ptr(e);
-					text_test(e);
-					print_map(e);
-					printf("e.map_width: %d ; e.map_height: %d\n", e->map_width, e->map_height);
-					draw_raycasting(e);
-					mlx_hook(e->mlx->wind, 2, 0, key_hook, e);
-					mlx_hook(e->mlx->wind, 17, 0L, ft_close, e);
-					mlx_loop(e->mlx->ptr);
+					if (HEIGHT < e.map_height || WIDTH < e.map_width)
+						return(error_msg("error: window is too small", &e));
+					init_ptr(&e);
+					text_test(&e);
+					print_map(&e);
+					printf("e.map_width: %d ; e.map_height: %d\n", e.map_width, e.map_height);
+					draw_raycasting(&e);
+					mlx_hook(e.mlx->wind, 2, 0, key_hook, &e);
+					mlx_hook(e.mlx->wind, 17, 0L, ft_close, &e);
+					mlx_loop(e.mlx->ptr);
 				}
 				else
 				{
