@@ -66,7 +66,6 @@ unsigned int		get_text(t_env *e, t_pos_d rayend, int pos)
 	x = rayend.x * 250;
 	y = rayend.y * 250;
 	if (rayend.y >= 0.996 || rayend.y <= 0.004)
-	if ()
 	get_text_color(e, i, x, pos);
 	else
 		get_text_color(e, i + 1, y, pos);
