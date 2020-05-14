@@ -121,6 +121,13 @@ int			key_hook(int key, t_env *e)
 	wasd_key(key, e);
 	rotation_key(key, e);
 	if (key == SPACE_BAR)
+		{
+		if (e->help == 1)
+		e->help = 0;
+		else
+		e->help = 1;
+	}
+	if (key == 46)
 	{
 		if (e->map == 1)
 			e->map = 0;

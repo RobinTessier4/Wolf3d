@@ -101,7 +101,7 @@ void	        draw_vector(t_env *e)
 	tmp->end = e->plane->end;
 	vector_init(e, tmp);
 	
-    draw_line(e, e->plane); //draw plane
+  //  draw_line(e, e->plane); //draw plane
 //	draw_inf_line(e, e->lray, 1); //left ray
 //	draw_inf_line(e, e->rray, 2); //right ray
 

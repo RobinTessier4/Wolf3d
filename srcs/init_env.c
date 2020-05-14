@@ -22,7 +22,9 @@ int		param_init(t_env *e)
 		return (1);
 	if (!(e->rray = ft_memalloc(sizeof(t_vector))))
 		return (1);
-	e->map = 1;
+	text_init(e);
+	e->help = 1;
+e->map = 1;
 	e->player.x = 2;
 	e->player.y = 2;
 	e->dir_p.x = 0;

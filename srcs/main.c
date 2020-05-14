@@ -24,29 +24,28 @@ int		ft_close(void)
 	return (0);
 }
 
-int		text_test(t_env *e)
+int		text_init(t_env *e)
 {
 	int a;
 	int b;
 
 	a = 64;
 	b = 64;
-	
 	e->text[0].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/stone1.xpm", &a, &b);
 	e->text[0].data = mlx_get_data_addr(e->text[0].img, &e->text[0].bpp, &e->text[0].sizeline, &e->text[0].endian);
-	e->text[1].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/stone2.xpm", &a, &b);
+	e->text[1].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/stone3.xpm", &a, &b);
 	e->text[1].data = mlx_get_data_addr(e->text[1].img, &e->text[1].bpp, &e->text[1].sizeline, &e->text[1].endian);
-	e->text[2].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/stone3.xpm", &a, &b);
+	e->text[2].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/stone2.xpm", &a, &b);
 	e->text[2].data = mlx_get_data_addr(e->text[2].img, &e->text[2].bpp, &e->text[2].sizeline, &e->text[2].endian);
 	e->text[3].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/stone4.xpm", &a, &b);
 	e->text[3].data = mlx_get_data_addr(e->text[3].img, &e->text[3].bpp, &e->text[3].sizeline, &e->text[3].endian);
-	e->text[4].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/greystone.xpm", &a, &b);
+	e->text[4].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/wood1.xpm", &a, &b);
 	e->text[4].data = mlx_get_data_addr(e->text[4].img, &e->text[4].bpp, &e->text[4].sizeline, &e->text[4].endian);
-	e->text[5].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/mossy.xpm", &a, &b);
+	e->text[5].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/wood3.xpm", &a, &b);
 	e->text[5].data = mlx_get_data_addr(e->text[5].img, &e->text[5].bpp, &e->text[5].sizeline, &e->text[5].endian);
-	e->text[6].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/purplestone.xpm", &a, &b);
+	e->text[6].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/wood2.xpm", &a, &b);
 	e->text[6].data = mlx_get_data_addr(e->text[6].img, &e->text[6].bpp, &e->text[6].sizeline, &e->text[6].endian);
-	e->text[7].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/redbrick.xpm", &a, &b);
+	e->text[7].img = mlx_xpm_file_to_image(e->mlx->ptr, "textures/wood4.xpm", &a, &b);
 	e->text[7].data = mlx_get_data_addr(e->text[7].img, &e->text[7].bpp, &e->text[7].sizeline, &e->text[7].endian);
 	return (0);
 }
@@ -67,7 +66,6 @@ int			main(int ac, char **av)
 					if (HEIGHT < e.map_height || WIDTH < e.map_width)
 						return(error_msg("error: window is too small", &e));
 					init_ptr(&e);
-					text_test(&e);
 					print_map(&e);
 					printf("e.map_width: %d ; e.map_height: %d\n", e.map_width, e.map_height);
 					draw_raycasting(&e);

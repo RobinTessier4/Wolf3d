@@ -116,6 +116,7 @@ typedef struct s_env
 	unsigned char green;
 	unsigned char blue;
 	unsigned int color;
+	char help;
 }				t_env;
 
 /*
@@ -162,7 +163,6 @@ void			print_map(t_env *e);
 void			put_pixel_color(t_env *e, int color, t_pos *pos);
 void			draw_line(t_env *e, t_vector *v);
 void			draw_inf_line(t_env *e, t_vector *v, int i);
-void			text_init(t_env *e);
 
 /*
 ** wolf.c
@@ -197,7 +197,7 @@ t_env			*init_mlx(t_env *e);
 */
 
 void			draw_inf_line(t_env *e, t_vector *v, int i);
-
+int			text_init(t_env *e);
 
 
 /*
