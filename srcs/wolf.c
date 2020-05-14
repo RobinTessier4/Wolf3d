@@ -51,7 +51,7 @@ void	draw_raycasting(t_env *e)
 	ft_destroy_image (e->mlx->ptr, e->mlx->img);
 	e->mlx->img = ft_new_image (e->mlx->ptr, WIDTH, HEIGHT);
 	draw_sky_floor(e);
-	raycasting(e);
+raycasting(e);
 	mlx_put_image_to_window(e->mlx->ptr, e->mlx->wind, e->mlx->img->ptr, 0, 0);
 }
 

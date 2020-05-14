@@ -110,7 +110,8 @@ typedef struct s_env
 	t_vector 	*plane;
 	t_vector 	*lray;
 	t_vector 	*rray;
-	int			**tex;
+	t_virtual	lray2;
+	t_virtual	rray2;
 	unsigned char red;
 	unsigned char green;
 	unsigned char blue;

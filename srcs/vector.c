@@ -49,6 +49,7 @@ void	        ray_init(t_env *e)
 	e->rray->start.y = e->dir->start.y;
 	e->rray->end.x = e->plane->end.x;
 	e->rray->end.y = e->plane->end.y;
+
 }
 
 void	        draw_rayons(t_env *e, t_vector *tmp)
@@ -90,7 +91,6 @@ void	        draw_vector(t_env *e)
 	ray_init(e);
 	vector_init(e, e->dir);
 	vector_init(e, e->plane);
-	// printf("start.x : %d ; start.y : %d\n", e->plane->start.x, e->plane->start.y);
 	vector_init(e, e->rray);
 	vector_init(e, e->lray);
 
