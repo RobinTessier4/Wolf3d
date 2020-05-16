@@ -161,10 +161,7 @@ int			key_hook(int key, t_env *e)
 	printf("key: %d\n", key);
 	key_press_hook(key, e);
 	if (key == MAIN_PAD_ESC)
-	{
-		mlx_destroy_image(e->mlx->ptr, e->mlx->img); 
 		exit(EXIT_SUCCESS);
-	}
 	wasd_key(key, e);
 	rotation_key(key, e);
 	if (key == SPACE_BAR)
