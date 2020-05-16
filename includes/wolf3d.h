@@ -43,11 +43,11 @@
 
 typedef struct	s_text
 {
-	void	*img;
-	char	*data;
-	int		bpp;
-	int		sizeline;
-	int		endian;
+	void		*img;
+	char		*data;
+	int			bpp;
+	int			sizeline;
+	int			endian;
 }				t_text;
 
 typedef struct	s_vector
@@ -80,43 +80,57 @@ typedef	struct	s_parse
 	struct 		s_parse *next;
 }				t_parse;
 
+typedef struct s_key
+{
+	int			k_left;
+	int			k_down;
+	int			k_up;
+	int			k_right;
+	int			k_w;
+	int			k_a;
+	int			k_s;
+	int			k_d;
+}				t_key;
+
+
 typedef struct s_env
 {
-	t_text		text[9];
-	t_mlx 		*mlx;
-	int			map; //permet d'afficher 2D en appuyant sur espace
-	t_parse		*map_lines;
-	int			map_width; //nombre de colonnes
-	int			map_height; //nombre de lignes
-	int			line_cmp;
-	int			**file;
-	int			**tab;
-	double		perp_size;
-	t_pos_d		player; //x && y
-	t_pos_d		dir_p; //player direction xdir / ydir [-1, 0, 1]
-	t_pos_d		plane_p; //xplane & ypalne
-	double 		oldx;
-	int 		rows;
-	int 		bloc_width; //taille d'un bloc = WIDTH / e->map_width;
-	int 		bloc_height;
-	t_pos		current_bloc; // e->player.y1 = e->current_bloc.y / e->player.x1 = e->current_bloc.x
-	t_pos		cursor;
-	int 		midray;
-	int 		leftray;
-	int 		rightray;
-	int			lineheight;
-	t_vector 	*dir; //rayon central partant du player
-	t_vector 	*plane;
-	t_vector 	*lray;
-	t_vector 	*rray;
-	t_virtual	lray2;
-	t_virtual	rray2;
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
-	unsigned int color;
-	char help;
-}				t_env;
+	t_text			text[9];
+	t_mlx 			*mlx;
+	int				map; //permet d'afficher 2D en appuyant sur espace
+	t_parse			*map_lines;
+	int				map_width; //nombre de colonnes
+	int				map_height; //nombre de lignes
+	int				line_cmp;
+	int				**file;
+	int				**tab;
+	double			perp_size;
+	t_pos_d			player; //x && y
+	t_pos_d			dir_p; //player direction xdir / ydir [-1, 0, 1]
+	t_pos_d			plane_p; //xplane & ypalne
+	double 			oldx;
+	int 			rows;
+	int 			bloc_width; //taille d'un bloc = WIDTH / e->map_width;
+	int 			bloc_height;
+	t_pos			current_bloc; // e->player.y1 = e->current_bloc.y / e->player.x1 = e->current_bloc.x
+	t_pos			cursor;
+	int 			midray;
+	int 			leftray;
+	int 			rightray;
+	int				lineheight;
+	t_vector 		*dir; //rayon central partant du player
+	t_vector 		*plane;
+	t_vector 		*lray;
+	t_vector 		*rray;
+	t_virtual		lray2;
+	t_virtual		rray2;
+	unsigned char 	red;
+	unsigned char 	green;
+	unsigned char 	blue;
+	unsigned int 	color;
+	char			help;
+	t_key			key;
+}					t_env;
 
 /*
 Séparer par des commentaires les fonctions en les classant par fichier
@@ -177,6 +191,7 @@ void			draw_raycasting(t_env *e);
 */
 
 int				key_hook(int key, t_env *e);
+int				key_release_hook(int key, t_env *env);
 
 /*
 ** mouse_hook.c
