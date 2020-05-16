@@ -25,7 +25,6 @@
 # include <math.h>
 # include <stdio.h>
 # include <pthread.h>
-# include </usr/local/include/mlx.h>
 
 #define VERBOSE 1
 
