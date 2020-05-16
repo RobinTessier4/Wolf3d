@@ -24,7 +24,7 @@ int		param_init(t_env *e)
 		return (1);
 	text_init(e);
 	e->help = 1;
-e->map = 1;
+	e->map = 1;
 	e->player.x = 2;
 	e->player.y = 2;
 	e->dir_p.x = 0;
@@ -33,6 +33,14 @@ e->map = 1;
 	e->plane_p.y = 0;
 	e->bloc_width = WIDTH / e->map_width;
 	e->bloc_height = HEIGHT / e->map_height;
+	e->key.k_down = 0;
+	e->key.k_up = 0;
+	e->key.k_left = 0;
+	e->key.k_right = 0;
+	e->key.k_a = 0;
+	e->key.k_s = 0;
+	e->key.k_s = 0;
+	e->key.k_w = 0;
 	return (0);
 }
 
