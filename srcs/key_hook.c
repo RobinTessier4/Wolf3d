@@ -45,18 +45,6 @@ int			check_if_wall(t_env *e, int i)
 	//	if (e->file[(int)(cur.y - 0.3)][(int)(cur.x + 0.3)] != 0)
 	//	return (1);
 	}
-//	printf("cur.x = %f\n", cur.x);
-//	printf("cur.y = %f\n", cur.y);
-//	printf("dir x = %f\n",d.x);
-//	printf("dir y = %f\n", d.y);
-	/*	if ((e->file[(int)(cur.y + d)][(int)(cur.x)] != 0) ||
-		(e->file[(int)(cur.y)][(int)(cur.x + d)] != 0) ||
-		(e->file[(int)(cur.y - d)][(int)(cur.x)] != 0) ||
-		(e->file[(int)(cur.y)][(int)(cur.x - d)] != 0) ||
-		(e->file[(int)(cur.y - d)][(int)(cur.x - d)] != 0) ||
-		(e->file[(int)(cur.y + d)][(int)(cur.x + d)] != 0) ||
-		(e->file[(int)(cur.y + d)][(int)(cur.x - d)] != 0) ||
-		(e->file[(int)(cur.y - d)][(int)(cur.x + d)] != 0))*/
 	if (e->file[(int)(cur.y)][(int)(cur.x)] != 0)
 		return (1);
 	return (0);
@@ -89,7 +77,6 @@ static void	wasd_key(int key, t_env *e)
 static void	rotation_key(int key, t_env *e)
 {
 	(void)key;
-	// if (key == ARROW_LEFT)
 	if (e->key.k_left == 1)
 	{
 		e->oldx = e->dir_p.x;
@@ -101,7 +88,6 @@ static void	rotation_key(int key, t_env *e)
 		e->plane_p.x = e->plane_p.x * cos(-ROT_SPEED) - e->plane_p.y * sin(-ROT_SPEED);
 		e->plane_p.y = e->oldx * sin(-ROT_SPEED) + e->plane_p.y * cos(-ROT_SPEED);
 	}
-	// else if (key == ARROW_RIGHT)
 	if (e->key.k_right == 1)
 	{
 		e->oldx = e->dir_p.x;
@@ -166,13 +152,8 @@ int			key_hook(int key, t_env *e)
 	rotation_key(key, e);
 	if (key == SPACE_BAR)
 		e->help = e->help == 1 ? 0 : 1;
-	if (key == 46)
-	{
-		if (e->map == 1)
-			e->map = 0;
-		else if (e->map == 0)
-			e->map = 1;
-	}
+	if (key == M)
+		e->map = e->map == 1 ? 0 : 1;
 	if (e->map == 1)
 		draw_raycasting(e);
 	else if (e->map == 0)
