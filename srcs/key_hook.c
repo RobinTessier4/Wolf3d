@@ -88,7 +88,9 @@ static void	wasd_key(int key, t_env *e)
 
 static void	rotation_key(int key, t_env *e)
 {
-	if (key == ARROW_LEFT)
+	(void)key;
+	// if (key == ARROW_LEFT)
+	if (e->key.k_left == 1)
 	{
 		e->oldx = e->dir_p.x;
 		e->dir_p.x = e->dir_p.x * cos(-ROT_SPEED) - e->dir_p.y * sin(-ROT_SPEED);
@@ -99,7 +101,8 @@ static void	rotation_key(int key, t_env *e)
 		e->plane_p.x = e->plane_p.x * cos(-ROT_SPEED) - e->plane_p.y * sin(-ROT_SPEED);
 		e->plane_p.y = e->oldx * sin(-ROT_SPEED) + e->plane_p.y * cos(-ROT_SPEED);
 	}
-	else if (key == ARROW_RIGHT)
+	// else if (key == ARROW_RIGHT)
+	if (e->key.k_right == 1)
 	{
 		e->oldx = e->dir_p.x;
 		e->dir_p.x = e->dir_p.x * cos(ROT_SPEED) - e->dir_p.y * sin(ROT_SPEED);
@@ -111,9 +114,52 @@ static void	rotation_key(int key, t_env *e)
 	}
 }
 
+int			key_press_hook(int key, t_env *env)
+{
+	if (key == ARROW_LEFT)
+		env->key.k_left = 1;
+	if (key == ARROW_RIGHT)
+		env->key.k_right = 1;
+	if (key == ARROW_UP)
+		env->key.k_up = 1;
+	if (key == ARROW_DOWN)
+		env->key.k_down = 1;
+	if (key == W)
+		env->key.k_w = 0;
+	if (key == A)
+		env->key.k_a = 0;
+	if (key == S)
+		env->key.k_s = 0;
+	if (key == D)
+		env->key.k_d = 0;
+	return (0);
+}
+
+int			key_release_hook(int key, t_env *env)
+{
+	if (key == ARROW_LEFT)
+		env->key.k_left = 0;
+	if (key == ARROW_RIGHT)
+		env->key.k_right = 0;
+	if (key == ARROW_UP)
+		env->key.k_up = 0;
+	if (key == ARROW_DOWN)
+		env->key.k_down = 0;
+	if (key == W)
+		env->key.k_w = 0;
+	if (key == A)
+		env->key.k_a = 0;
+	if (key == S)
+		env->key.k_s = 0;
+	if (key == D)
+		env->key.k_d = 0;
+	return (0);
+}
+
 int			key_hook(int key, t_env *e)
 {
-	printf("coucou\n");
+	printf("key: %d\n", key);
+	key_press_hook(key, e);
 	if (key == MAIN_PAD_ESC)
 	{
 		mlx_destroy_image(e->mlx->ptr, e->mlx->img); 
