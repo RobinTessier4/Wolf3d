@@ -79,6 +79,8 @@
 # define MAIN_PAD_LESS 43
 # define MAIN_PAD_MORE 47
 
+#define SPACE_BAR 49
+
 */
 
 # define A 113
@@ -93,7 +95,7 @@
 # define J 38
 # define K 40
 # define L 37
-# define M 46
+# define M 44
 # define N 45
 # define O 31
 # define P 35
@@ -143,5 +145,7 @@
 # define MAIN_PAD_MINUS 27
 # define MAIN_PAD_LESS 43
 # define MAIN_PAD_MORE 47
+
+#define SPACE_BAR 32
 
 #endif

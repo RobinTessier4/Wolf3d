@@ -76,7 +76,7 @@ int			main(int ac, char **av)
 						return(error_msg("error: window is too small", &e));
 					init_ptr(&e);
 					print_map(&e);
-					printf("e.map_width: %d ; e.map_height: %d\n", e.map_width, e.map_height);
+					// printf("e.map_width: %d ; e.map_height: %d\n", e.map_width, e.map_height);
 					draw_raycasting(&e);
 					hook_events(&e);
 				}

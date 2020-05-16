@@ -39,58 +39,56 @@
 
 #define ROT_SPEED 0.07
 
-#define SPACE_BAR 49
+typedef struct		s_text
+{	
+	void			*img;
+	char			*data;
+	int				bpp;
+	int				sizeline;
+	int				endian;
+}					t_text;
 
-typedef struct	s_text
-{
-	void		*img;
-	char		*data;
-	int			bpp;
-	int			sizeline;
-	int			endian;
-}				t_text;
+typedef struct		s_vector
+{	
+	t_pos			start; //x1 ; y1
+	t_pos			end; //x2 ; y2	
+	t_pos			dist; //distance ? dx; dy
+	int 			sx;
+	int 			sy;
+	float 			a;
+	float 			b;
+	float 			err;
+}					t_vector;
 
-typedef struct	s_vector
-{
-	t_pos		start; //x1 ; y1
-	t_pos		end; //x2 ; y2	
-	t_pos		dist; //distance ? dx; dy
-	int 		sx;
-	int 		sy;
-	float 		a;
-	float 		b;
-	float 		err;
-}				t_vector;
+typedef struct		s_virtual
+{	
+	t_pos_d			start;
+	t_pos_d			end;
+	t_pos_d			dist; //distance ?
+	float 			sx;
+	float 			sy;
+	float 			a;
+	float 			b;
+	float 			err;
+}					t_virtual;
 
-typedef struct	s_virtual
-{
-	t_pos_d		start;
-	t_pos_d		end;
-	t_pos_d		dist; //distance ?
-	float 		sx;
-	float 		sy;
-	float 		a;
-	float 		b;
-	float 		err;
-}				t_virtual;
+typedef	struct		s_parse
+{	
+	int 			*nums;
+	struct 			s_parse *next;
+}					t_parse;
 
-typedef	struct	s_parse
+typedef struct 		s_key
 {
-	int 		*nums;
-	struct 		s_parse *next;
-}				t_parse;
-
-typedef struct s_key
-{
-	int			k_left;
-	int			k_down;
-	int			k_up;
-	int			k_right;
-	int			k_w;
-	int			k_a;
-	int			k_s;
-	int			k_d;
-}				t_key;
+	int				k_left;
+	int				k_down;
+	int				k_up;
+	int				k_right;
+	int				k_w;
+	int				k_a;
+	int				k_s;
+	int				k_d;
+}					t_key;
 
 
 typedef struct s_env
@@ -131,11 +129,6 @@ typedef struct s_env
 	char			help;
 	t_key			key;
 }					t_env;
-
-/*
-Séparer par des commentaires les fonctions en les classant par fichier
-*/
-
 
 /*
 ** read_map.c
@@ -224,7 +217,6 @@ void	        draw_rayons(t_env *e, t_vector *tmp);
 void	        draw_vector(t_env *e);
 void			draw_text(t_env *e, t_vector *v, t_pos_d rayend);
 //void			draw_one_by_one(t_env *e);
-
 
 /*
 ** raycasting.c

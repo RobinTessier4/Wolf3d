@@ -144,7 +144,7 @@ int			key_release_hook(int key, t_env *env)
 
 int			key_hook(int key, t_env *e)
 {
-	printf("key: %d\n", key);
+	// printf("key: %d\n", key);
 	key_press_hook(key, e);
 	if (key == MAIN_PAD_ESC)
 		exit(EXIT_SUCCESS);
