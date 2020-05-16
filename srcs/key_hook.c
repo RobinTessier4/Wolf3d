@@ -113,6 +113,7 @@ static void	rotation_key(int key, t_env *e)
 
 int			key_hook(int key, t_env *e)
 {
+	printf("coucou\n");
 	if (key == MAIN_PAD_ESC)
 	{
 		mlx_destroy_image(e->mlx->ptr, e->mlx->img); 

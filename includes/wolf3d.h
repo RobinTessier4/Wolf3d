@@ -196,7 +196,7 @@ t_env			*init_mlx(t_env *e);
 */
 
 void			draw_inf_line(t_env *e, t_vector *v, int i);
-int			text_init(t_env *e);
+int				text_init(t_env *e);
 
 
 /*
