@@ -18,7 +18,6 @@
 # include "libft.h"
 # include <math.h>
 # include <mlx.h>
-# include </usr/local/include/mlx.h>
 
 typedef unsigned int	t_uint32;
 

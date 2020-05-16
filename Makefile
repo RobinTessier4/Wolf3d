@@ -15,7 +15,7 @@ NAME = wolf3d
 CC = gcc -Wall -Wextra -Werror
 HEAD = -I includes -I libft/includes
 FLAGS = -Wall -Wextra -Werror
-LINK = -L ./libft -I /usr/x11/include -lft -L /usr/x11/lib -lmlx -lXext -lX11 -framework OpenGL -framework AppKit
+LINK = -L ./libft -lft -L /usr/X11/lib -lX11 -L /usr/X11/lib -lXext -L ./minilibx -lmlx -framework OpenGL -framework AppKit
 
 SRC_DIR = ./srcs/
 OBJ_DIR = ./objs/

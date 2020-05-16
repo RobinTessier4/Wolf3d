@@ -33,6 +33,14 @@ int		param_init(t_env *e)
 	e->plane_p.y = 0;
 	e->bloc_width = WIDTH / e->map_width;
 	e->bloc_height = HEIGHT / e->map_height;
+	e->key.k_down = 0;
+	e->key.k_up = 0;
+	e->key.k_left = 0;
+	e->key.k_right = 0;
+	e->key.k_a = 0;
+	e->key.k_s = 0;
+	e->key.k_s = 0;
+	e->key.k_w = 0;
 	return (0);
 }
 
