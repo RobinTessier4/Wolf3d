@@ -32,7 +32,7 @@ double		calc_size_ray(t_env *e, t_virtual *v)
 
 	startx = v->start.x;
 	starty = v->start.y;
-	while (v->start.x > 0 && v->start.y > 0 && e->file[(int)v->start.y][(int)v->start.x] == 0)
+	while (v->start.x > 0 && v->start.y > 0 && v->start.x < e->map_width && v->start.y < e->map_height && e->file[(int)v->start.y][(int)v->start.x] == 0)
 	{
 		e2 = v->err;
 		if (e2 > -v->dist.x)
@@ -71,14 +71,10 @@ static void		draw_wall(t_env *e, double dist, int x, t_pos_d rayend)
 	wall->start.y = (HEIGHT / 2) - size_wall;
 	wall->end.x = x;
 	wall->end.y = (HEIGHT / 2) + size_wall;
-	//	if (wall->start.y < 0)
-	//	 wall->start.y = 0;
-	//	if (wall->end.y > 500)
-	//	 wall->end.y = 500;
 	vector_init(e, wall);
-	//	printf("start y = %d\n", wall->start.y);
-	//	printf("end y = %d\n", wall->end.y);
-	draw_text(e, wall, rayend);
+	if (rayend.x > 0 && rayend.x < e->map_width && rayend.y > 0 && rayend.y < e->map_height)
+		draw_text(e, wall, rayend);
+	free(wall);
 }
 
 void			raycasting(t_env *e)
@@ -87,24 +83,22 @@ void			raycasting(t_env *e)
 	double		size;
 	t_virtual	vector;
 	t_virtual	rayon;
-	double startx;
-	double starty;
+	t_pos_d start;
 
-	vector.start.x = (e->player.x + e->dir_p.x - e->plane_p.x) * BLOC_SIZE;
-	vector.start.y = (e->player.y + e->dir_p.y - e->plane_p.y) * BLOC_SIZE;
-	vector.end.x = (e->player.x + e->dir_p.x + e->plane_p.x) * BLOC_SIZE;
-	vector.end.y = (e->player.y + e->dir_p.y + e->plane_p.y) * BLOC_SIZE;
+	vector.start.x = (e->player.x + e->dir_p.x - e->plane_p.x);
+	vector.start.y = (e->player.y + e->dir_p.y - e->plane_p.y);
+	vector.end.x = (e->player.x + e->dir_p.x + e->plane_p.x);
+	vector.end.y = (e->player.y + e->dir_p.y + e->plane_p.y);
 	virtual_init(&vector);
-	startx = vector.start.x;
-	starty = vector.start.y;
+	start = vector.start;
 	x = 0;
 	while (x < WIDTH)
 	{
 		rayon.start.x = e->player.x * BLOC_SIZE;
 		rayon.start.y = e->player.y * BLOC_SIZE;
 
-		rayon.end.x = startx + ((vector.end.x - startx) * (x / (double)WIDTH));
-		rayon.end.y = starty + ((vector.end.y - starty) * (x / (double)WIDTH));
+		rayon.end.x = start.x + ((vector.end.x - start.x) * (x / (double)WIDTH));
+		rayon.end.y = start.y + ((vector.end.y - start.y) * (x / (double)WIDTH));
 		virtual_init(&rayon);
 		size = calc_size_ray(e, &rayon);
 		draw_wall(e, size, x, rayon.start);

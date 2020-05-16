@@ -162,7 +162,6 @@ void			print_map(t_env *e);
 
 void			put_pixel_color(t_env *e, int color, t_pos *pos);
 void			draw_line(t_env *e, t_vector *v);
-void			draw_inf_line(t_env *e, t_vector *v, int i);
 
 /*
 ** wolf.c
@@ -196,7 +195,7 @@ t_env			*init_mlx(t_env *e);
 ** draw_grid.c.c
 */
 
-void			draw_inf_line(t_env *e, t_vector *v, int i);
+void			draw_inf_line(t_env *e, t_vector *v);
 int			text_init(t_env *e);
 
 

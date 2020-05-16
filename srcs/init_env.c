@@ -24,9 +24,9 @@ int		param_init(t_env *e)
 		return (1);
 	text_init(e);
 	e->help = 1;
-e->map = 1;
-	e->player.x = 2;
-	e->player.y = 2;
+	e->map = 1;
+	e->player.x = 3;
+	e->player.y = 3;
 	e->dir_p.x = 0;
 	e->dir_p.y = -1;
 	e->plane_p.x = 0.66;

@@ -39,9 +39,9 @@ static int			str_to_intarray(char *line, t_parse *elem, t_env *env)
 	split = ft_strsplit_multi(line, "\t ");
 	while (split[i])
 	{
+			 if (ft_atoi(split[i]) < 0 || ft_atoi(split[i]) > 3)
+			 return (-1);
 		elem->nums[i] = ft_atoi(split[i]);
-		// if (split_coord(elem, split[i]) == -1)
-			// return (-1);
 		i++;
 	}
 	env->line_cmp = i;

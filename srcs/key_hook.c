@@ -12,52 +12,44 @@
 
 #include <wolf3d.h>
 
+int		check_if_wall2(t_env *e, int i)
+{
+	t_pos_d 	cur;
+	cur = e->player;
+
+	if (i == 3)
+	{
+		cur.y -= e->dir_p.x / 10 * 2;
+		cur.x += e->dir_p.y / 10 * 2;
+	}
+	else if (i == 4)
+	{
+		cur.y += e->dir_p.x / 10 * 2;
+		cur.x -= e->dir_p.y / 10 * 2;
+	}
+	if (e->file[(int)(cur.y)][(int)(cur.x)] != 0 || cur.y < 0 || cur.x < 0 || 
+			cur.y > e->map_height || cur.x > e->map_width)
+		return (1);
+	return (0);
+}
 int			check_if_wall(t_env *e, int i)
 {
-	t_pos_d 	cur; //cur pour cursor
+	t_pos_d 	cur;
 	cur = e->player;
 
 	if (i == 1)
 	{
 		cur.y += e->dir_p.y / 10 * 2;
 		cur.x += e->dir_p.x / 10 * 2;
-	//	if (e->file[(int)(cur.y + d.y)][(int)(cur.x + d.x)] != 0)
-	//	return (1);
 	}
 	else if (i == 2)
 	{
 		cur.y -= e->dir_p.y / 10 * 2;
 		cur.x -= e->dir_p.x / 10 * 2;
-	//	if (e->file[(int)(cur.y + 0.3)][(int)(cur.x + 0.3)] != 0)
-	//	return (1);
 	}
-	else if (i == 3)
-	{
-		cur.y -= e->dir_p.x / 10 * 2;
-		cur.x += e->dir_p.y / 10 * 2;
-	//	if (e->file[(int)(cur.y + 0.3)][(int)(cur.x - 0.3)] != 0)
-	//	return (1);
-	}
-	else if (i == 4)
-	{
-		cur.y += e->dir_p.x / 10 * 2;
-		cur.x -= e->dir_p.y / 10 * 2;
-	//	if (e->file[(int)(cur.y - 0.3)][(int)(cur.x + 0.3)] != 0)
-	//	return (1);
-	}
-//	printf("cur.x = %f\n", cur.x);
-//	printf("cur.y = %f\n", cur.y);
-//	printf("dir x = %f\n",d.x);
-//	printf("dir y = %f\n", d.y);
-	/*	if ((e->file[(int)(cur.y + d)][(int)(cur.x)] != 0) ||
-		(e->file[(int)(cur.y)][(int)(cur.x + d)] != 0) ||
-		(e->file[(int)(cur.y - d)][(int)(cur.x)] != 0) ||
-		(e->file[(int)(cur.y)][(int)(cur.x - d)] != 0) ||
-		(e->file[(int)(cur.y - d)][(int)(cur.x - d)] != 0) ||
-		(e->file[(int)(cur.y + d)][(int)(cur.x + d)] != 0) ||
-		(e->file[(int)(cur.y + d)][(int)(cur.x - d)] != 0) ||
-		(e->file[(int)(cur.y - d)][(int)(cur.x + d)] != 0))*/
-	if (e->file[(int)(cur.y)][(int)(cur.x)] != 0)
+	check_if_wall2(e, i);
+	if (e->file[(int)(cur.y)][(int)(cur.x)] != 0 || cur.y < 0 || cur.x < 0 || 
+			cur.y > e->map_height || cur.x > e->map_width)
 		return (1);
 	return (0);
 }
@@ -121,11 +113,11 @@ int			key_hook(int key, t_env *e)
 	wasd_key(key, e);
 	rotation_key(key, e);
 	if (key == SPACE_BAR)
-		{
+	{
 		if (e->help == 1)
-		e->help = 0;
+			e->help = 0;
 		else
-		e->help = 1;
+			e->help = 1;
 	}
 	if (key == 46)
 	{

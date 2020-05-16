@@ -54,28 +54,27 @@ unsigned int		get_text(t_env *e, t_pos_d rayend, t_pos_d pos)
 {
 	int intx;
 	int inty;
-	int x;
-	int y;
+	t_pos coord;
 
 	intx = (int)rayend.x;
 	inty = (int)rayend.y;
 	rayend.x = rayend.x - intx;
 	rayend.y = rayend.y - inty;
-	x = rayend.x * 250;
-	y = rayend.y * 250;
+	coord.x = rayend.x * 250;
+	coord.y = rayend.y * 250;
 	if (rayend.y >= 0.996 || rayend.y <= 0.004)
 	{
 		if (((e->dir_p.y - e->plane_p.y) - (((e->dir_p.y - e->plane_p.y) - (e->dir_p.y + e->plane_p.y)) * ((double)pos.x / WIDTH))) < 0)
-			get_text_color(e, (e->file[inty][intx] * 4) - 4, x, pos.y);
+			get_text_color(e, (e->file[inty][intx] * 4) - 4, coord.x, pos.y);
 		else
-			get_text_color(e, (e->file[inty][intx] * 4) - 4 + 1, x, pos.y);
+			get_text_color(e, (e->file[inty][intx] * 4) - 4 + 1, coord.x, pos.y);
 	}
 	else
 	{
 		if (((e->dir_p.x - e->plane_p.x) - (((e->dir_p.x - e->plane_p.x) - (e->dir_p.x + e->plane_p.x)) * ((double)pos.x / WIDTH))) > 0)
-			get_text_color(e, (e->file[inty][intx] * 4) - 4 + 2, y, pos.y);
+			get_text_color(e, (e->file[inty][intx] * 4) - 4 + 2, coord.y, pos.y);
 		else
-			get_text_color(e, (e->file[inty][intx] * 4) - 4 + 3, y, pos.y);
+			get_text_color(e, (e->file[inty][intx] * 4) - 4 + 3, coord.y, pos.y);
 	}
 	return (e->color);
 }
@@ -101,13 +100,12 @@ void		draw_text(t_env *e, t_vector *wall, t_pos_d rayend)
 	}
 }
 
-void		draw_inf_line(t_env *e, t_vector *v, int i)
+void		draw_inf_line(t_env *e, t_vector *v)
 {
 	int		e2;
 
 	e->current_bloc.x = v->start.x / e->bloc_width;
 	e->current_bloc.y = v->start.y / e->bloc_height;
-
 	while ((v->start.x > 0 && v->start.y > 0) 
 			&& (v->start.x < WIDTH && v->start.y < HEIGHT) 
 			&& (e->file[e->current_bloc.y][e->current_bloc.x] == 0))
@@ -115,9 +113,7 @@ void		draw_inf_line(t_env *e, t_vector *v, int i)
 		e->current_bloc.x = v->start.x / e->bloc_width;
 		e->current_bloc.y = v->start.y / e->bloc_height;
 		if (v->start.x < WIDTH)
-		{
 			put_pixel_color(e, 7869695, &v->start);
-		}
 		e2 = v->err;
 		if (e2 > -v->dist.x)
 		{
@@ -129,11 +125,5 @@ void		draw_inf_line(t_env *e, t_vector *v, int i)
 			v->err += v->dist.x;
 			v->start.y += v->sy;
 		}
-		if (i == 1)
-			e->leftray++;
-		else if (i == 2)
-			e->rightray++;
-		else
-			e->midray++;
 	}
 }
