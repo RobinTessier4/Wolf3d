@@ -12,7 +12,7 @@
 
 #include <wolf3d.h>
 
-void	        vector_init(t_env *e, t_vector *v)
+void			vector_init(t_env *e, t_vector *v)
 {
     (void)e;
 	v->dist.x = abs(v->end.x - v->start.x);
@@ -22,7 +22,7 @@ void	        vector_init(t_env *e, t_vector *v)
 	v->err = (v->dist.x > v->dist.y ? v->dist.x : -v->dist.y) / 2;
 }
 
-void	        ray_init(t_env *e)
+void			ray_init(t_env *e)
 {
     /* init central ray at the player's position */
 	e->dir->start.x = e->player.x * e->bloc_width;
@@ -52,9 +52,9 @@ void	        ray_init(t_env *e)
 
 }
 
-void	        draw_rayons(t_env *e, t_vector *tmp)
+void			draw_rayons(t_env *e, t_vector *tmp)
 {
-	int		    err;
+	int			err;
 
 	while (tmp->start.x != tmp->end.x || tmp->start.y != tmp->end.y)
 	{
@@ -79,7 +79,7 @@ void	        draw_rayons(t_env *e, t_vector *tmp)
 	}
 }
 
-void	        draw_vector(t_env *e)
+void			draw_vector(t_env *e)
 {
 	t_vector	*tmp; //copie de plane
 
@@ -93,18 +93,10 @@ void	        draw_vector(t_env *e)
 	vector_init(e, e->plane);
 	vector_init(e, e->rray);
 	vector_init(e, e->lray);
-
-//	draw_inf_line(e, e->dir, 3); // rayon central
-	
     /* initialisation de tmp, une copie de plane, avant de draw plane */
 	tmp->start = e->plane->start;
 	tmp->end = e->plane->end;
 	vector_init(e, tmp);
-	
-  //  draw_line(e, e->plane); //draw plane
-//	draw_inf_line(e, e->lray, 1); //left ray
-//	draw_inf_line(e, e->rray, 2); //right ray
-
 	draw_rayons(e, tmp);
 	free(tmp);
 }
