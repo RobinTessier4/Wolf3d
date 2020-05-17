@@ -22,7 +22,6 @@ OBJ_DIR = ./objs/
 
 SRC_FILES =	main.c \
 			key_hook.c \
-			mouse_hook.c \
 			wolf.c \
 			init_env.c \
 			image.c \
