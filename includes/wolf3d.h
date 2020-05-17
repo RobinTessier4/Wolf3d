@@ -116,10 +116,12 @@ typedef struct s_env
 	int 			leftray;
 	int 			rightray;
 	int				lineheight;
+	
 	t_vector 		*dir; //rayon central partant du player
 	t_vector 		*plane;
 	t_vector 		*lray;
 	t_vector 		*rray;
+	
 	t_virtual		lray2;
 	t_virtual		rray2;
 	unsigned char 	red;
@@ -226,7 +228,7 @@ void			raycasting(t_env *e);
 ** clean.c
 */
 
-int				clean_env(t_env *e);
+void			exit_program(t_env *e);
 
 /*
 ** texture.c
