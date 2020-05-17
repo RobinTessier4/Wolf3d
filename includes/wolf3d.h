@@ -223,4 +223,11 @@ void			draw_text(t_env *e, t_vector *v, t_pos_d rayend);
 
 void			raycasting(t_env *e);
 
+/*
+** clean.c
+*/
+
+int				clean_env(t_env *e);
+
+
 #endif

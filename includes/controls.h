@@ -83,7 +83,7 @@
 
 */
 
-# define A 113
+# define A 97
 # define B 11
 # define C 8
 # define D 100
@@ -95,7 +95,7 @@
 # define J 38
 # define K 40
 # define L 37
-# define M 44
+# define M 109
 # define N 45
 # define O 31
 # define P 35
@@ -105,7 +105,7 @@
 # define T 17
 # define U 32
 # define V 9
-# define W 122
+# define W 119
 # define X 7
 # define Y 16
 # define Z 6

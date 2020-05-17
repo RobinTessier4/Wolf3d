@@ -32,7 +32,8 @@ SRC_FILES =	main.c \
 			raycasting.c \
 			error.c \
 			utils.c \
-			vector.c
+			vector.c \
+			clean.c
 
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
