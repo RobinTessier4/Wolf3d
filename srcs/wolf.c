@@ -21,7 +21,7 @@ void	draw_sky_floor(t_env *e)
 	i = 0;
 	x = 0;
 	y = 0;
-	mlx_clear_window(e->mlx->ptr, e->mlx->wind);
+	// mlx_clear_window(e->mlx->ptr, e->mlx->wind);
 	while (y < HEIGHT)
 	{
 		while (x < WIDTH)
