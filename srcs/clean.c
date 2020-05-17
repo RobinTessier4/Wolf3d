@@ -12,6 +12,26 @@
 
 #include <wolf3d.h>
 
+static void	clean_file(t_env *e)
+{
+	int		i;
+
+	i = 0;
+	if (e->file)
+	{
+		while (i < e->map_height)
+		{
+			// printf("before : e->file[%d] = %p\n", i, e->file[i]);
+			free(e->file[i]);
+			e->file[i] = NULL;
+			// printf("after : e->file[%d] = %p\n", i, e->file[i]);
+			i++;
+		}
+		free(e->file);
+		e->file = NULL;
+	}
+}
+
 static void	clean_map_lines(t_env *e)
 {
 	// printf("e->map_lines = %p\n", e->map_lines);
@@ -87,6 +107,7 @@ static void	clean_vector(t_env *e)
 
 void		exit_program(t_env *e)
 {
+	clean_file(e);
 	clean_map_lines(e);
 	clean_vector(e);
 	clean_text(e);
