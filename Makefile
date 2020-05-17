@@ -33,7 +33,8 @@ SRC_FILES =	main.c \
 			error.c \
 			utils.c \
 			vector.c \
-			clean.c
+			texture.c \
+			clean.c 
 
 
 OBJ_FILES = $(SRC_FILES:.c=.o)

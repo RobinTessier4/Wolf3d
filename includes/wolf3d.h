@@ -215,7 +215,6 @@ void	        ray_init(t_env *e);
 void	        draw_rayons(t_env *e, t_vector *tmp);
 void	        draw_vector(t_env *e);
 void			draw_text(t_env *e, t_vector *v, t_pos_d rayend);
-//void			draw_one_by_one(t_env *e);
 
 /*
 ** raycasting.c
@@ -229,5 +228,10 @@ void			raycasting(t_env *e);
 
 int				clean_env(t_env *e);
 
+/*
+** texture.c
+*/
+
+int				text_init(t_env *e);
 
 #endif
