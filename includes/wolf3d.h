@@ -75,7 +75,7 @@ typedef struct		s_virtual
 typedef	struct		s_parse
 {	
 	int 			*nums;
-	struct 			s_parse *next;
+	struct s_parse *next;
 }					t_parse;
 
 typedef struct 		s_key
@@ -89,7 +89,6 @@ typedef struct 		s_key
 	int				k_s;
 	int				k_d;
 }					t_key;
-
 
 typedef struct s_env
 {
@@ -211,6 +210,7 @@ int				text_init(t_env *e);
 /*
 ** vector.c
 */
+
 void			draw_vector(t_env *e);
 void	        vector_init(t_env *e, t_vector *v);
 void	        ray_init(t_env *e);
@@ -234,6 +234,13 @@ void			exit_program(t_env *e);
 ** texture.c
 */
 
-int				text_init(t_env *e);
+int				texture_init(t_env *e);
+
+/*
+** hud.c
+*/
+
+void			draw_info_line(t_env *e);
+void			info(t_env *e);
 
 #endif

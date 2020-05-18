@@ -18,18 +18,23 @@ static void	init_ptr(t_env *e)
 	param_init(e);
 }
 
-int			ft_close(void)
+static int	ft_close(void)
 {
+	printf("JE QUITTE\n");
 	exit(EXIT_SUCCESS);
 	return (0);
 }
 
 static void	hook_events(t_env *e)
 {
-	mlx_hook(e->mlx->wind, 2, (1L << 0), &key_hook, e);
-	mlx_hook(e->mlx->wind, 3, (1L << 1), &key_release_hook, e);
-	mlx_hook(e->mlx->wind, 17, 0L, ft_close, e);
-	mlx_loop(e->mlx->ptr);
+	// mlx_hook(e->mlx->wind, 2, (1L << 0), &key_hook, e);
+	// mlx_hook(e->mlx->wind, 3, (1L << 1), &key_release_hook, e);
+	// mlx_hook(e->mlx->wind, 17, 0L, ft_close, e);
+	// mlx_loop(e->mlx->ptr);
+
+    mlx_hook(e->mlx->wind, 2, (1L << 0), &key_hook, e);
+    mlx_hook(e->mlx->wind, 17, 0L, &ft_close, e);
+    mlx_loop(e->mlx->ptr);
 }	
 
 /*

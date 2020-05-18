@@ -36,7 +36,7 @@ static void	text_wood_init(t_env *e, int a, int b)
 	e->text[7].data = mlx_get_data_addr(e->text[7].img, &e->text[7].bpp, &e->text[7].sizeline, &e->text[7].endian);
 }
 
-int			text_init(t_env *e)
+int			texture_init(t_env *e)
 {
 	int		a;
 	int		b;

@@ -52,7 +52,7 @@ int			param_init(t_env *e)
 		return (1);
 	if (!(e->rray = ft_memalloc(sizeof(t_vector))))
 		return (1);
-	text_init(e);
+	texture_init(e);
 	keyboard_init(e);
 	player_init(e);
 	map_init(e);
