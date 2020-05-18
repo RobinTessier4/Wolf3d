@@ -12,11 +12,7 @@
 
 #include <wolf3d.h>
 
-<<<<<<< HEAD
 void	        vector_init(t_vector *v)
-=======
-void			vector_init(t_env *e, t_vector *v)
->>>>>>> check_leaks
 {
 	v->dist.x = abs(v->end.x - v->start.x);
 	v->dist.y = abs(v->end.y - v->start.y);

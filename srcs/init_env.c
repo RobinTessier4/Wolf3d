@@ -62,7 +62,6 @@ int			param_init(t_env *e)
 	if (!(e->rray = ft_memalloc(sizeof(t_vector))))
 		return (1);
 	texture_init(e);
-	keyboard_init(e);
 	player_init(e);
 	map_init(e);
 	return (0);

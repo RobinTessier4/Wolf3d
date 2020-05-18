@@ -54,9 +54,10 @@ int			main(int ac, char **av)
 				{
 					if (HEIGHT < e.map_height || WIDTH < e.map_width)
 						return(error_msg("error: window is too small", &e));
-					init_mlx(&e);
+					init_ptr(&e);
 					print_map(&e);
 					draw_raycasting(&e);
+					hook_events(&e);
 				}
 				else
 				{
