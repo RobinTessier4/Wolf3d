@@ -21,7 +21,7 @@ void	draw_sky_floor(t_env *e)
 	i = 0;
 	x = 0;
 	y = 0;
-	mlx_clear_window(e->mlx->ptr, e->mlx->wind);
+//	mlx_clear_window(e->mlx->ptr, e->mlx->wind);
 	while (y < HEIGHT)
 	{
 		while (x < WIDTH)
@@ -103,8 +103,8 @@ void	info(t_env *e)
 
 void	draw_raycasting(t_env *e)
 {
-	ft_destroy_image (e->mlx->ptr, e->mlx->img);
-	e->mlx->img = ft_new_image (e->mlx->ptr, WIDTH, HEIGHT);
+//	ft_destroy_image (e->mlx->ptr, e->mlx->img);
+//	e->mlx->img = ft_new_image (e->mlx->ptr, WIDTH, HEIGHT);
 	draw_sky_floor(e);
 	raycasting(e);
 	if (e->help == 1)
@@ -116,8 +116,8 @@ void	draw_raycasting(t_env *e)
 
 void	draw_2D_map(t_env *e)
 {
-		ft_destroy_image (e->mlx->ptr, e->mlx->img);
-	e->mlx->img = ft_new_image (e->mlx->ptr, WIDTH, HEIGHT);
+//		ft_destroy_image (e->mlx->ptr, e->mlx->img);
+//	e->mlx->img = ft_new_image (e->mlx->ptr, WIDTH, HEIGHT);
 		fill_img(e->mlx, WHITE, WIDTH, HEIGHT);
 	draw_grid(e);
 	player_position(e);

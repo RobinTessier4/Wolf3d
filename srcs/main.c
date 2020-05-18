@@ -12,12 +12,6 @@
 
 #include <wolf3d.h>
 
-static void	init_ptr(t_env *e)
-{
-	init_mlx(e);
-	param_init(e);
-}
-
 int			ft_close(void)
 {
 	exit(EXIT_SUCCESS);
@@ -50,15 +44,6 @@ int			text_init(t_env *e)
 	return (0);
 }
 
-static void	hook_events(t_env *e)
-{
-	mlx_hook(e->mlx->wind, 2, (1L << 0), &key_hook, e);
-	mlx_hook(e->mlx->wind, 3, (1L << 1), &key_release_hook, e);
-	mlx_mouse_hook(e->mlx->wind, mouse_hook, e);
-	mlx_hook(e->mlx->wind, 17, 0L, ft_close, e);
-	mlx_loop(e->mlx->ptr);
-}	
-
 int			main(int ac, char **av)
 {
 	t_env	e;
@@ -74,11 +59,12 @@ int			main(int ac, char **av)
 				{
 					if (HEIGHT < e.map_height || WIDTH < e.map_width)
 						return(error_msg("error: window is too small", &e));
-					init_ptr(&e);
+					init_mlx(&e);
 					print_map(&e);
-					// printf("e.map_width: %d ; e.map_height: %d\n", e.map_width, e.map_height);
 					draw_raycasting(&e);
-					hook_events(&e);
+					mlx_hook(e.mlx->wind, 2, 0, key_hook, &e);
+					mlx_hook(e.mlx->wind, 17, 0L, ft_close, &e);
+					mlx_loop(e.mlx->ptr);
 				}
 				else
 				{
@@ -90,6 +76,6 @@ int			main(int ac, char **av)
 		}
 	}
 	else
-		ft_putendl("Usage : wolf3d [map01/map02/map03]");	
+		ft_putendl("Usage : wolf3d [map01/map02/map03]");
 	return (0);
 }

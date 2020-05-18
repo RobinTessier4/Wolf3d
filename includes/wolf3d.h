@@ -78,19 +78,6 @@ typedef	struct		s_parse
 	struct 			s_parse *next;
 }					t_parse;
 
-typedef struct 		s_key
-{
-	int				k_left;
-	int				k_down;
-	int				k_up;
-	int				k_right;
-	int				k_w;
-	int				k_a;
-	int				k_s;
-	int				k_d;
-}					t_key;
-
-
 typedef struct s_env
 {
 	t_text			text[9];
@@ -127,7 +114,6 @@ typedef struct s_env
 	unsigned char 	blue;
 	unsigned int 	color;
 	char			help;
-	t_key			key;
 }					t_env;
 
 /*
