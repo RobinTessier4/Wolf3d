@@ -12,15 +12,15 @@
 
 #include <wolf3d.h>
 
-void		put_pixel_color(t_env *e, int color, t_pos *pos)
+void			put_pixel_color(t_env *e, int color, t_pos *pos)
 {
 	e->mlx->img->color = color;
 	img_pixel_put(e->mlx, *pos);
 }
 
-void		draw_line(t_env *e, t_vector *v)
+void			draw_line(t_env *e, t_vector *v)
 {
-	int		e2;
+	int			e2;
 
 	if (!e)
 		return ;
@@ -42,7 +42,7 @@ void		draw_line(t_env *e, t_vector *v)
 	}
 }
 
-void		get_text_color(t_env *e, int i, int x, int pos)
+static void		get_text_color(t_env *e, int i, int x, int pos)
 {
 	e->red = e->text[i].data[(x * e->text[i].bpp) / 8 + (pos * e->text[i].sizeline)];
 	e->green = e->text[i].data[((x * e->text[i].bpp) / 8) + 1 + (pos * e->text[i].sizeline)];
@@ -50,7 +50,7 @@ void		get_text_color(t_env *e, int i, int x, int pos)
 	e->color = (e->blue << 16) | (e->green << 8) | e->red;
 }
 
-unsigned int		get_text(t_env *e, t_pos_d rayend, t_pos_d pos)
+unsigned int	get_text(t_env *e, t_pos_d rayend, t_pos_d pos)
 {
 	int intx;
 	int inty;
@@ -79,11 +79,11 @@ unsigned int		get_text(t_env *e, t_pos_d rayend, t_pos_d pos)
 	return (e->color);
 }
 
-void		draw_text(t_env *e, t_vector *wall, t_pos_d rayend)
+void			draw_text(t_env *e, t_vector *wall, t_pos_d rayend)
 {
-	int		y;
-	int end;
-	t_pos_d pos;
+	int			y;
+	int			end;
+	t_pos_d		pos;
 
 	pos.x = wall->start.x;
 	y = 0;
@@ -100,9 +100,9 @@ void		draw_text(t_env *e, t_vector *wall, t_pos_d rayend)
 	}
 }
 
-void		draw_inf_line(t_env *e, t_vector *v)
+void			draw_inf_line(t_env *e, t_vector *v)
 {
-	int		e2;
+	int			e2;
 
 	e->current_bloc.x = v->start.x / e->bloc_width;
 	e->current_bloc.y = v->start.y / e->bloc_height;

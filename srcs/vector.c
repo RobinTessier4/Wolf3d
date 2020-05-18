@@ -12,7 +12,11 @@
 
 #include <wolf3d.h>
 
+<<<<<<< HEAD
 void	        vector_init(t_vector *v)
+=======
+void			vector_init(t_env *e, t_vector *v)
+>>>>>>> check_leaks
 {
 	v->dist.x = abs(v->end.x - v->start.x);
 	v->dist.y = abs(v->end.y - v->start.y);
@@ -21,7 +25,7 @@ void	        vector_init(t_vector *v)
 	v->err = (v->dist.x > v->dist.y ? v->dist.x : -v->dist.y) / 2;
 }
 
-void	        ray_init(t_env *e)
+void			ray_init(t_env *e)
 {
     /* init central ray at the player's position */
 	e->dir->start.x = e->player.x * e->bloc_width;
@@ -51,9 +55,9 @@ void	        ray_init(t_env *e)
 
 }
 
-void	        draw_rayons(t_env *e, t_vector *tmp)
+void			draw_rayons(t_env *e, t_vector *tmp)
 {
-	int		    err;
+	int			err;
 
 	while (tmp->start.x != tmp->end.x || tmp->start.y != tmp->end.y)
 	{
@@ -77,7 +81,7 @@ void	        draw_rayons(t_env *e, t_vector *tmp)
 	}
 }
 
-void	        draw_vector(t_env *e)
+void			draw_vector(t_env *e)
 {
 	t_vector	*tmp; //copie de plane
 

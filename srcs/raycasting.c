@@ -12,7 +12,7 @@
 
 #include <wolf3d.h>
 
-static void	 virtual_init(t_virtual *v)
+static void		virtual_init(t_virtual *v)
 {
 	v->dist.x = fabs(v->start.x - v->end.x);
 	v->dist.y = fabs(v->start.y - v->end.y);
@@ -23,12 +23,12 @@ static void	 virtual_init(t_virtual *v)
 	v->err = (v->dist.x > v->dist.y ? v->dist.x : -v->dist.y) / 2;
 }
 
-double		calc_size_ray(t_env *e, t_virtual *v)
-{
-	float	e2;
-	double	dist;
-	double startx;
-	double starty;
+double			calc_size_ray(t_env *e, t_virtual *v)
+{	
+	float		e2;
+	double		dist;
+	double		startx;
+	double		starty;
 
 	startx = v->start.x;
 	starty = v->start.y;
@@ -57,7 +57,7 @@ static void		draw_wall(t_env *e, double dist, int x, t_pos_d rayend)
 	int			size_wall;
 	double		ecart;
 	double		angle;
-	t_vector *wall;
+	t_vector	*wall;
 
 	if (!(wall = ft_memalloc(sizeof(t_vector))))
 		return ;
@@ -75,6 +75,7 @@ static void		draw_wall(t_env *e, double dist, int x, t_pos_d rayend)
 	if (rayend.x > 0 && rayend.x < e->map_width && rayend.y > 0 && rayend.y < e->map_height)
 		draw_text(e, wall, rayend);
 	free(wall);
+	wall = NULL;
 }
 
 void			raycasting(t_env *e)
@@ -83,7 +84,7 @@ void			raycasting(t_env *e)
 	double		size;
 	t_virtual	vector;
 	t_virtual	rayon;
-	t_pos_d start;
+	t_pos_d		start;
 
 	vector.start.x = (e->player.x + e->dir_p.x - e->plane_p.x);
 	vector.start.y = (e->player.y + e->dir_p.y - e->plane_p.y);
@@ -96,7 +97,6 @@ void			raycasting(t_env *e)
 	{
 		rayon.start.x = e->player.x * BLOC_SIZE;
 		rayon.start.y = e->player.y * BLOC_SIZE;
-
 		rayon.end.x = start.x + ((vector.end.x - start.x) * (x / (double)WIDTH));
 		rayon.end.y = start.y + ((vector.end.y - start.y) * (x / (double)WIDTH));
 		virtual_init(&rayon);

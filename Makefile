@@ -22,7 +22,6 @@ OBJ_DIR = ./objs/
 
 SRC_FILES =	main.c \
 			key_hook.c \
-			mouse_hook.c \
 			wolf.c \
 			init_env.c \
 			image.c \
@@ -32,7 +31,10 @@ SRC_FILES =	main.c \
 			raycasting.c \
 			error.c \
 			utils.c \
-			vector.c
+			vector.c \
+			texture.c \
+			clean.c \
+			hud.c
 
 
 OBJ_FILES = $(SRC_FILES:.c=.o)

@@ -75,7 +75,7 @@ typedef struct		s_virtual
 typedef	struct		s_parse
 {	
 	int 			*nums;
-	struct 			s_parse *next;
+	struct s_parse *next;
 }					t_parse;
 
 typedef struct s_env
@@ -103,10 +103,12 @@ typedef struct s_env
 //	int 			leftray;
 //	int 			rightray;
 	int				lineheight;
+	
 	t_vector 		*dir; //rayon central partant du player
 	t_vector 		*plane;
 	t_vector 		*lray;
 	t_vector 		*rray;
+	
 	t_virtual		lray2;
 	t_virtual		rray2;
 	unsigned char 	red;
@@ -195,18 +197,37 @@ int				text_init(t_env *e);
 /*
 ** vector.c
 */
+
 void			draw_vector(t_env *e);
 void	        vector_init(t_vector *v);
 void	        ray_init(t_env *e);
 void	        draw_rayons(t_env *e, t_vector *tmp);
 void	        draw_vector(t_env *e);
 void			draw_text(t_env *e, t_vector *v, t_pos_d rayend);
-//void			draw_one_by_one(t_env *e);
 
 /*
 ** raycasting.c
 */
 
 void			raycasting(t_env *e);
+
+/*
+** clean.c
+*/
+
+void			exit_program(t_env *e);
+
+/*
+** texture.c
+*/
+
+int				texture_init(t_env *e);
+
+/*
+** hud.c
+*/
+
+void			draw_info_line(t_env *e);
+void			info(t_env *e);
 
 #endif
