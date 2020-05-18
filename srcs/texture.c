@@ -47,3 +47,40 @@ int			texture_init(t_env *e)
 	text_wood_init(e, a, b);
 	return (0);
 }
+
+void		get_text_color(t_env *e, int i, int x, int pos)
+{
+	e->red = e->text[i].data[(x * e->text[i].bpp) / 8 + (pos * e->text[i].sizeline)];
+	e->green = e->text[i].data[((x * e->text[i].bpp) / 8) + 1 + (pos * e->text[i].sizeline)];
+	e->blue = e->text[i].data[((x * e->text[i].bpp) / 8) + 2 + (pos * e->text[i].sizeline)];
+	e->color = (e->blue << 16) | (e->green << 8) | e->red;
+}
+
+unsigned int	get_text(t_env *e, t_pos_d rayend, t_pos_d pos)
+{
+	int intx;
+	int inty;
+	t_pos coord;
+
+	intx = (int)rayend.x;
+	inty = (int)rayend.y;
+	rayend.x = rayend.x - intx;
+	rayend.y = rayend.y - inty;
+	coord.x = rayend.x * 250;
+	coord.y = rayend.y * 250;
+	if (rayend.y >= 0.996 || rayend.y <= 0.004)
+	{
+		if (((e->dir_p.y - e->plane_p.y) - (((e->dir_p.y - e->plane_p.y) - (e->dir_p.y + e->plane_p.y)) * ((double)pos.x / WIDTH))) < 0)
+			get_text_color(e, (e->file[inty][intx] * 4) - 4, coord.x, pos.y);
+		else
+			get_text_color(e, (e->file[inty][intx] * 4) - 4 + 1, coord.x, pos.y);
+	}
+	else
+	{
+		if (((e->dir_p.x - e->plane_p.x) - (((e->dir_p.x - e->plane_p.x) - (e->dir_p.x + e->plane_p.x)) * ((double)pos.x / WIDTH))) > 0)
+			get_text_color(e, (e->file[inty][intx] * 4) - 4 + 2, coord.y, pos.y);
+		else
+			get_text_color(e, (e->file[inty][intx] * 4) - 4 + 3, coord.y, pos.y);
+	}
+	return (e->color);
+}
