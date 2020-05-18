@@ -42,8 +42,6 @@ void			draw_line(t_env *e, t_vector *v)
 	}
 }
 
-
-
 void			draw_text(t_env *e, t_vector *wall, t_pos_d rayend)
 {
 	int			y;

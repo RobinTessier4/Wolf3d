@@ -37,7 +37,6 @@ int			check_if_wall(t_env *e, int i)
 {
 	t_pos_d 	cur;
 	cur = e->player;
-
 	if (i == 1)
 	{
 		cur.y += e->dir_p.y / 10 * 2;
@@ -50,8 +49,7 @@ int			check_if_wall(t_env *e, int i)
 	}
 	else
 		return(check_if_wall2(e, i));
-	if (e->file[(int)(cur.y)][(int)(cur.x)] != 0 || cur.y < 0 || cur.x < 0 || 
-			cur.y > e->map_height || cur.x > e->map_width)
+	if (cur.y < 0 || cur.x < 0 || cur.y >= e->map_height || cur.x >= e->map_width || e->file[(int)(cur.y)][(int)(cur.x)] != 0)
 		return (1);
 	return (0);
 }

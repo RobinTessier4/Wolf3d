@@ -73,7 +73,6 @@ static void	clean_text(t_env *e)
 
 static void	clean_vector(t_env *e)
 {
-	printf("attention je clean vector\n\n");
 	if (e->dir)
 	{
 		// printf("Before: e->dir = %p\n", e->dir);

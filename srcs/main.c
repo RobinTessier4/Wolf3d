@@ -32,12 +32,7 @@ static void	hook_events(t_env *e)
     mlx_loop(e->mlx->ptr);
 }	
 
-/*
-static void __attribute__((destructor)) destruct()
-{
-	while(1);
-}
-*/
+//__attribute__((destructor)) void loop_inf(void){ for(;;); }
 
 int			main(int ac, char **av)
 {
