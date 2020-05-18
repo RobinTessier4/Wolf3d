@@ -99,9 +99,9 @@ typedef struct s_env
 	int 			bloc_height;
 	t_pos			current_bloc; // e->player.y1 = e->current_bloc.y / e->player.x1 = e->current_bloc.x
 	t_pos			cursor;
-	int 			midray;
-	int 			leftray;
-	int 			rightray;
+//	int 			midray;
+//	int 			leftray;
+//	int 			rightray;
 	int				lineheight;
 	t_vector 		*dir; //rayon central partant du player
 	t_vector 		*plane;
@@ -196,7 +196,7 @@ int				text_init(t_env *e);
 ** vector.c
 */
 void			draw_vector(t_env *e);
-void	        vector_init(t_env *e, t_vector *v);
+void	        vector_init(t_vector *v);
 void	        ray_init(t_env *e);
 void	        draw_rayons(t_env *e, t_vector *tmp);
 void	        draw_vector(t_env *e);

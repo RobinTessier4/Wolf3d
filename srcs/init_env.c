@@ -12,6 +12,28 @@
 
 #include <wolf3d.h>
 
+void	start_location(t_env *e)
+{
+	e->player.x = 0;
+	e->player.y = 0;
+	while (e->player.y < e->map_height)
+	{
+		while (e->player.x < e->map_width)
+		{
+			if (e->file[(int)e->player.y][(int)e->player.x] == 0)
+			{
+				e->player.x += 0.5;
+				e->player.y += 0.5;
+				return ;
+			}
+			e->player.x++;
+		}
+		e->player.x = 0;
+		e->player.y++;
+	}
+
+}
+
 int		param_init(t_env *e)
 {
 	if (!(e->dir = ft_memalloc(sizeof(t_vector))))
@@ -25,14 +47,13 @@ int		param_init(t_env *e)
 	text_init(e);
 	e->help = 1;
 	e->map = 1;
-	e->player.x = 3;
-	e->player.y = 3;
 	e->dir_p.x = 0;
 	e->dir_p.y = -1;
 	e->plane_p.x = 0.66;
 	e->plane_p.y = 0;
 	e->bloc_width = WIDTH / e->map_width;
 	e->bloc_height = HEIGHT / e->map_height;
+	start_location(e);
 	return (0);
 }
 

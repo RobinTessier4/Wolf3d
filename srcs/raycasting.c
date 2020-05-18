@@ -71,7 +71,7 @@ static void		draw_wall(t_env *e, double dist, int x, t_pos_d rayend)
 	wall->start.y = (HEIGHT / 2) - size_wall;
 	wall->end.x = x;
 	wall->end.y = (HEIGHT / 2) + size_wall;
-	vector_init(e, wall);
+	vector_init(wall);
 	if (rayend.x > 0 && rayend.x < e->map_width && rayend.y > 0 && rayend.y < e->map_height)
 		draw_text(e, wall, rayend);
 	free(wall);

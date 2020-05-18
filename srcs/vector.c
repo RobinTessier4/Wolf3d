@@ -12,9 +12,8 @@
 
 #include <wolf3d.h>
 
-void	        vector_init(t_env *e, t_vector *v)
+void	        vector_init(t_vector *v)
 {
-    (void)e;
 	v->dist.x = abs(v->end.x - v->start.x);
 	v->dist.y = abs(v->end.y - v->start.y);
 	v->sx = v->start.x < v->end.x ? 1 : -1;
@@ -62,8 +61,7 @@ void	        draw_rayons(t_env *e, t_vector *tmp)
 		e->lray->start.y = e->player.y * e->bloc_height;
 		
 		e->lray->end = tmp->start;
-		vector_init(e, e->lray);
-		
+		vector_init(e->lray);
 		draw_inf_line(e, e->lray);
 		err = tmp->err;
 		if (err > -tmp->dist.x)
@@ -85,26 +83,14 @@ void	        draw_vector(t_env *e)
 
 	if (!(tmp = ft_memalloc(sizeof(t_vector))))
 		return ;
-	e->leftray = 0;
-	e->rightray = 0;
-	e->midray = 0;
 	ray_init(e);
-	vector_init(e, e->dir);
-	vector_init(e, e->plane);
-	vector_init(e, e->rray);
-	vector_init(e, e->lray);
-
-//	draw_inf_line(e, e->dir, 3); // rayon central
-	
-    /* initialisation de tmp, une copie de plane, avant de draw plane */
+	vector_init(e->dir);
+	vector_init(e->plane);
+	vector_init(e->rray);
+	vector_init(e->lray);
 	tmp->start = e->plane->start;
 	tmp->end = e->plane->end;
-	vector_init(e, tmp);
-	
-  //  draw_line(e, e->plane); //draw plane
-//	draw_inf_line(e, e->lray, 1); //left ray
-//	draw_inf_line(e, e->rray, 2); //right ray
-
+	vector_init(tmp);
 	draw_rayons(e, tmp);
 	free(tmp);
 }

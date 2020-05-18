@@ -106,13 +106,13 @@ void		draw_inf_line(t_env *e, t_vector *v)
 
 	e->current_bloc.x = v->start.x / e->bloc_width;
 	e->current_bloc.y = v->start.y / e->bloc_height;
-	while ((v->start.x > 0 && v->start.y > 0) 
-			&& (v->start.x < WIDTH && v->start.y < HEIGHT) 
+	while ((v->start.x > 0 && v->start.y > 0
+				&& v->start.x < WIDTH && v->start.y < HEIGHT) && (e->current_bloc.y < e->map_height && e->current_bloc.x < e->map_width && e->current_bloc.x >= 0 && e->current_bloc.y >= 0)
 			&& (e->file[e->current_bloc.y][e->current_bloc.x] == 0))
 	{
 		e->current_bloc.x = v->start.x / e->bloc_width;
 		e->current_bloc.y = v->start.y / e->bloc_height;
-		if (v->start.x < WIDTH)
+		if (v->start.x < WIDTH && v->start.x > 0 && v->start.y > 0 && v->start.y < HEIGHT)
 			put_pixel_color(e, 7869695, &v->start);
 		e2 = v->err;
 		if (e2 > -v->dist.x)
@@ -126,4 +126,5 @@ void		draw_inf_line(t_env *e, t_vector *v)
 			v->start.y += v->sy;
 		}
 	}
+
 }
