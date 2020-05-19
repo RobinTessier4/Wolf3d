@@ -220,7 +220,7 @@ void			exit_program(t_env *e);
 /*
 ** texture.c
 */
-
+unsigned int	get_text(t_env *e, t_pos_d rayend, t_pos_d pos);
 int				texture_init(t_env *e);
 
 /*
