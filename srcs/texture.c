@@ -46,8 +46,6 @@ int				texture_init(t_env *e)
 
 	a = 64;
 	b = 64;
-	// set_stone_texture(e, a, b);
-	// set_wood_texture(e, a, b);
 	set_texture(e, a, b);
 	return (0);
 }
