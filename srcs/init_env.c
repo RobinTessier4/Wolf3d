@@ -71,6 +71,5 @@ t_env		*init_mlx(t_env *e)
 {
 	e->mlx = mlx_start(WIDTH, HEIGHT, "WOLF3D");
 	e->mlx->img->color = 0;
-	param_init(e);
 	return (e);
 }
