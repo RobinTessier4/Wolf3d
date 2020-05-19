@@ -12,11 +12,11 @@
 
 #include <wolf3d.h>
 
-int		check_if_wall2(t_env *e, int i)
+static int		check_if_wall2(t_env *e, int i)
 {
-	t_pos_d 	cur;
-	cur = e->player;
+	t_pos_d		cur;
 
+	cur = e->player;
 	if (i == 3)
 	{
 		cur.y -= e->dir_p.x / 10 * 2;
@@ -27,15 +27,16 @@ int		check_if_wall2(t_env *e, int i)
 		cur.y += e->dir_p.x / 10 * 2;
 		cur.x -= e->dir_p.y / 10 * 2;
 	}
-	if (e->file[(int)(cur.y)][(int)(cur.x)] != 0 || cur.y < 0 || cur.x < 0 || 
+	if (e->file[(int)(cur.y)][(int)(cur.x)] != 0 || cur.y < 0 || cur.x < 0 ||
 			cur.y > e->map_height || cur.x > e->map_width)
 		return (1);
 	return (0);
 }
 
-int			check_if_wall(t_env *e, int i)
+static int		check_if_wall(t_env *e, int i)
 {
-	t_pos_d 	cur;
+	t_pos_d		cur;
+
 	cur = e->player;
 	if (i == 1)
 	{
@@ -48,13 +49,14 @@ int			check_if_wall(t_env *e, int i)
 		cur.x -= e->dir_p.x / 10 * 2;
 	}
 	else
-		return(check_if_wall2(e, i));
-	if (cur.y < 0 || cur.x < 0 || cur.y >= e->map_height || cur.x >= e->map_width || e->file[(int)(cur.y)][(int)(cur.x)] != 0)
+		return (check_if_wall2(e, i));
+	if (cur.y < 0 || cur.x < 0 || cur.y >= e->map_height
+		|| cur.x >= e->map_width || e->file[(int)(cur.y)][(int)(cur.x)] != 0)
 		return (1);
 	return (0);
 }
 
-static void	wasd_key(int key, t_env *e)
+static void		wasd_key(int key, t_env *e)
 {
 	if (key == W && e->player.y < HEIGHT && check_if_wall(e, 1) == 0)
 	{
@@ -78,18 +80,20 @@ static void	wasd_key(int key, t_env *e)
 	}
 }
 
-static void	rotation_key(int key, t_env *e)
+static void		rotation_key(int key, t_env *e)
 {
 	if (key == ARROW_LEFT)
 	{
 		e->oldx = e->dir_p.x;
-		e->dir_p.x = e->dir_p.x * cos(-ROT_SPEED) - e->dir_p.y * sin(-ROT_SPEED);
-		e->dir_p.y = e->oldx * sin(-ROT_SPEED) + e->dir_p.y * cos(-ROT_SPEED);
-
+		e->dir_p.x = e->dir_p.x * cos(-ROT_SPEED)
+			- e->dir_p.y * sin(-ROT_SPEED);
+		e->dir_p.y = e->oldx * sin(-ROT_SPEED)
+			+ e->dir_p.y * cos(-ROT_SPEED);
 		e->oldx = e->plane_p.x;
-
-		e->plane_p.x = e->plane_p.x * cos(-ROT_SPEED) - e->plane_p.y * sin(-ROT_SPEED);
-		e->plane_p.y = e->oldx * sin(-ROT_SPEED) + e->plane_p.y * cos(-ROT_SPEED);
+		e->plane_p.x = e->plane_p.x * cos(-ROT_SPEED)
+			- e->plane_p.y * sin(-ROT_SPEED);
+		e->plane_p.y = e->oldx * sin(-ROT_SPEED)
+			+ e->plane_p.y * cos(-ROT_SPEED);
 	}
 	if (key == ARROW_RIGHT)
 	{
@@ -97,13 +101,13 @@ static void	rotation_key(int key, t_env *e)
 		e->dir_p.x = e->dir_p.x * cos(ROT_SPEED) - e->dir_p.y * sin(ROT_SPEED);
 		e->dir_p.y = e->oldx * sin(ROT_SPEED) + e->dir_p.y * cos(ROT_SPEED);
 		e->oldx = e->plane_p.x;
-
-		e->plane_p.x = e->plane_p.x * cos(ROT_SPEED) - e->plane_p.y * sin(ROT_SPEED);
+		e->plane_p.x = e->plane_p.x * cos(ROT_SPEED)
+			- e->plane_p.y * sin(ROT_SPEED);
 		e->plane_p.y = e->oldx * sin(ROT_SPEED) + e->plane_p.y * cos(ROT_SPEED);
 	}
 }
 
-int			key_hook(int key, t_env *e)
+int				key_hook(int key, t_env *e)
 {
 	if (key == MAIN_PAD_ESC)
 		exit_program(e);
