@@ -36,7 +36,7 @@ static void	hook_events(t_env *e)
 ** __attribute__((destructor)) void loop_inf(void){ for(;;); }
 */
 
-static void run_app(t_env *e)
+static void	run_app(t_env *e)
 {
 	if (HEIGHT < e->map_height || WIDTH < e->map_width)
 		v_error_msg("error: window is too small", e);
