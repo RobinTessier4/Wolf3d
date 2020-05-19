@@ -26,7 +26,7 @@
 # include <stdio.h>
 # include <pthread.h>
 
-#define VERBOSE 1
+#define VERBOSE 0
 
 #define WIDTH 500
 #define HEIGHT 500
@@ -99,23 +99,26 @@ typedef struct s_env
 	int 			bloc_height;
 	t_pos			current_bloc; // e->player.y1 = e->current_bloc.y / e->player.x1 = e->current_bloc.x
 	t_pos			cursor;
-//	int 			midray;
-//	int 			leftray;
-//	int 			rightray;
 	int				lineheight;
 	
 	t_vector 		*dir; //rayon central partant du player
 	t_vector 		*plane;
 	t_vector 		*lray;
 	t_vector 		*rray;
+
+	t_pos_d			rayend;
 	
 	t_virtual		lray2;
 	t_virtual		rray2;
+
 	unsigned char 	red;
 	unsigned char 	green;
 	unsigned char 	blue;
 	unsigned int 	color;
+
 	char			help;
+
+
 }					t_env;
 
 /*
@@ -134,21 +137,26 @@ t_parse			*new_elem(t_env *e, int len);
 int				**map_tab(t_env *e);
 
 /*
+** init_env.c
+*/
+
+int				param_init(t_env *e);
+t_env			*init_mlx(t_env *e);
+
+/*
 ** error.c
 */
 
-void			usage(char *program);
+void			usage(void);
 void			ft_error(void);
 int				error_msg(char *message, t_env *env);
-
+void			v_error_msg(char *message, t_env *env);
 
 /*
 ** utils.c
 */
 
 void			print_map(t_env *e);
-//int			ft_abs(int nbr); on peut utiliser abs de math.h je crois donc pas utile
-
 
 /*
 ** image.c
@@ -171,7 +179,6 @@ void			draw_raycasting(t_env *e);
 */
 
 int				key_hook(int key, t_env *e);
-int				key_release_hook(int key, t_env *env);
 
 /*
 ** mouse_hook.c
@@ -179,12 +186,6 @@ int				key_release_hook(int key, t_env *env);
 
 int				mouse_hook(int key, int x, int y, t_env *e);
 
-/*
-** mlx.c
-*/
-
-int				param_init(t_env *e);
-t_env			*init_mlx(t_env *e);
 
 /*
 ** draw_grid.c.c
@@ -198,12 +199,13 @@ int				text_init(t_env *e);
 ** vector.c
 */
 
+t_virtual		init_vector_pos(t_env *e);
 void			draw_vector(t_env *e);
 void	        vector_init(t_vector *v);
 void	        ray_init(t_env *e);
 void	        draw_rayons(t_env *e, t_vector *tmp);
 void	        draw_vector(t_env *e);
-void			draw_text(t_env *e, t_vector *v, t_pos_d rayend);
+void			draw_text(t_env *e, t_vector *v);
 
 /*
 ** raycasting.c
@@ -222,7 +224,7 @@ void			exit_program(t_env *e);
 */
 
 void			get_text_color(t_env *e, int i, int x, int pos);
-unsigned int	get_text(t_env *e, t_pos_d rayend, t_pos_d pos);
+unsigned int	render_texture(t_env *e, t_pos_d pos);
 int				texture_init(t_env *e);
 
 /*

@@ -12,6 +12,17 @@
 
 #include <wolf3d.h>
 
+t_virtual			init_vector_pos(t_env *e)
+{
+	t_virtual		tmp;
+
+	tmp.start.x = (e->player.x + e->dir_p.x - e->plane_p.x);
+	tmp.start.y = (e->player.y + e->dir_p.y - e->plane_p.y);
+	tmp.end.x = (e->player.x + e->dir_p.x + e->plane_p.x);
+	tmp.end.y = (e->player.y + e->dir_p.y + e->plane_p.y);
+	return (tmp);
+}
+
 void	        vector_init(t_vector *v)
 {
 	v->dist.x = abs(v->end.x - v->start.x);
