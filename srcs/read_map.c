@@ -12,7 +12,6 @@
 
 #include <wolf3d.h>
 
-// enregistre la largeur de la map dans variable d'env env->map_width
 static void			tabwidth(char *line, t_env *env)
 {
 	int				len;
@@ -39,8 +38,8 @@ static int			str_to_intarray(char *line, t_parse *elem, t_env *env)
 	split = ft_strsplit_multi(line, "\t ");
 	while (split[i])
 	{
-			 if (ft_atoi(split[i]) < 0 || ft_atoi(split[i]) > 3)
-			 return (-1);
+		if (ft_atoi(split[i]) < 0 || ft_atoi(split[i]) > 3)
+			return (-1);
 		elem->nums[i] = ft_atoi(split[i]);
 		i++;
 	}
@@ -82,7 +81,9 @@ t_parse				*ft_read_input(int fd, t_env *env)
 	ret_read = 0;
 	env->map_height = 0;
 	if ((ret_read = gnl_reading(fd, env)) == -1)
+	{
 		return (NULL);
+	}
 	else if (env->map_height == 0)
 	{
 		error_msg("error: empty file", env);
