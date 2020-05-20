@@ -73,6 +73,7 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strsubfree(char **s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free(char **s1, char *s2);
+char				*ft_strjoin_free2(char *s1, char **s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				**ft_strsplit_multi(char const *str, char *split);
@@ -100,5 +101,7 @@ char				**ft_tabdup(char **tab);
 char				**ft_tabsub(char **tab, unsigned int start, size_t len);
 int					get_next_line(const int fd, char **line);
 int					get_next_line_zero(const int fd, char **line);
+char				*ft_ftoa(float n, char *res, int afterpoint);
+float				ft_power(float number, int pow);
 
 #endif

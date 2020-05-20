@@ -25,7 +25,7 @@ int			fill_img(t_mlx *mlx, int color, int width, int height)
 		pos.x = 0;
 		while (pos.x < width)
 		{
-			img_pixel_put(mlx, pos);
+			img_pixel_put(mlx, pos, color);
 			pos.x++;
 		}
 		pos.y++;
@@ -46,7 +46,7 @@ int			fill_img_pos(t_mlx *mlx, int color, t_pos start, t_pos end)
 		start2.x = start.x;
 		while (start2.x < end.x)
 		{
-			img_pixel_put(mlx, start2);
+			img_pixel_put(mlx, start2, color);
 			start2.x++;
 		}
 		start2.y++;

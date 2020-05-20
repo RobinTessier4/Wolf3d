@@ -30,7 +30,9 @@ OTHERS	=	others/ft_atoi.c \
 			others/ft_isprint.c \
 			others/ft_toupper.c \
 			others/ft_tolower.c \
-	  		others/ft_itoa.c
+	  		others/ft_itoa.c \
+			others/ft_ftoa.c \
+			others/ft_power.c
 
 STRS	=	str/ft_strlen.c \
 			str/ft_strdup.c \
@@ -102,7 +104,6 @@ DRAW	=	draw/mlx.c \
 			draw/img.c \
 			draw/img_color.c \
 			draw/drawline.c \
-			draw/draw_circle.c \
 			draw/fill.c
 
 SRCS = $(IO) $(MEMS) $(OTHERS) $(STRS) $(TABS) $(LST) $(DRAW)
@@ -119,20 +120,20 @@ draw: $(OBJ) $(DRAWOBJ)
 	@ranlib $(NAME)
 
 %.o: %.c
-	@$(CC) $(FLAGS) -c $< -o $@ $(HEAD)
+	$(CC) $(FLAGS) -c $< -o $@ $(HEAD)
 
 $(NAME): $(OBJS)
 	@echo "\033[32m["$(NAME)"] compilation de "$(NAME)"...\033[0m"
-	@$(AR) $(NAME) $(OBJS)
-	@ranlib $(NAME)
+	$(AR) $(NAME) $(OBJS)
+	ranlib $(NAME)
 
 clean:
 	@echo "\033[31m["$(NAME)"] suppression des objets...\033[0m"
-	@rm -f $(OBJS)
+	rm -f $(OBJS)
 
 fclean:	clean
 	@echo "\033[31m["$(NAME)"] suppression de "$(NAME)"...\033[0m"
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 

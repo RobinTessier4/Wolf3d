@@ -57,9 +57,9 @@ typedef struct			s_mlx
 
 typedef	struct			s_color
 {
-	unsigned char		green;
-	unsigned char		blue;
-	unsigned char		red;
+	int					green;
+	int					blue;
+	int					red;
 }						t_color;
 
 /*
@@ -74,7 +74,7 @@ void					mlx_destroy(t_mlx *mlx);
 */
 
 t_img					*ft_new_image(void *mlx_ptr, int width, int height);
-int						img_pixel_put(t_mlx *mlx, t_pos pos);
+int						img_pixel_put(t_mlx *mlx, t_pos pos, int color);
 void					ft_destroy_image(void *ptr, t_img *img);
 int						pixel_color(t_mlx *mlx, t_pos pos);
 t_uint32				true_color(void *mlx, int endian, int rgb);
@@ -83,7 +83,7 @@ t_uint32				true_color(void *mlx, int endian, int rgb);
 ** draw.c
 */
 
-int						drawline(t_mlx *mlx, t_pos start, t_pos end);
+int						drawline(t_mlx *mlx, t_pos start, t_pos end, int color);
 int						draw_circle(t_mlx *mlx, t_pos *origin,
 							int angle, int rayon);
 int						draw_square(t_mlx *mlx,
