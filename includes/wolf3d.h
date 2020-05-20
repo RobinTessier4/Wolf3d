@@ -42,6 +42,12 @@
 #define TITLE_HUD 0x89fc00
 #define TEXT_HUD 0xFFFFFF
 
+#define BEYOND_MAP 0x42321b
+#define FLOOR 0xC5B087
+#define RAY 0x89fc00
+#define PLAYER_COL 0xd00000
+#define BLOC_COLOR 0x1B9E77
+
 #define BLOC_SIZE 1
 #define BLOC_HEIGHT 95
 
@@ -176,10 +182,10 @@ void			draw_line(t_env *e, t_vector *v);
 ** wolf.c
 */
 
-void			draw_2d_map(t_env *e);
+void			render_2d_map(t_env *e);
 void			player_position(t_env *e);
 void			draw_grid(t_env *e);
-void			draw_raycasting(t_env *e);
+void			render_raycasting(t_env *e);
 
 /*
 ** key_hook.c
