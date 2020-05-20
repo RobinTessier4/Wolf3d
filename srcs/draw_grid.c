@@ -28,14 +28,14 @@ void		draw_grid(t_env *e)
 					e->map_height && e->current_bloc.x >= 0 && e->current_bloc.y >= 0)
 			{
 				if (e->file[e->current_bloc.y][e->current_bloc.x] == 0)
-					put_pixel_color(e, 0x7570B3, &cursor);
+					put_pixel_color(e, FLOOR, &cursor);
 				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 1)
-					put_pixel_color(e, 0x888888, &cursor);
+					put_pixel_color(e, BEYOND_MAP, &cursor);
 				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 2)
-					put_pixel_color(e, 0x1B9E77, &cursor);
+					put_pixel_color(e, BLOC_COLOR, &cursor);
 			}
 			else
-				put_pixel_color(e, 0x7570B3, &cursor);
+				put_pixel_color(e, BEYOND_MAP, &cursor);
 			cursor.x++;
 		}
 		cursor.y++;
@@ -55,7 +55,7 @@ void		player_position(t_env *e)
 	{
 		while (end.x != start.x + 2)
 		{
-			put_pixel_color(e, 16711680, &end);
+			put_pixel_color(e, PLAYER_COL, &end);
 			end.x++;
 		}
 		end.x = start.x - 2;

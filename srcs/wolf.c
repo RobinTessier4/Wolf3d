@@ -54,7 +54,7 @@ static void	display_hud(t_env *e)
 		info(e);
 }
 
-void		draw_raycasting(t_env *e)
+void		render_raycasting(t_env *e)
 {
 	render_sky(e);
 	render_floor(e);
@@ -62,7 +62,7 @@ void		draw_raycasting(t_env *e)
 	display_hud(e);
 }
 
-void		draw_2d_map(t_env *e)
+void		render_2d_map(t_env *e)
 {
 	draw_grid(e);
 	player_position(e);

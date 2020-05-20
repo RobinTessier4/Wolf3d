@@ -94,7 +94,7 @@ void			draw_inf_line(t_env *e, t_vector *v)
 		e->current_bloc.y = v->start.y / e->bloc_height;
 		if (v->start.x < WIDTH && v->start.x > 0 && v->start.y > 0
 			&& v->start.y < HEIGHT)
-			put_pixel_color(e, 7869695, &v->start);
+			put_pixel_color(e, RAY, &v->start);
 		e2 = v->err;
 		calc_line(e2, v);
 	}

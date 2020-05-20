@@ -44,7 +44,7 @@ static void	run_app(t_env *e)
 	{
 		init_ptr(e);
 		print_map(e);
-		draw_raycasting(e);
+		render_raycasting(e);
 		hook_events(e);
 	}
 }
