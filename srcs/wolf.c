@@ -12,42 +12,34 @@
 
 #include <wolf3d.h>
 
-void		draw_sky_floor(t_env *e)
+static void		render_sky(t_env *e)
 {
-	int 	x;
-	int 	y;
-	int 	i;
+	t_pos	start;
+	t_pos	end;
 
-	i = 0;
-	x = 0;
-	y = 0;
-	while (y < HEIGHT)
-	{
-		while (x < WIDTH)
-		{
-			i = ((x * e->mlx->img->bpp) / 8) + (y * e->mlx->img->s_line);
-			if (y < HEIGHT / 2)
-			{
-				e->mlx->img->data[i] = (char)180;
-				e->mlx->img->data[i + 1] = (char)150;
-				e->mlx->img->data[i + 2] = (char)0;
-			}
-			else
-			{
-				e->mlx->img->data[i] = (char)80;
-				e->mlx->img->data[i + 1] = (char)80;
-				e->mlx->img->data[i + 2] = (char)80;
-			}
-			x++;
-		}
-		x = 0;
-		y++;
-	}
+	start.x = 0;
+	start.y = 0;
+	end.x = WIDTH;
+	end.y = HEIGHT / 2;
+	fill_img_pos(e->mlx, DAYSKY, start, end);
+}
+
+static void		render_floor(t_env *e)
+{
+	t_pos	start;
+	t_pos	end;
+
+	start.x = 0;
+	start.y = HEIGHT/2;
+	end.x = WIDTH;
+	end.y = HEIGHT;
+	fill_img_pos(e->mlx, DAYFLOOR, start, end);
 }
 
 void	draw_raycasting(t_env *e)
 {
-	draw_sky_floor(e);
+	render_sky(e);
+	render_floor(e);
 	raycasting(e);
 	if (e->help == 1)
 		draw_info_line(e);
@@ -56,7 +48,7 @@ void	draw_raycasting(t_env *e)
 		info(e);
 }
 
-void	draw_2D_map(t_env *e)
+void	draw_2d_map(t_env *e)
 {
 	draw_grid(e);
 	player_position(e);

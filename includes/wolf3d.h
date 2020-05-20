@@ -33,6 +33,10 @@
 
 #define BLACK 0
 #define WHITE 0xFFFFFF
+#define DAYSKY 0x2FC4EE
+#define NIGHTSKY 0x084B83
+#define DAYFLOOR 0xC5B087
+#define NIGHTFLOOR 0x081c15
 
 #define BLOC_SIZE 1
 #define BLOC_HEIGHT 95
@@ -169,7 +173,7 @@ void			draw_line(t_env *e, t_vector *v);
 ** wolf.c
 */
 
-void			draw_2D_map(t_env *e);
+void			draw_2d_map(t_env *e);
 void			player_position(t_env *e);
 void			draw_grid(t_env *e);
 void			draw_raycasting(t_env *e);
