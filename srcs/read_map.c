@@ -25,9 +25,27 @@ static void			tabwidth(char *line, t_env *env)
 	ft_tabdel(&split);
 }
 
+static	int			check_if_walkable(char *str)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] - 48 == 0)
+			j = 1;
+		if ((str[i] - 48 < 0 || str[i] - 48 > 2) && (str[i] != ' '))
+			return (-1);
+		i++;
+	}
+	return (j);
+}
+
 /*
-** parse each line and copy the value of the char ** int the int array
-*/
+ ** parse each line and copy the value of the char ** int the int array
+ */
 
 static int			str_to_intarray(char *line, t_parse *elem, t_env *env)
 {
@@ -38,8 +56,6 @@ static int			str_to_intarray(char *line, t_parse *elem, t_env *env)
 	split = ft_strsplit_multi(line, "\t ");
 	while (split[i])
 	{
-		if (ft_atoi(split[i]) < 0 || ft_atoi(split[i]) > 3)
-			return (-1);
 		elem->nums[i] = ft_atoi(split[i]);
 		i++;
 	}
@@ -53,10 +69,16 @@ static int			gnl_reading(int fd, t_env *env)
 	char			*line;
 	t_parse			*elem;
 	int				ret;
+	int				bloc;
 
+	bloc = 0;
 	line = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
+		if (check_if_walkable(line) != 0 && bloc != -1)
+			bloc = 1;
+		if (check_if_walkable(line) == -1)
+			bloc = -1;
 		if (env->map_height == 0)
 			tabwidth(line, env);
 		elem = new_elem(env, env->map_width);
@@ -67,12 +89,14 @@ static int			gnl_reading(int fd, t_env *env)
 		env->map_height++;
 		ft_strdel(&line);
 	}
+	if (bloc == -1 || bloc == 0)
+		return (-1);
 	return (ret);
 }
 
 /*
-** return a chained list with an int array in each elem
-*/
+ ** return a chained list with an int array in each elem
+ */
 
 t_parse				*ft_read_input(int fd, t_env *env)
 {

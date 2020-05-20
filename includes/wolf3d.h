@@ -34,7 +34,6 @@
 #define BLACK 0
 #define WHITE 0xFFFFFF
 
-#define BLOC_SIZE 1
 #define BLOC_HEIGHT 95
 
 #define ROT_SPEED 0.07
