@@ -94,7 +94,7 @@ typedef	struct		s_parse
 
 typedef struct s_env
 {
-	t_text			text[9];
+	t_img			**texture_tab;
 	t_mlx 			*mlx;
 	int				map; //permet d'afficher 2D en appuyant sur espace
 	t_parse			*map_lines;
