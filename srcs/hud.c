@@ -59,9 +59,9 @@ void		info(t_env *e)
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 130, TEXT_HUD, "Arrows");
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 160, TITLE_HUD, "Map");
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 180, TEXT_HUD, "M");
-	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 200,
+	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 210,
 		TITLE_HUD, "Nightshift");
-	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 220, TEXT_HUD, "shift");
-	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 250, TITLE_HUD, "Close");
-	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 270, TEXT_HUD, "ESC");
+	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 230, TEXT_HUD, "shift");
+	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 260, TITLE_HUD, "Close");
+	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 280, TEXT_HUD, "ESC");
 }
