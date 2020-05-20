@@ -12,6 +12,24 @@
 
 #include <wolf3d.h>
 
+static int		**malloc_texture(t_env *e)
+{
+	int			i;
+
+	i = 0;
+	if (!(e->texture_tab = (t_img**)ft_memalloc(sizeof(t_img*) * 9)))
+		return (NULL);
+	while (i < 8)
+	{
+		if (!(e->texture_tab[i] = (t_img*)ft_memalloc(sizeof(t_img))))
+			return (NULL);
+		ft_bzero(e->texture_tab[i], sizeof(t_img));
+		i++;
+	}
+	e->texture_tab[i] = NULL;
+	return (0);
+}
+
 static void		set_texture(t_env *e, int a, int b)
 {
 	int			i;
@@ -21,20 +39,21 @@ static void		set_texture(t_env *e, int a, int b)
 	i = 0;
 	stonepath = ft_strdup("textures/stone0.xpm");
 	woodpath = ft_strdup("textures/wood0.xpm");
+	malloc_texture(e);
 	while (i < 4)
 	{
 		stonepath[14] = (i + 1) + 48;
-		e->text[i].img = mlx_xpm_file_to_image(e->mlx->ptr, stonepath, &a, &b);
-		e->text[i].data = mlx_get_data_addr(e->text[i].img, &e->text[i].bpp,
-			&e->text[i].sizeline, &e->text[i].endian);
+		e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, stonepath, &a, &b);
+		e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
+			&e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
 		i++;
 	}
 	while (i < 8)
 	{
 		woodpath[13] = i - i + 1 + 48;
-		e->text[i].img = mlx_xpm_file_to_image(e->mlx->ptr, woodpath, &a, &b);
-		e->text[i].data = mlx_get_data_addr(e->text[i].img, &e->text[i].bpp,
-			&e->text[i].sizeline, &e->text[i].endian);
+		e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, woodpath, &a, &b);
+		e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
+			&e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
 		i++;
 	}
 }
@@ -52,12 +71,12 @@ int				texture_init(t_env *e)
 
 void			get_texture_color(t_env *e, int i, int x, int pos)
 {
-	e->red = e->text[i].data[(x * e->text[i].bpp)
-		/ 8 + (pos * e->text[i].sizeline)];
-	e->green = e->text[i].data[((x * e->text[i].bpp) / 8)
-		+ 1 + (pos * e->text[i].sizeline)];
-	e->blue = e->text[i].data[((x * e->text[i].bpp) / 8)
-		+ 2 + (pos * e->text[i].sizeline)];
+	e->red = e->texture_tab[i]->data[(x * e->texture_tab[i]->bpp)
+		/ 8 + (pos * e->texture_tab[i]->s_line)];
+	e->green = e->texture_tab[i]->data[((x * e->texture_tab[i]->bpp) / 8)
+		+ 1 + (pos * e->texture_tab[i]->s_line)];
+	e->blue = e->texture_tab[i]->data[((x * e->texture_tab[i]->bpp) / 8)
+		+ 2 + (pos * e->texture_tab[i]->s_line)];
 	e->color = (e->blue << 16) | (e->green << 8) | e->red;
 }
 

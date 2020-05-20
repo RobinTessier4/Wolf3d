@@ -43,28 +43,28 @@ static void	clean_map_lines(t_env *e)
 	}
 }
 
-/*
-** static void	clean_text(t_env *e)
-** {
-** 	int		i;
-**
-** 	i = 0;
-** 	while (i < 9)
-** 	{
-** 		if (e->text[i].img)
-** 		{
-** 			free(e->text[i].img);
-** 			e->text[i].img = NULL;
-** 		}
-** 		if (e->text[i].data)
-** 		{
-** 			free(e->text[i].data);
-** 			e->text[i].data = NULL;
-** 		}
-** 		i++;
-** 	}
-** }
-*/
+static void	clean_text(t_env *e)
+{
+ 	int		i;
+
+ 	i = 0;
+ 	while (e->texture_tab[i])
+ 	{
+ 		if (e->text[i].img)
+ 		{
+ 			free(e->text[i].img);
+ 			e->text[i].img = NULL;
+ 		}
+ 		if (e->text[i].data)
+ 		{
+ 			free(e->text[i].data);
+ 			e->text[i].data = NULL;
+ 		}
+ 		i++;
+ 	}
+	free(e->texture_tab);
+	e->texture_tab = NULL;
+}
 
 static void	clean_vector(t_env *e)
 {
@@ -92,6 +92,7 @@ static void	clean_vector(t_env *e)
 
 void		exit_program(t_env *e)
 {
+	clean_text(e);
 	clean_file(e);
 	clean_map_lines(e);
 	clean_vector(e);
