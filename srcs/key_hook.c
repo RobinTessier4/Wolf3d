@@ -58,12 +58,12 @@ static int		check_if_wall(t_env *e, int i)
 
 static void		wasd_key(int key, t_env *e)
 {
-	if (key == W && e->player.y < HEIGHT && check_if_wall(e, 1) == 0)
+	if ((key == W || key == ARROW_UP) && e->player.y < HEIGHT && check_if_wall(e, 1) == 0)
 	{
 		e->player.y += e->dir_p.y / 10;
 		e->player.x += e->dir_p.x / 10;
 	}
-	else if (key == S && e->player.y > 0 && check_if_wall(e, 2) == 0)
+	else if ((key == S || key == ARROW_DOWN) && e->player.y > 0 && check_if_wall(e, 2) == 0)
 	{
 		e->player.y -= e->dir_p.y / 10;
 		e->player.x -= e->dir_p.x / 10;
@@ -120,8 +120,8 @@ int				key_hook(int key, t_env *e)
 	if (key == SHIFT)
 		e->nightshift = e->nightshift == 1 ? 0 : 1;
 	if (e->map == 1)
-		draw_raycasting(e);
+		render_raycasting(e);
 	else if (e->map == 0)
-		draw_2d_map(e);
+		render_2d_map(e);
 	return (0);
 }
