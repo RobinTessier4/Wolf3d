@@ -53,15 +53,6 @@
 
 #define ROT_SPEED 0.07
 
-typedef struct		s_text
-{	
-	void			*img;
-	char			*data;
-	int				bpp;
-	int				sizeline;
-	int				endian;
-}					t_text;
-
 typedef struct		s_vector
 {	
 	t_pos			start; //x1 ; y1
