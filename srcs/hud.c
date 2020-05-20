@@ -50,7 +50,8 @@ void		hud_background(t_env *e)
 
 void		info(t_env *e)
 {
-	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 10, TITLE_HUD, "Display HUD");
+	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 10,
+		TITLE_HUD, "Display HUD");
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 30, TEXT_HUD, "Space");
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 60, TITLE_HUD, "Move");
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 80, TEXT_HUD, "WASD");
@@ -58,7 +59,8 @@ void		info(t_env *e)
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 130, TEXT_HUD, "Arrows");
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 160, TITLE_HUD, "Map");
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 180, TEXT_HUD, "M");
-	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 200, TITLE_HUD, "Nightshift");
+	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 200,
+		TITLE_HUD, "Nightshift");
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 220, TEXT_HUD, "shift");
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 250, TITLE_HUD, "Close");
 	mlx_string_put(e->mlx->ptr, e->mlx->wind, 420, 270, TEXT_HUD, "ESC");
