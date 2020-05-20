@@ -17,8 +17,6 @@ void			usage(void)
 	ft_putendl("Usage : wolf3d [map01/map02/map03]");
 }
 
-
-
 void			ft_error(void)
 {
 	ft_putstr("error: ");
