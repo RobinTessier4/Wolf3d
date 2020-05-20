@@ -50,15 +50,15 @@ static void	clean_text(t_env *e)
  	i = 0;
  	while (e->texture_tab[i])
  	{
- 		if (e->text[i].img)
+ 		if (e->texture_tab[i]->ptr)
  		{
- 			free(e->text[i].img);
- 			e->text[i].img = NULL;
+ 			free(e->texture_tab[i]->ptr);
+ 			e->texture_tab[i]->ptr = NULL;
  		}
- 		if (e->text[i].data)
+ 		if (e->texture_tab[i]->data)
  		{
- 			free(e->text[i].data);
- 			e->text[i].data = NULL;
+ 			free(e->texture_tab[i]->data);
+ 			e->texture_tab[i]->data = NULL;
  		}
  		i++;
  	}
