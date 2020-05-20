@@ -42,7 +42,7 @@ void			draw_line(t_env *e, t_vector *v)
 	}
 }
 
-void			draw_text(t_env *e, t_vector *wall)
+void			draw_text(t_env *e, t_vector *wall, t_pos_d rayend)
 {
 	int			y;
 	int			end;
@@ -57,7 +57,7 @@ void			draw_text(t_env *e, t_vector *wall)
 	{
 		pos.y = y / (((double)HEIGHT - end) / 250);
 		if (wall->start.y < HEIGHT && wall->start.y > 0)
-			put_pixel_color(e, render_texture(e, pos), &wall->start);
+			put_pixel_color(e, render_texture(e, pos, rayend), &wall->start);
 		wall->start.y++;
 		y++;
 	}

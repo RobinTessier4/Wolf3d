@@ -59,7 +59,7 @@ static double		calc_size_ray(t_env *e, t_virtual *v)
 	return (dist);
 }
 
-static void			draw_wall(t_env *e, double dist, int x)
+static void			draw_wall(t_env *e, double dist, int x, t_pos_d rayend)
 {
 	int				size_wall;
 	double			ecart;
@@ -79,9 +79,9 @@ static void			draw_wall(t_env *e, double dist, int x)
 	wall->end.x = x;
 	wall->end.y = (HEIGHT / 2) + size_wall;
 	vector_init(wall);
-	if (e->rayend.x > 0 && e->rayend.x < e->map_width && e->rayend.y > 0
-		&& e->rayend.y < e->map_height)
-		draw_text(e, wall);
+	if (rayend.x > 0 && rayend.x < e->map_width && rayend.y > 0
+		&& rayend.y < e->map_height)
+		draw_text(e, wall, rayend);
 	free(wall);
 	wall = NULL;
 }
@@ -100,16 +100,15 @@ void				raycasting(t_env *e)
 	x = 0;
 	while (x < WIDTH)
 	{
-		rayon.start.x = e->player.x * BLOC_SIZE;
-		rayon.start.y = e->player.y * BLOC_SIZE;
+		rayon.start.x = e->player.x;
+		rayon.start.y = e->player.y;
 		rayon.end.x = start.x + ((vector.end.x - start.x)
 			* (x / (double)WIDTH));
 		rayon.end.y = start.y + ((vector.end.y - start.y)
 			* (x / (double)WIDTH));
 		init_virtual(&rayon);
 		size = calc_size_ray(e, &rayon);
-		e->rayend = rayon.start;
-		draw_wall(e, size, x);
+		draw_wall(e, size, x, rayon.start);
 		x++;
 	}
 }

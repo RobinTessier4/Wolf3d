@@ -80,7 +80,7 @@ typedef	struct		s_parse
 
 typedef struct s_env
 {
-	t_text			text[9];
+	t_text			text[8];
 	t_mlx 			*mlx;
 	int				map; //permet d'afficher 2D en appuyant sur espace
 	t_parse			*map_lines;
@@ -106,11 +106,10 @@ typedef struct s_env
 	t_vector 		*lray;
 	t_vector 		*rray;
 
-	t_pos_d			rayend;
-	
 	t_virtual		lray2;
 	t_virtual		rray2;
 
+	//t_pos_d			rayend;
 	unsigned char 	red;
 	unsigned char 	green;
 	unsigned char 	blue;
@@ -205,7 +204,7 @@ void	        vector_init(t_vector *v);
 void	        ray_init(t_env *e);
 void	        draw_rayons(t_env *e, t_vector *tmp);
 void	        draw_vector(t_env *e);
-void			draw_text(t_env *e, t_vector *v);
+void			draw_text(t_env *e, t_vector *v, t_pos_d rayend);
 
 /*
 ** raycasting.c
@@ -224,7 +223,7 @@ void			exit_program(t_env *e);
 */
 
 void			get_text_color(t_env *e, int i, int x, int pos);
-unsigned int	render_texture(t_env *e, t_pos_d pos);
+unsigned int	render_texture(t_env *e, t_pos_d pos, t_pos_d rayend);
 int				texture_init(t_env *e);
 
 /*
