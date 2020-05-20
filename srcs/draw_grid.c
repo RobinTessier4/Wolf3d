@@ -12,6 +12,16 @@
 
 #include <wolf3d.h>
 
+static void	put_pixel_2dmap(t_env *e, t_pos cursor)
+{
+	if (e->file[e->current_bloc.y][e->current_bloc.x] == 0)
+		put_pixel_color(e, FLOOR, &cursor);
+	else if (e->file[e->current_bloc.y][e->current_bloc.x] == 1)
+		put_pixel_color(e, BEYOND_MAP, &cursor);
+	else if (e->file[e->current_bloc.y][e->current_bloc.x] == 2)
+		put_pixel_color(e, BLOC_COLOR, &cursor);
+}
+
 void		draw_grid(t_env *e)
 {
 	t_pos	cursor;
@@ -24,16 +34,10 @@ void		draw_grid(t_env *e)
 		{
 			e->current_bloc.x = cursor.x / e->bloc_width;
 			e->current_bloc.y = cursor.y / e->bloc_height;
-			if (e->current_bloc.x < e->map_width && e->current_bloc.y < 
-					e->map_height && e->current_bloc.x >= 0 && e->current_bloc.y >= 0)
-			{
-				if (e->file[e->current_bloc.y][e->current_bloc.x] == 0)
-					put_pixel_color(e, FLOOR, &cursor);
-				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 1)
-					put_pixel_color(e, BEYOND_MAP, &cursor);
-				else if (e->file[e->current_bloc.y][e->current_bloc.x] == 2)
-					put_pixel_color(e, BLOC_COLOR, &cursor);
-			}
+			if (e->current_bloc.x < e->map_width
+				&& e->current_bloc.y < e->map_height && e->current_bloc.x >= 0
+				&& e->current_bloc.y >= 0)
+				put_pixel_2dmap(e, cursor);
 			else
 				put_pixel_color(e, BEYOND_MAP, &cursor);
 			cursor.x++;
@@ -44,8 +48,8 @@ void		draw_grid(t_env *e)
 
 void		player_position(t_env *e)
 {
-	t_pos 	start;
-	t_pos 	end;
+	t_pos	start;
+	t_pos	end;
 
 	start.x = e->player.x * e->bloc_width;
 	start.y = e->player.y * e->bloc_height;
