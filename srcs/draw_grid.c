@@ -67,9 +67,9 @@ void		player_position(t_env *e)
 	}
 }
 
-void			render_player_fov(t_env *e, t_vector *v)
+void		render_player_fov(t_env *e, t_vector *v)
 {
-	int			e2;
+	int		e2;
 
 	e->current_bloc.x = v->start.x / e->bloc_width;
 	e->current_bloc.y = v->start.y / e->bloc_height;

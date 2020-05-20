@@ -12,7 +12,7 @@
 
 #include <wolf3d.h>
 
-void		calc_line(int e2, t_vector *v)
+void	calc_line(int e2, t_vector *v)
 {
 	if (e2 > -v->dist.x)
 	{

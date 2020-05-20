@@ -62,5 +62,3 @@ void			draw_text(t_env *e, t_vector *wall)
 		y++;
 	}
 }
-
-
