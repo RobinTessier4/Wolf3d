@@ -237,5 +237,7 @@ int				texture_init(t_env *e);
 
 void			draw_info_line(t_env *e);
 void			info(t_env *e);
+void			hud_frame(t_env *e);
+void			hud_background(t_env *e);
 
 #endif

@@ -42,7 +42,10 @@ void	draw_raycasting(t_env *e)
 	render_floor(e);
 	raycasting(e);
 	if (e->help == 1)
-		draw_info_line(e);
+	{
+		hud_background(e);
+		hud_frame(e);
+	}
 	mlx_put_image_to_window(e->mlx->ptr, e->mlx->wind, e->mlx->img->ptr, 0, 0);
 	if (e->help == 1)
 		info(e);
@@ -54,7 +57,10 @@ void	draw_2d_map(t_env *e)
 	player_position(e);
 	draw_vector(e);
 	if (e->help == 1)
-		draw_info_line(e);
+	{
+		hud_background(e);
+		hud_frame(e);
+	}
 	mlx_put_image_to_window(e->mlx->ptr, e->mlx->wind, e->mlx->img->ptr, 0, 0);
 	if (e->help == 1)
 		info(e);
