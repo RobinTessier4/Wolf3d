@@ -63,39 +63,4 @@ void			draw_text(t_env *e, t_vector *wall)
 	}
 }
 
-static void		calc_line(int e2, t_vector *v)
-{
-	if (e2 > -v->dist.x)
-	{
-		v->err -= v->dist.y;
-		v->start.x += v->sx;
-	}
-	if (e2 < v->dist.y)
-	{
-		v->err += v->dist.x;
-		v->start.y += v->sy;
-	}
-}
 
-void			draw_inf_line(t_env *e, t_vector *v)
-{
-	int			e2;
-
-	e->current_bloc.x = v->start.x / e->bloc_width;
-	e->current_bloc.y = v->start.y / e->bloc_height;
-	while ((v->start.x > 0 && v->start.y > 0
-				&& v->start.x < WIDTH && v->start.y < HEIGHT)
-				&& (e->current_bloc.y < e->map_height
-				&& e->current_bloc.x < e->map_width
-				&& e->current_bloc.x >= 0 && e->current_bloc.y >= 0)
-				&& (e->file[e->current_bloc.y][e->current_bloc.x] == 0))
-	{
-		e->current_bloc.x = v->start.x / e->bloc_width;
-		e->current_bloc.y = v->start.y / e->bloc_height;
-		if (v->start.x < WIDTH && v->start.x > 0 && v->start.y > 0
-			&& v->start.y < HEIGHT)
-			put_pixel_color(e, RAY, &v->start);
-		e2 = v->err;
-		calc_line(e2, v);
-	}
-}

@@ -170,6 +170,7 @@ void			v_error_msg(char *message, t_env *env);
 */
 
 void			print_map(t_env *e);
+void			calc_line(int e2, t_vector *v);
 
 /*
 ** image.c
@@ -204,7 +205,7 @@ int				mouse_hook(int key, int x, int y, t_env *e);
 ** draw_grid.c.c
 */
 
-void			draw_inf_line(t_env *e, t_vector *v);
+void			render_player_fov(t_env *e, t_vector *v);
 int				text_init(t_env *e);
 
 

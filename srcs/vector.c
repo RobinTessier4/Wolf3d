@@ -75,7 +75,7 @@ void			draw_rayons(t_env *e, t_vector *tmp)
 		e->lray->start.y = e->player.y * e->bloc_height;
 		e->lray->end = tmp->start;
 		vector_init(e->lray);
-		draw_inf_line(e, e->lray);
+		render_player_fov(e, e->lray);
 		err = tmp->err;
 		if (err > -tmp->dist.x)
 		{
