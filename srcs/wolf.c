@@ -33,7 +33,7 @@ static void	render_floor(t_env *e)
 	t_pos	end;
 
 	start.x = 0;
-	start.y = HEIGHT/2;
+	start.y = HEIGHT / 2;
 	end.x = WIDTH;
 	end.y = HEIGHT;
 	if (e->nightshift == 0)
