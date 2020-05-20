@@ -15,7 +15,7 @@
 void			put_pixel_color(t_env *e, int color, t_pos *pos)
 {
 	e->mlx->img->color = color;
-	img_pixel_put(e->mlx, *pos);
+	img_pixel_put(e->mlx, *pos, color);
 }
 
 void			draw_line(t_env *e, t_vector *v)

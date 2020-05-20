@@ -79,7 +79,8 @@
 # define MAIN_PAD_LESS 43
 # define MAIN_PAD_MORE 47
 
-#define SPACE_BAR 49
+# define SHIFT 65505 ------ MODIFIER SUR ORDI ROBIN
+# define SPACE_BAR 49
 
 */
 
@@ -109,6 +110,8 @@
 # define X 7
 # define Y 16
 # define Z 6
+
+# define SHIFT 65505
 
 # define ARROW_UP 65362
 # define ARROW_DOWN 63564

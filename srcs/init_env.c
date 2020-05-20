@@ -12,7 +12,7 @@
 
 #include <wolf3d.h>
 
-static void		start_location(t_env *e)
+static void	start_location(t_env *e)
 {
 	e->player.x = 0;
 	e->player.y = 0;

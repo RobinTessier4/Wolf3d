@@ -37,6 +37,10 @@
 #define NIGHTSKY 0x084B83
 #define DAYFLOOR 0xC5B087
 #define NIGHTFLOOR 0x081c15
+#define DAY_HUD 0x253237
+#define NIGHT_HUD 0x5500a8
+#define TITLE_HUD 0x89fc00
+#define TEXT_HUD 0xFFFFFF
 
 #define BLOC_SIZE 1
 #define BLOC_HEIGHT 95
@@ -121,8 +125,7 @@ typedef struct s_env
 	unsigned int 	color;
 
 	char			help;
-
-
+	char			nightshift;
 }					t_env;
 
 /*

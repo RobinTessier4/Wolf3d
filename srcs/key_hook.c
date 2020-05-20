@@ -117,9 +117,11 @@ int				key_hook(int key, t_env *e)
 		e->help = e->help == 1 ? 0 : 1;
 	if (key == M)
 		e->map = e->map == 1 ? 0 : 1;
+	if (key == SHIFT)
+		e->nightshift = e->nightshift == 1 ? 0 : 1;
 	if (e->map == 1)
 		draw_raycasting(e);
 	else if (e->map == 0)
-		draw_2D_map(e);
+		draw_2d_map(e);
 	return (0);
 }
