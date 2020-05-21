@@ -96,6 +96,6 @@ void		exit_program(t_env *e)
 	clean_file(e);
 	clean_map_lines(e);
 	clean_vector(e);
-	mlx_destroy(mlx);
+	mlx_destroy(e->mlx);
 	exit(EXIT_SUCCESS);
 }
