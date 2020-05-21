@@ -60,6 +60,11 @@ static void	clean_text(t_env *e)
  			free(e->texture_tab[i]->data);
  			e->texture_tab[i]->data = NULL;
  		}
+		if (e->texture_tab[i])
+		{
+		free(e->texture_tab[i]);
+		e->texture_tab[i] = NULL;
+		}
  		i++;
  	}
 	free(e->texture_tab);
@@ -97,5 +102,5 @@ void		exit_program(t_env *e)
 	clean_map_lines(e);
 	clean_vector(e);
 	mlx_destroy(e->mlx);
-	exit(EXIT_SUCCESS);
+exit(EXIT_SUCCESS);
 }

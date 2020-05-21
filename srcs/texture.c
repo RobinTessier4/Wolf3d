@@ -17,7 +17,7 @@ static int		**malloc_texture(t_env *e)
 	int			i;
 
 	i = 0;
-	if (!(e->texture_tab = (t_img**)ft_memalloc(sizeof(t_img*) * 8)))
+	if (!(e->texture_tab = (t_img**)ft_memalloc(sizeof(t_img*) * 9)))
 		return (NULL);
 	while (i < 8)
 	{
@@ -39,7 +39,6 @@ static void		set_texture_stone(t_env *e, int a, int b)
 	i = 0;
 	while (i < 4)
 	{
-		printf("i: %d\n", i);
 		stonepath[14] = (i + 1) + 48;
 		e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, stonepath, &a, &b);
 		e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
