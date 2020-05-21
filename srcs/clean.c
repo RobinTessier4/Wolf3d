@@ -45,7 +45,7 @@ static void	clean_map_lines(t_env *e)
 		}
 	}
 }
-
+/*
 static void	clean_text(t_env *e)
 {
 	int		i;
@@ -55,10 +55,10 @@ static void	clean_text(t_env *e)
 	{
 		if (e->text[i].img)
 		{
-			// printf("Before: e->text[%d].img = %p\n", i, e->text[i].img);
+		//	 printf("Before: e->text[%d].img = %p\n", i, e->text[i].img);
 			free(e->text[i].img);
 			e->text[i].img = NULL;
-			// printf("After: e->text[%d].img = %p\n", i, e->text[i].img);
+		//	 printf("After: e->text[%d].img = %p\n", i, e->text[i].img);
 		}
 		if (e->text[i].data)
 		{
@@ -70,7 +70,7 @@ static void	clean_text(t_env *e)
 		i++;
 	}
 }
-
+*/
 static void	clean_vector(t_env *e)
 {
 	if (e->dir)
@@ -109,6 +109,6 @@ void		exit_program(t_env *e)
 	clean_file(e);
 	clean_map_lines(e);
 	clean_vector(e);
-	clean_text(e);
+//	clean_text(e);
 	exit(EXIT_SUCCESS);
 }

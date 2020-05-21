@@ -12,7 +12,7 @@
 
 #include <wolf3d.h>
 
-void	start_location(t_env *e)
+static void		start_location(t_env *e)
 {
 	e->player.x = 0;
 	e->player.y = 0;
@@ -31,10 +31,9 @@ void	start_location(t_env *e)
 		e->player.x = 0;
 		e->player.y++;
 	}
-
 }
 
-static void player_init(t_env *e)
+static void	player_init(t_env *e)
 {
 	start_location(e);
 	e->dir_p.x = 0;
@@ -47,6 +46,7 @@ static void	map_init(t_env *e)
 {
 	e->help = 1;
 	e->map = 1;
+
 	e->bloc_width = WIDTH / e->map_width;
 	e->bloc_height = HEIGHT / e->map_height;
 }
@@ -61,6 +61,7 @@ int			param_init(t_env *e)
 		return (1);
 	if (!(e->rray = ft_memalloc(sizeof(t_vector))))
 		return (1);
+
 	texture_init(e);
 	player_init(e);
 	map_init(e);

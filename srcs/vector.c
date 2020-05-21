@@ -12,7 +12,18 @@
 
 #include <wolf3d.h>
 
-void	        vector_init(t_vector *v)
+t_virtual		init_vector_pos(t_env *e)
+{
+	t_virtual	tmp;
+
+	tmp.start.x = (e->player.x + e->dir_p.x - e->plane_p.x);
+	tmp.start.y = (e->player.y + e->dir_p.y - e->plane_p.y);
+	tmp.end.x = (e->player.x + e->dir_p.x + e->plane_p.x);
+	tmp.end.y = (e->player.y + e->dir_p.y + e->plane_p.y);
+	return (tmp);
+}
+
+void			vector_init(t_vector *v)
 {
 	v->dist.x = abs(v->end.x - v->start.x);
 	v->dist.y = abs(v->end.y - v->start.y);
@@ -21,34 +32,37 @@ void	        vector_init(t_vector *v)
 	v->err = (v->dist.x > v->dist.y ? v->dist.x : -v->dist.y) / 2;
 }
 
+/*
+** 1. init central ray at the player's position : e->dir->start
+** 2. intersections points on the plane accordind
+**	  the player direction : e->dir->end
+** 3. init plane's position : e->plane->start/end
+** 4. init left coordinates of the plane : e->lray->start/end
+** 5. init right coordinates of the plane : e->rray->start/end
+*/
+
 void			ray_init(t_env *e)
 {
-    /* init central ray at the player's position */
 	e->dir->start.x = e->player.x * e->bloc_width;
 	e->dir->start.y = e->player.y * e->bloc_height;
-    
-    /* Point de passage du rayon sur le plane en fonction de la direction joueur */
 	e->dir->end.x = (e->player.x + e->dir_p.x) * e->bloc_width;
 	e->dir->end.y = (e->player.y + e->dir_p.y) * e->bloc_height;
-
-    /* init position of the plane */
-	e->plane->start.x = (e->player.x + e->dir_p.x - e->plane_p.x) * e->bloc_width;
-	e->plane->start.y = (e->player.y + e->dir_p.y - e->plane_p.y) * e->bloc_height;
-	e->plane->end.x = (e->player.x + e->dir_p.x + e->plane_p.x) * e->bloc_width;
-	e->plane->end.y = (e->player.y + e->dir_p.y + e->plane_p.y) * e->bloc_height;
-
-    /* init left ray */
+	e->plane->start.x = (e->player.x + e->dir_p.x - e->plane_p.x)
+		* e->bloc_width;
+	e->plane->start.y = (e->player.y + e->dir_p.y - e->plane_p.y)
+		* e->bloc_height;
+	e->plane->end.x = (e->player.x + e->dir_p.x + e->plane_p.x)
+		* e->bloc_width;
+	e->plane->end.y = (e->player.y + e->dir_p.y + e->plane_p.y)
+		* e->bloc_height;
 	e->lray->start.x = e->dir->start.x;
 	e->lray->start.y = e->dir->start.y;
 	e->lray->end.x = e->plane->start.x;
 	e->lray->end.y = e->plane->start.y;
-    
-    /* init right ray */	
-    e->rray->start.x = e->dir->start.x;
+	e->rray->start.x = e->dir->start.x;
 	e->rray->start.y = e->dir->start.y;
 	e->rray->end.x = e->plane->end.x;
 	e->rray->end.y = e->plane->end.y;
-
 }
 
 void			draw_rayons(t_env *e, t_vector *tmp)
@@ -59,7 +73,6 @@ void			draw_rayons(t_env *e, t_vector *tmp)
 	{
 		e->lray->start.x = e->player.x * e->bloc_width;
 		e->lray->start.y = e->player.y * e->bloc_height;
-		
 		e->lray->end = tmp->start;
 		vector_init(e->lray);
 		draw_inf_line(e, e->lray);
@@ -79,7 +92,7 @@ void			draw_rayons(t_env *e, t_vector *tmp)
 
 void			draw_vector(t_env *e)
 {
-	t_vector	*tmp; //copie de plane
+	t_vector	*tmp;
 
 	if (!(tmp = ft_memalloc(sizeof(t_vector))))
 		return ;

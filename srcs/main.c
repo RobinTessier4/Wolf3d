@@ -27,33 +27,43 @@ static int	ft_close(void)
 
 static void	hook_events(t_env *e)
 {
-    mlx_hook(e->mlx->wind, 2, (1L << 0), &key_hook, e);
-    mlx_hook(e->mlx->wind, 17, 0L, ft_close, e);
-    mlx_loop(e->mlx->ptr);
-}	
+	mlx_hook(e->mlx->wind, 2, (1L << 0), &key_hook, e);
+	mlx_hook(e->mlx->wind, 17, 0L, ft_close, e);
+	mlx_loop(e->mlx->ptr);
+}
 
-//__attribute__((destructor)) void loop_inf(void){ for(;;); }
+/*
+** __attribute__((destructor)) void loop_inf(void){ for(;;); }
+*/
+
+static void	run_app(t_env *e)
+{
+	if (HEIGHT < e->map_height || WIDTH < e->map_width)
+		v_error_msg("error: window is too small", e);
+	else
+	{
+		init_ptr(e);
+		print_map(e);
+	draw_raycasting(e);
+		hook_events(e);
+	}
+}
 
 int			main(int ac, char **av)
 {
 	t_env	e;
-	int 	fd;
+	int		fd;
 
-	if (ac == 2)
+	if (ac != 2)
+		usage();
+	else if (ac == 2)
 	{
 		if ((fd = open(av[1], O_RDONLY)) > 0)
 		{
 			if (ft_read_input(fd, &e) != NULL)
 			{
 				if ((e.file = map_tab(&e)) != NULL)
-				{
-					if (HEIGHT < e.map_height || WIDTH < e.map_width)
-						return(error_msg("error: window is too small", &e));
-					init_ptr(&e);
-					print_map(&e);
-					draw_raycasting(&e);
-					hook_events(&e);
-				}
+					run_app(&e);
 				else
 				{
 					ft_putendl("Map is invalid");
@@ -62,8 +72,7 @@ int			main(int ac, char **av)
 				}
 			}
 		}
+		usage();
 	}
-	else
-		ft_putendl("Usage : wolf3d [map01/map02/map03]");
 	return (0);
 }
