@@ -33,19 +33,24 @@
 
 #define BLACK 0
 #define WHITE 0xFFFFFF
+#define DAYSKY 0x2FC4EE
+#define NIGHTSKY 0x084B83
+#define DAYFLOOR 0xC5B087
+#define NIGHTFLOOR 0x081c15
+#define DAY_HUD 0x253237
+#define NIGHT_HUD 0x5500a8
+#define TITLE_HUD 0x89fc00
+#define TEXT_HUD 0xFFFFFF
+
+#define BEYOND_MAP 0x42321b
+#define FLOOR 0xC5B087
+#define RAY 0x89fc00
+#define PLAYER_COL 0xd00000
+#define BLOC_COLOR 0x1B9E77
 
 #define BLOC_HEIGHT 95
 
 #define ROT_SPEED 0.07
-
-typedef struct		s_text
-{	
-	void			*img;
-	char			*data;
-	int				bpp;
-	int				sizeline;
-	int				endian;
-}					t_text;
 
 typedef struct		s_vector
 {	
@@ -79,7 +84,7 @@ typedef	struct		s_parse
 
 typedef struct s_env
 {
-	t_text			text[8];
+	t_img			**texture_tab;
 	t_mlx 			*mlx;
 	int				map; //permet d'afficher 2D en appuyant sur espace
 	t_parse			*map_lines;
@@ -115,8 +120,7 @@ typedef struct s_env
 	unsigned int 	color;
 
 	char			help;
-
-
+	char			nightshift;
 }					t_env;
 
 /*
@@ -155,6 +159,7 @@ void			v_error_msg(char *message, t_env *env);
 */
 
 void			print_map(t_env *e);
+void			calc_line(int e2, t_vector *v);
 
 /*
 ** image.c
@@ -167,10 +172,10 @@ void			draw_line(t_env *e, t_vector *v);
 ** wolf.c
 */
 
-void			draw_2D_map(t_env *e);
+void			render_2d_map(t_env *e);
 void			player_position(t_env *e);
 void			draw_grid(t_env *e);
-void			draw_raycasting(t_env *e);
+void			render_raycasting(t_env *e);
 
 /*
 ** key_hook.c
@@ -189,7 +194,7 @@ int				mouse_hook(int key, int x, int y, t_env *e);
 ** draw_grid.c.c
 */
 
-void			draw_inf_line(t_env *e, t_vector *v);
+void			render_player_fov(t_env *e, t_vector *v);
 int				text_init(t_env *e);
 
 
@@ -231,5 +236,7 @@ int				texture_init(t_env *e);
 
 void			draw_info_line(t_env *e);
 void			info(t_env *e);
+void			hud_frame(t_env *e);
+void			hud_background(t_env *e);
 
 #endif

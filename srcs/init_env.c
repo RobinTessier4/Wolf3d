@@ -12,12 +12,12 @@
 
 #include <wolf3d.h>
 
-static void		start_location(t_env *e)
+static void	start_location(t_env *e)
 {
-	e->player.x = 0;
 	e->player.y = 0;
 	while (e->player.y < e->map_height)
 	{
+		e->player.x = 0;
 		while (e->player.x < e->map_width)
 		{
 			if (e->file[(int)e->player.y][(int)e->player.x] == 0)
@@ -28,7 +28,6 @@ static void		start_location(t_env *e)
 			}
 			e->player.x++;
 		}
-		e->player.x = 0;
 		e->player.y++;
 	}
 }

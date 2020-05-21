@@ -44,7 +44,7 @@ static void	run_app(t_env *e)
 	{
 		init_ptr(e);
 		print_map(e);
-	draw_raycasting(e);
+		render_raycasting(e);
 		hook_events(e);
 	}
 }
@@ -58,6 +58,7 @@ int			main(int ac, char **av)
 		usage();
 	else if (ac == 2)
 	{
+		ft_bzero(&e, sizeof(e));
 		if ((fd = open(av[1], O_RDONLY)) > 0)
 		{
 			if (ft_read_input(fd, &e) != NULL)

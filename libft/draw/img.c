@@ -46,7 +46,7 @@ void			ft_destroy_image(void *ptr, t_img *img)
 	free(img);
 }
 
-int				img_pixel_put(t_mlx *mlx, t_pos pos)
+int				img_pixel_put(t_mlx *mlx, t_pos pos, int col)
 {
 	int			index;
 	int			bpp;
@@ -58,7 +58,7 @@ int				img_pixel_put(t_mlx *mlx, t_pos pos)
 		&& (!(pos.x < mlx->img->img_s.x && pos.y < mlx->img->img_s.y)))
 		return (-1);
 	bpp = img->bpp / 8;
-	color = true_color(mlx->ptr, img->endian, img->color);
+	color = true_color(mlx->ptr, img->endian, col);
 	index = pos.y * img->s_line + pos.x * bpp;
 	ft_memcpy(img->data + index, &color, bpp);
 	return (0);

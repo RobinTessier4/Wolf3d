@@ -30,7 +30,7 @@ int			draw_circle(t_mlx *mlx, t_pos *origin, int angle, int rayon)
 		if (or.x < 0 || or.y < 0 || or.x >= mlx->mlx_s.x
 			|| or.y >= mlx->mlx_s.y)
 			continue ;
-		img_pixel_put(mlx, or);
+		img_pixel_put(mlx, or, color);
 	}
 	return (0);
 }

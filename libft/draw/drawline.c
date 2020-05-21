@@ -12,7 +12,7 @@
 
 #include <draw.h>
 
-static void	drawline_x(t_mlx *mlx, t_pos start, t_pos end)
+static void	drawline_x(t_mlx *mlx, t_pos start, t_pos end, int color)
 {
 	char	i;
 	t_pos	p;
@@ -36,12 +36,12 @@ static void	drawline_x(t_mlx *mlx, t_pos start, t_pos end)
 			p.x = (p.x < 0) ? 0 : p.x + 1;
 			continue ;
 		}
-		img_pixel_put(mlx, p);
+		img_pixel_put(mlx, p, color);
 		p.x++;
 	}
 }
 
-static void	drawline_y(t_mlx *mlx, t_pos start, t_pos end)
+static void	drawline_y(t_mlx *mlx, t_pos start, t_pos end, int color)
 {
 	char	i;
 	t_pos	p;
@@ -65,26 +65,26 @@ static void	drawline_y(t_mlx *mlx, t_pos start, t_pos end)
 			p.y = (p.y < 0) ? 0 : p.y + 1;
 			continue ;
 		}
-		img_pixel_put(mlx, p);
+		img_pixel_put(mlx, p, color);
 		p.y++;
 	}
 }
 
-int			drawline(t_mlx *mlx, t_pos start, t_pos end)
+int			drawline(t_mlx *mlx, t_pos start, t_pos end, int color)
 {
 	if (abs(end.x - start.x) >= abs(end.y - start.y))
 	{
 		if (start.x <= end.x)
-			drawline_x(mlx, start, end);
+			drawline_x(mlx, start, end, color);
 		else
-			drawline_x(mlx, end, start);
+			drawline_x(mlx, end, start, color);
 	}
 	else if (abs(end.x - start.x) <= abs(end.y - start.y))
 	{
 		if (start.y <= end.y)
-			drawline_y(mlx, start, end);
+			drawline_y(mlx, start, end, color);
 		else
-			drawline_y(mlx, end, start);
+			drawline_y(mlx, end, start, color);
 	}
 	return (0);
 }

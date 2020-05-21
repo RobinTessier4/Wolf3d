@@ -53,6 +53,6 @@ int				pixel_color(t_mlx *mlx, t_pos pos)
 	col.red = (int)((unsigned char)img->data[index]);
 	col.green = (int)((unsigned char)img->data[index + 1]);
 	col.blue = (int)((unsigned char)img->data[index + 2]);
-	color = (col.blue << 16) | (col.green << 8) | col.red;
+	color = col.red + (col.green * pow(2, 8)) + (col.blue * pow(2, 16));
 	return (color);
 }
