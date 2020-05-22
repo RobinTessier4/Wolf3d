@@ -42,7 +42,7 @@ static void		set_texture_stone(t_env *e, int a, int b)
 		stonepath[14] = (i + 1) + 48;
 		e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, stonepath, &a, &b);
 		e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
-			&e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
+				&e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
 		i++;
 	}
 	free(stonepath);
@@ -61,7 +61,7 @@ static void		set_texture_wood(t_env *e, int a, int b)
 		woodpath[13] = i + 48 - 3;
 		e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, woodpath, &a, &b);
 		e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
-			&e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
+				&e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
 		i++;
 	}
 	free(woodpath);
@@ -69,37 +69,37 @@ static void		set_texture_wood(t_env *e, int a, int b)
 }
 
 /*
-static void		set_texture(t_env *e, int a, int b)
-{
-	int			i;
-	int			j;
-	char		*stonepath;
-	char		*woodpath;
+   static void		set_texture(t_env *e, int a, int b)
+   {
+   int			i;
+   int			j;
+   char		*stonepath;
+   char		*woodpath;
 
-	stonepath = ft_strdup("textures/stone0.xpm");
-	woodpath = ft_strdup("textures/wood0.xpm");
-	i = 0;
-	while (i < 4)
-	{
-		stonepath[14] = (i + 1) + 48;
-		e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, stonepath, &a, &b);
-		e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
-			&e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
-		i++;
-	}
-	j = 1;
-	while (i < 8)
-	{
-		woodpath[13] = j + 48;
-		e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, woodpath, &a, &b);
-		e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
-			&e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
-		i++;
-		j++;
-	}
-	free(stonepath);
-	free(woodpath);
-}*/
+   stonepath = ft_strdup("textures/stone0.xpm");
+   woodpath = ft_strdup("textures/wood0.xpm");
+   i = 0;
+   while (i < 4)
+   {
+   stonepath[14] = (i + 1) + 48;
+   e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, stonepath, &a, &b);
+   e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
+   &e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
+   i++;
+   }
+   j = 1;
+   while (i < 8)
+   {
+   woodpath[13] = j + 48;
+   e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, woodpath, &a, &b);
+   e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
+   &e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
+   i++;
+   j++;
+   }
+   free(stonepath);
+   free(woodpath);
+   }*/
 
 int				texture_init(t_env *e)
 {
@@ -126,8 +126,12 @@ void			get_texture_color(t_env *e, int i, int x, int pos)
 	e->color = (e->blue << 16) | (e->green << 8) | e->red;
 }
 
-static void		calc_render_texture (t_env *e, t_pos_d pos, t_pos ray_pos, t_pos coord, t_pos_d rayend)
+static void		calc_render_texture (t_env *e, t_pos_d pos, t_pos ray_pos, t_pos_d rayend)
 {
+	t_pos		coord;
+
+	coord.x = rayend.x * 250;
+	coord.y = rayend.y * 250;
 	if (rayend.y >= 0.996 || rayend.y <= 0.004)
 	{
 		if (((e->dir_p.y - e->plane_p.y) - (((e->dir_p.y - e->plane_p.y)
@@ -153,14 +157,11 @@ static void		calc_render_texture (t_env *e, t_pos_d pos, t_pos ray_pos, t_pos co
 unsigned int	render_texture(t_env *e, t_pos_d pos, t_pos_d rayend)
 {
 	t_pos		ray_pos;
-	t_pos		coord;
-	
+
 	ray_pos.x = (int)rayend.x;
 	ray_pos.y = (int)rayend.y;
 	rayend.x = rayend.x - ray_pos.x;
 	rayend.y = rayend.y - ray_pos.y;
-	coord.x = rayend.x * 250;
-	coord.y = rayend.y * 250;
-	calc_render_texture(e, pos, ray_pos, coord, rayend);
+	calc_render_texture(e, pos, ray_pos, rayend);
 	return (e->color);
 }
