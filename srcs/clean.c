@@ -45,28 +45,28 @@ static void	clean_map_lines(t_env *e)
 
 static void	clean_text(t_env *e)
 {
- 	int		i;
+	int		i;
 
- 	i = 0;
- 	while (e->texture_tab[i])
- 	{
- 		if (e->texture_tab[i]->ptr)
- 		{
- 			free(e->texture_tab[i]->ptr);
- 			e->texture_tab[i]->ptr = NULL;
- 		}
- 		if (e->texture_tab[i]->data)
- 		{
- 			free(e->texture_tab[i]->data);
- 			e->texture_tab[i]->data = NULL;
- 		}
+	i = 0;
+	while (e->texture_tab[i])
+	{
+		if (e->texture_tab[i]->ptr)
+		{
+			free(e->texture_tab[i]->ptr);
+			e->texture_tab[i]->ptr = NULL;
+		}
+		if (e->texture_tab[i]->data)
+		{
+			free(e->texture_tab[i]->data);
+			e->texture_tab[i]->data = NULL;
+		}
 		if (e->texture_tab[i])
 		{
-		free(e->texture_tab[i]);
-		e->texture_tab[i] = NULL;
+			free(e->texture_tab[i]);
+			e->texture_tab[i] = NULL;
 		}
- 		i++;
- 	}
+		i++;
+	}
 	free(e->texture_tab);
 	e->texture_tab = NULL;
 }
@@ -102,5 +102,5 @@ void		exit_program(t_env *e)
 	clean_map_lines(e);
 	clean_vector(e);
 	mlx_destroy(e->mlx);
-exit(EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }
