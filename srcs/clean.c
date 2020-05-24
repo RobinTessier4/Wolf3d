@@ -50,25 +50,12 @@ static void	clean_text(t_env *e)
 	i = 0;
 	while (e->texture_tab[i])
 	{
-		if (e->texture_tab[i]->ptr)
-		{
-			free(e->texture_tab[i]->ptr);
-			e->texture_tab[i]->ptr = NULL;
-		}
-		if (e->texture_tab[i]->data)
-		{
-			free(e->texture_tab[i]->data);
-			e->texture_tab[i]->data = NULL;
-		}
-		if (e->texture_tab[i])
-		{
-			free(e->texture_tab[i]);
-			e->texture_tab[i] = NULL;
-		}
+		mlx_destroy_image(e->mlx->ptr, e->texture_tab[i]->ptr);
+		e->texture_tab[i]->data = NULL;
+		free(e->texture_tab[i]);
 		i++;
 	}
 	free(e->texture_tab);
-	e->texture_tab = NULL;
 }
 
 static void	clean_vector(t_env *e)
@@ -97,10 +84,11 @@ static void	clean_vector(t_env *e)
 
 void		exit_program(t_env *e)
 {
-	clean_text(e);
 	clean_file(e);
 	clean_map_lines(e);
 	clean_vector(e);
+	clean_text(e);
 	mlx_destroy(e->mlx);
+//	mlx_terminate(e->mlx->ptr);
 	exit(EXIT_SUCCESS);
 }
