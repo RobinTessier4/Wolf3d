@@ -27,7 +27,7 @@ static int	ft_close(void)
 static void	hook_events(t_env *e)
 {
 	mlx_hook(e->mlx->wind, 2, (1L << 0), &key_hook, e);
-	mlx_hook(e->mlx->wind, 17, 0L, ft_close, e);
+	mlx_hook(e->mlx->wind, 17, 1L << 17, ft_close, e);
 	mlx_loop(e->mlx->ptr);
 }
 
