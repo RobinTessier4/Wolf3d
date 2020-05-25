@@ -25,16 +25,3 @@ void	calc_line(int e2, t_vector *v)
 		v->start.y += v->sy;
 	}
 }
-
-void	print_map(t_env *e)
-{
-	for (int i = 0; i < e->map_height; i++)
-	{
-		for (int j = 0; j < e->map_width; j++)
-		{
-			ft_putnbr(e->file[i][j]);
-			ft_putchar(' ');
-		}
-		ft_putchar('\n');
-	}
-}

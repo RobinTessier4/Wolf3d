@@ -89,6 +89,5 @@ void		exit_program(t_env *e)
 	clean_vector(e);
 	clean_text(e);
 	mlx_destroy(e->mlx);
-//	mlx_terminate(e->mlx->ptr);
 	exit(EXIT_SUCCESS);
 }

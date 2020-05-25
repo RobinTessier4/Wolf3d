@@ -12,7 +12,7 @@
 
 #include <wolf3d.h>
 
-static int		check_if_wall2(t_env *e, int i)
+static t_pos_d	check_if_wall2(t_env *e, int i)
 {
 	t_pos_d		cur;
 
@@ -27,10 +27,7 @@ static int		check_if_wall2(t_env *e, int i)
 		cur.y += e->dir_p.x / 10 * 2;
 		cur.x -= e->dir_p.y / 10 * 2;
 	}
-	if (e->file[(int)(cur.y)][(int)(cur.x)] != 0 || cur.y < 0 || cur.x < 0 ||
-			cur.y > e->map_height || cur.x > e->map_width)
-		return (1);
-	return (0);
+	return (cur);
 }
 
 static int		check_if_wall(t_env *e, int i)
@@ -49,7 +46,7 @@ static int		check_if_wall(t_env *e, int i)
 		cur.x -= e->dir_p.x / 10 * 2;
 	}
 	else
-		return (check_if_wall2(e, i));
+		cur = check_if_wall2(e, i);
 	if (cur.y < 0 || cur.x < 0 || cur.y >= e->map_height
 		|| cur.x >= e->map_width || e->file[(int)(cur.y)][(int)(cur.x)] != 0)
 		return (1);
@@ -58,24 +55,22 @@ static int		check_if_wall(t_env *e, int i)
 
 static void		wasd_key(int key, t_env *e)
 {
-	if ((key == W || key == ARROW_UP) && e->player.y < HEIGHT
-		&& check_if_wall(e, 1) == 0)
+	if ((key == W || key == ARROW_UP) && check_if_wall(e, 1) == 0)
 	{
 		e->player.y += e->dir_p.y / 10;
 		e->player.x += e->dir_p.x / 10;
 	}
-	else if ((key == S || key == ARROW_DOWN) && e->player.y > 0
-		&& check_if_wall(e, 2) == 0)
+	else if ((key == S || key == ARROW_DOWN) && check_if_wall(e, 2) == 0)
 	{
 		e->player.y -= e->dir_p.y / 10;
 		e->player.x -= e->dir_p.x / 10;
 	}
-	else if (key == A && e->player.x > 0 && check_if_wall(e, 3) == 0)
+	else if (key == A && check_if_wall(e, 3) == 0)
 	{
 		e->player.y -= e->dir_p.x / 10;
 		e->player.x += e->dir_p.y / 10;
 	}
-	else if (key == D && e->player.x < WIDTH && check_if_wall(e, 4) == 0)
+	else if (key == D && check_if_wall(e, 4) == 0)
 	{
 		e->player.y += e->dir_p.x / 10;
 		e->player.x -= e->dir_p.y / 10;

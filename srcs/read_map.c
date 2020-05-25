@@ -43,10 +43,6 @@ static	int			check_if_walkable(char *str)
 	return (j);
 }
 
-/*
- ** parse each line and copy the value of the char ** int the int array
- */
-
 static int			str_to_intarray(char *line, t_parse *elem, t_env *env)
 {
 	char			**split;
@@ -93,10 +89,6 @@ static int			gnl_reading(int fd, t_env *env)
 		return (-1);
 	return (ret);
 }
-
-/*
- ** return a chained list with an int array in each elem
- */
 
 t_parse				*ft_read_input(int fd, t_env *env)
 {

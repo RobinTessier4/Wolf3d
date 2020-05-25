@@ -40,9 +40,11 @@ static void		set_texture_stone(t_env *e, int a, int b)
 	while (i < 4)
 	{
 		stonepath[14] = (i + 1) + 48;
-		e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, stonepath, &a, &b);
-		e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
-				&e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
+		e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, stonepath,
+				&a, &b);
+		e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr,
+				&e->texture_tab[i]->bpp, &e->texture_tab[i]->s_line,
+				&e->texture_tab[i]->endian);
 		i++;
 	}
 	free(stonepath);
@@ -59,47 +61,16 @@ static void		set_texture_wood(t_env *e, int a, int b)
 	while (i < 8)
 	{
 		woodpath[13] = i + 48 - 3;
-		e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, woodpath, &a, &b);
-		e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
-				&e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
+		e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, woodpath,
+				&a, &b);
+		e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr,
+				&e->texture_tab[i]->bpp, &e->texture_tab[i]->s_line,
+				&e->texture_tab[i]->endian);
 		i++;
 	}
 	free(woodpath);
 	woodpath = NULL;
 }
-
-/*
-   static void		set_texture(t_env *e, int a, int b)
-   {
-   int			i;
-   int			j;
-   char		*stonepath;
-   char		*woodpath;
-
-   stonepath = ft_strdup("textures/stone0.xpm");
-   woodpath = ft_strdup("textures/wood0.xpm");
-   i = 0;
-   while (i < 4)
-   {
-   stonepath[14] = (i + 1) + 48;
-   e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, stonepath, &a, &b);
-   e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
-   &e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
-   i++;
-   }
-   j = 1;
-   while (i < 8)
-   {
-   woodpath[13] = j + 48;
-   e->texture_tab[i]->ptr = mlx_xpm_file_to_image(e->mlx->ptr, woodpath, &a, &b);
-   e->texture_tab[i]->data = mlx_get_data_addr(e->texture_tab[i]->ptr, &e->texture_tab[i]->bpp,
-   &e->texture_tab[i]->s_line, &e->texture_tab[i]->endian);
-   i++;
-   j++;
-   }
-   free(stonepath);
-   free(woodpath);
-   }*/
 
 int				texture_init(t_env *e)
 {
@@ -111,7 +82,6 @@ int				texture_init(t_env *e)
 	malloc_texture(e);
 	set_texture_stone(e, a, b);
 	set_texture_wood(e, a, b);
-	// set_texture(e, a, b);
 	return (0);
 }
 
@@ -126,7 +96,8 @@ void			get_texture_color(t_env *e, int i, int x, int pos)
 	e->color = (e->blue << 16) | (e->green << 8) | e->red;
 }
 
-static void		calc_render_texture (t_env *e, t_pos_d pos, t_pos ray_pos, t_pos_d rayend)
+static void		calc_render_texture(t_env *e, t_pos_d pos, t_pos r,
+		t_pos_d rayend)
 {
 	t_pos		coord;
 
@@ -135,22 +106,23 @@ static void		calc_render_texture (t_env *e, t_pos_d pos, t_pos ray_pos, t_pos_d 
 	if (rayend.y >= 0.996 || rayend.y <= 0.004)
 	{
 		if (((e->dir_p.y - e->plane_p.y) - (((e->dir_p.y - e->plane_p.y)
-							- (e->dir_p.y + e->plane_p.y)) * ((double)pos.x / WIDTH))) < 0)
-			get_texture_color(e, (e->file[ray_pos.y][ray_pos.x] * 4) - 4,
-					coord.x, pos.y);
+							- (e->dir_p.y + e->plane_p.y)) * ((double)pos.x /
+							WIDTH))) < 0)
+			get_texture_color(e, (e->file[r.y][r.x] * 4) - 4, coord.x, pos.y);
 		else
-			get_texture_color(e, (e->file[ray_pos.y][ray_pos.x] * 4) - 4 + 1,
-					coord.x, pos.y);
+			get_texture_color(e, (e->file[r.y][r.x] * 4) - 4 + 1, coord.x,
+			pos.y);
 	}
 	else
 	{
 		if (((e->dir_p.x - e->plane_p.x) - (((e->dir_p.x - e->plane_p.x)
-							- (e->dir_p.x + e->plane_p.x)) * ((double)pos.x / WIDTH))) > 0)
-			get_texture_color(e, (e->file[ray_pos.y][ray_pos.x] * 4) - 4 + 2,
-					coord.y, pos.y);
+							- (e->dir_p.x + e->plane_p.x)) *
+						((double)pos.x / WIDTH))) > 0)
+			get_texture_color(e, (e->file[r.y][r.x] * 4) - 4 + 2, coord.y,
+			pos.y);
 		else
-			get_texture_color(e, (e->file[ray_pos.y][ray_pos.x] * 4) - 4 + 3,
-					coord.y, pos.y);
+			get_texture_color(e, (e->file[r.y][r.x] * 4) - 4 + 3, coord.y,
+			pos.y);
 	}
 }
 

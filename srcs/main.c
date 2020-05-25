@@ -20,7 +20,6 @@ static void	init_ptr(t_env *e)
 
 static int	ft_close(void)
 {
-	printf("JE QUITTE\n");
 	exit(EXIT_SUCCESS);
 	return (0);
 }
@@ -31,10 +30,6 @@ static void	hook_events(t_env *e)
 	mlx_hook(e->mlx->wind, 17, 0L, ft_close, e);
 	mlx_loop(e->mlx->ptr);
 }
-
-/*
-** __attribute__((destructor)) void loop_inf(void){ for(;;); }
-*/
 
 static void	run_app(t_env *e)
 {
