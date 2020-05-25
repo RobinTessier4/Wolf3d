@@ -12,6 +12,7 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# define BLANK(c) (c == 10 || c == 32 || c == 9 ? 1 : 0)
 # include <unistd.h>
 # include <string.h>
 # include <stdio.h>

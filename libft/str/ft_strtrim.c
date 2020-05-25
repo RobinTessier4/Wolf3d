@@ -12,8 +12,6 @@
 
 #include <libft.h>
 
-#define BLANK(c) (c == 10 || c == 32 || c == 9 ? 1 : 0)
-
 char	*ft_strtrim(char const *s)
 {
 	char			*strtrim;
