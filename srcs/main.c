@@ -38,7 +38,6 @@ static void	run_app(t_env *e)
 	else
 	{
 		init_ptr(e);
-		print_map(e);
 		render_raycasting(e);
 		hook_events(e);
 	}

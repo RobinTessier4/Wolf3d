@@ -158,7 +158,6 @@ void			v_error_msg(char *message, t_env *env);
 ** utils.c
 */
 
-void			print_map(t_env *e);
 void			calc_line(int e2, t_vector *v);
 
 /*
