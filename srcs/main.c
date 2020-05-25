@@ -67,7 +67,8 @@ int			main(int ac, char **av)
 				}
 			}
 		}
-		usage();
+		else
+			usage();
 	}
 	return (0);
 }

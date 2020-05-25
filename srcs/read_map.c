@@ -64,11 +64,12 @@ static int			gnl_reading(int fd, t_env *env)
 {
 	char			*line;
 	t_parse			*elem;
+	int				ret;
 	int				bloc;
 
 	bloc = 0;
 	line = NULL;
-	while ((env->gnl_ret = get_next_line(fd, &line)) > 0)
+	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		if (check_if_walkable(line) != 0 && bloc != -1)
 			bloc = 1;
@@ -85,8 +86,8 @@ static int			gnl_reading(int fd, t_env *env)
 		ft_strdel(&line);
 	}
 	if (bloc == -1 || bloc == 0)
-		return (-1);
-	return (env->gnl_ret);
+		return (error_msg("Invalid map. Exiting", env));
+	return (ret);
 }
 
 t_parse				*ft_read_input(int fd, t_env *env)
