@@ -12,7 +12,16 @@
 
 #include <libft.h>
 
-char	*ft_strtrim(char const *s)
+static char			is_blank(char c)
+{
+	if (c == 10 || c == 32 || c == 9)
+		c = 1;
+	else
+		c = 0;
+	return (c);
+}
+
+char				*ft_strtrim(char const *s)
 {
 	char			*strtrim;
 	unsigned int	start;
@@ -25,10 +34,10 @@ char	*ft_strtrim(char const *s)
 	start = 0;
 	blank = 0;
 	end = ft_strlen((char *)s) - 1;
-	while (s[start] && BLANK(s[start]))
+	while (s[start] && is_blank(s[start]))
 		start++;
 	blank = start;
-	while (end > 0 && BLANK(s[end]))
+	while (end > 0 && is_blank(s[end]))
 	{
 		end--;
 		blank++;
