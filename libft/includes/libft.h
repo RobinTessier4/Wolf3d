@@ -12,7 +12,6 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# define BLANK(c) (c == 10 || c == 32 || c == 9 ? 1 : 0)
 # include <unistd.h>
 # include <string.h>
 # include <stdio.h>
@@ -77,7 +76,17 @@ char				*ft_strjoin_free(char **s1, char *s2);
 char				*ft_strjoin_free2(char *s1, char **s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
+
+/*
+** str_split_multi
+*/
+
 char				**ft_strsplit_multi(char const *str, char *split);
+void				go_on_reading_sm(unsigned int *i, char const *str, char *split);
+int					found_word(char const *str, char *split, int found, int j);
+int					count_words_sm(char const *str, char *split);
+int					str_len_sm(char const *s, int i, char *split);
+
 char				*ft_itoa(int n);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
