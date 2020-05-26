@@ -12,6 +12,33 @@
 
 #include <libft.h>
 
+static int			go_on_reading_sm(unsigned int i, char const *s, char *sp)
+{
+	char			found;
+	int				j;
+	int				c;
+
+	c = 0;
+	while (s[i])
+	{
+		found = 0;
+		j = -1;
+		while (sp[++j])
+		{
+			if (sp[j] == s[i])
+			{
+				found = 1;
+				break ;
+			}
+		}
+		if (found == 0)
+			break ;
+		i++;
+		c++;
+	}
+	return (c);
+}
+
 static int			found_word(char const *str, char *split, int found, int j)
 {
 	found = 0;
@@ -26,7 +53,7 @@ static int			found_word(char const *str, char *split, int found, int j)
 	return (found);
 }
 
-static int			count_words(char const *str, char *split)
+static int			count_words_sm(char const *str, char *split)
 {
 	int				nb_words;
 	int				is_word;
@@ -51,7 +78,7 @@ static int			count_words(char const *str, char *split)
 	return (nb_words);
 }
 
-static int			str_len(char const *s, int i, char *split)
+static int			str_len_sm(char const *s, int i, char *split)
 {
 	char			found;
 	int				j;
@@ -78,48 +105,21 @@ static int			str_len(char const *s, int i, char *split)
 	return (len);
 }
 
-static void			go_on_reading(unsigned int *i, char const *str, char *split)
-{
-	char			found;
-	int				j;
-
-	while (str[*i])
-	{
-		found = 0;
-		j = -1;
-		while (split[++j])
-		{
-			if (split[j] == str[*i])
-			{
-				found = 1;
-				break ;
-			}
-		}
-		if (found == 0)
-			break ;
-		(*i)++;
-	}
-}
-
-char				**ft_strsplit_multi(char const *str, char *split)
+char				**ft_strsplit_multi(const char *str, char *split)
 {
 	char			**tmp;
 	char			**tab;
 	unsigned int	i;
 	int				count;
-	int				nb_words;
 
-	if (!str || !split)
-		return (NULL);
-	nb_words = count_words(str, split);
-	if (!(tab = (char **)malloc(sizeof(char *) * (nb_words + 1))))
+	if (!str || !split || !(tab = (char **)malloc(sizeof(char *) *
+		(count_words_sm(str, split) + 1))))
 		return (NULL);
 	tmp = tab;
-	i = 0;
-	go_on_reading(&i, str, split);
+	i = go_on_reading_sm(0, str, split);
 	while (str[i])
 	{
-		count = str_len(str, i, split);
+		count = str_len_sm(str, i, split);
 		if (!(*tab = ft_strsub(str, i, count)))
 		{
 			ft_tabdel(&tab);
@@ -128,7 +128,7 @@ char				**ft_strsplit_multi(char const *str, char *split)
 		}
 		tab++;
 		i += count;
-		go_on_reading(&i, str, split);
+		i += go_on_reading_sm(i, str, split);
 	}
 	*tab = NULL;
 	return (tmp);

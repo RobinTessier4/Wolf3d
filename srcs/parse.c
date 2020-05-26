@@ -35,6 +35,7 @@ t_parse				*new_elem(t_env *env, int len)
 		error_msg("error while malloc element of chained list", env);
 		return (NULL);
 	}
+	ft_bzero(elem, sizeof(t_parse));
 	if (env->map_lines)
 		prev->next = elem;
 	else
@@ -42,7 +43,6 @@ t_parse				*new_elem(t_env *env, int len)
 	if (malloc_tab(env, elem, len) == -1)
 		return (NULL);
 	ft_bzero(elem->nums, (sizeof(int) * len));
-	elem->next = NULL;
 	return (elem);
 }
 

@@ -12,7 +12,7 @@
 
 NAME = wolf3d
 
-CC = gcc -Wall -Wextra -Werror
+CC = gcc -g -Wall -Wextra -Werror
 HEAD = -I includes -I libft/includes
 FLAGS = -Wall -Wextra -Werror
 LINK = -L ./libft -L /usr/X11/lib -L ./minilibx -lft -lX11 -lXext -lmlx -framework OpenGL -framework AppKit

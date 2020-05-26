@@ -82,11 +82,6 @@ char				**ft_strsplit(char const *s, char c);
 */
 
 char				**ft_strsplit_multi(char const *str, char *split);
-void				go_on_reading_sm(unsigned int *i, char const *str, char *split);
-int					found_word(char const *str, char *split, int found, int j);
-int					count_words_sm(char const *str, char *split);
-int					str_len_sm(char const *s, int i, char *split);
-
 char				*ft_itoa(int n);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
