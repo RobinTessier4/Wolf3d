@@ -30,7 +30,7 @@
 ** print error
 */
 
-# define VERBOSE 0
+# define VERBOSE 1
 
 /*
 ** wolf set up
@@ -94,13 +94,13 @@ typedef	struct		s_parse
 typedef struct		s_env
 {
 	int				gnl_ret;
+	int				file_descriptor;
 	t_img			**texture_tab;
 	t_mlx			*mlx;
 	int				map;
 	t_parse			*map_lines;
 	int				map_width;
 	int				map_height;
-	int				line_cmp;
 	int				**file;
 	int				**tab;
 	double			perp_size;
@@ -139,7 +139,6 @@ t_parse				*ft_read_input(int fd, t_env *e);
 ** parse.c
 */
 
-void				del_map_lines(t_parse **lst);
 t_parse				*new_elem(t_env *e, int len);
 int					**map_tab(t_env *e);
 
@@ -222,7 +221,8 @@ void				raycasting(t_env *e);
 ** clean.c
 */
 
-void				exit_program(t_env *e);
+void				clean_map_lines(t_parse **lst);
+void				exit_program(int ret, char *msg, t_env *e);
 
 /*
 ** texture.c

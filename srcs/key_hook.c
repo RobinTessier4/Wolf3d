@@ -107,7 +107,7 @@ static void		rotation_key(int key, t_env *e)
 int				key_hook(int key, t_env *e)
 {
 	if (key == MAIN_PAD_ESC)
-		exit_program(e);
+		exit_program(0, "Bye", e);
 	wasd_key(key, e);
 	rotation_key(key, e);
 	if (key == SPACE_BAR)

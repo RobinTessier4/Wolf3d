@@ -46,25 +46,20 @@ static void	run_app(t_env *e)
 int			main(int ac, char **av)
 {
 	t_env	e;
-	int		fd;
 
 	if (ac != 2)
 		usage();
 	else if (ac == 2)
 	{
 		ft_bzero(&e, sizeof(e));
-		if ((fd = open(av[1], O_RDONLY)) > 0)
+		if ((e.file_descriptor = open(av[1], O_RDONLY)) > 0)
 		{
-			if (ft_read_input(fd, &e) != NULL)
+			if (ft_read_input(e.file_descriptor, &e) != NULL)
 			{
 				if ((e.file = map_tab(&e)) != NULL)
 					run_app(&e);
 				else
-				{
-					ft_putendl("Map is invalid");
-					close(fd);
-					return (1);
-				}
+					exit_program(1, "Invalid map. Exiting", &e);
 			}
 		}
 		else

@@ -21,8 +21,11 @@ static void	clean_file(t_env *e)
 	{
 		while (i < e->map_height)
 		{
-			free(e->file[i]);
-			e->file[i] = NULL;
+			if (e->file[i])
+			{
+				free(e->file[i]);
+				e->file[i] = NULL;
+			}
 			i++;
 		}
 		free(e->file);
@@ -30,16 +33,24 @@ static void	clean_file(t_env *e)
 	}
 }
 
-static void	clean_map_lines(t_env *e)
+void		clean_map_lines(t_parse **lst)
 {
-	if (e->map_lines)
+	t_parse	*tmp;
+	t_parse	*next;
+
+	if (*lst)
 	{
-		while (e->map_lines)
+		tmp = *lst;
+		if (!tmp)
+			return ;
+		while (tmp)
 		{
-			free(e->map_lines->nums);
-			e->map_lines->nums = NULL;
-			e->map_lines = e->map_lines->next;
+			next = tmp->next;
+			free(tmp->nums);
+			ft_memdel((void **)&tmp);
+			tmp = next;
 		}
+		*lst = NULL;
 	}
 }
 
@@ -48,14 +59,17 @@ static void	clean_text(t_env *e)
 	int		i;
 
 	i = 0;
-	while (e->texture_tab[i])
+	if (e->texture_tab)
 	{
-		mlx_destroy_image(e->mlx->ptr, e->texture_tab[i]->ptr);
-		e->texture_tab[i]->data = NULL;
-		free(e->texture_tab[i]);
-		i++;
+		while (e->texture_tab[i])
+		{
+			mlx_destroy_image(e->mlx->ptr, e->texture_tab[i]->ptr);
+			e->texture_tab[i]->data = NULL;
+			free(e->texture_tab[i]);
+			i++;
+		}
+		free(e->texture_tab);
 	}
-	free(e->texture_tab);
 }
 
 static void	clean_vector(t_env *e)
@@ -82,12 +96,19 @@ static void	clean_vector(t_env *e)
 	}
 }
 
-void		exit_program(t_env *e)
+void		exit_program(int ret, char *msg, t_env *e)
 {
+	ft_putendl(msg);
 	clean_file(e);
-	clean_map_lines(e);
+	clean_map_lines(&e->map_lines);
 	clean_vector(e);
 	clean_text(e);
-	mlx_destroy(e->mlx);
-	exit(EXIT_SUCCESS);
+	if (e->mlx)
+		mlx_destroy(e->mlx);
+	if (e->file_descriptor != 0)
+	{
+		close(e->file_descriptor);
+		e->file_descriptor = 0;
+	}
+	exit(ret);
 }

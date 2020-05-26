@@ -12,27 +12,9 @@
 
 #include <wolf3d.h>
 
-void				del_map_lines(t_parse **lst)
-{
-	t_parse			*tmp;
-	t_parse			*next;
-
-	tmp = *lst;
-	if (!tmp)
-		return ;
-	while (tmp)
-	{
-		next = tmp->next;
-		free(tmp->nums);
-		ft_memdel((void **)&tmp);
-		tmp = next;
-	}
-	*lst = NULL;
-}
-
 static int			malloc_tab(t_env *env, t_parse *elem, int len)
 {
-	if (!(elem->nums = (int *)(malloc)(sizeof(int) * len)))
+	if (!(elem->nums = (int *)malloc(sizeof(int) * len)))
 		return (error_msg("error while malloc tab in chained list", env));
 	return (0);
 }
@@ -64,6 +46,30 @@ t_parse				*new_elem(t_env *env, int len)
 	return (elem);
 }
 
+int					check_if_walkable(t_env *e, int **tab)
+{
+	int				i;
+	int				j;
+	int				walkable;
+
+	i = 0;
+	walkable = -1;
+	while (i < e->map_height)
+	{
+		j = 0;
+		while (j < e->map_width)
+		{
+			if (tab[i][j] == 0)
+				walkable = 1;
+			else if (tab[i][j] < 0 || tab[i][j] > 2)
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (walkable);
+}
+
 int					**map_tab(t_env *e)
 {
 	int				**tab;
@@ -85,6 +91,8 @@ int					**map_tab(t_env *e)
 		i++;
 		elem = elem->next;
 	}
-	del_map_lines(&e->map_lines);
+	clean_map_lines(&e->map_lines);
+	if (check_if_walkable(e, tab) != 1)
+		return (NULL);
 	return (tab);
 }

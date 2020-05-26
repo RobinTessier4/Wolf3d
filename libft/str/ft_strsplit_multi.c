@@ -121,7 +121,11 @@ char				**ft_strsplit_multi(char const *str, char *split)
 	{
 		count = str_len(str, i, split);
 		if (!(*tab = ft_strsub(str, i, count)))
+		{
 			ft_tabdel(&tab);
+			tab = tmp;
+			break ;
+		}
 		tab++;
 		i += count;
 		go_on_reading(&i, str, split);
