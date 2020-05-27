@@ -40,7 +40,8 @@ static int			parse_split(t_env *env, t_parse *elem, int i, char **split)
 				break ;
 			}
 			if (j == (int)ft_strlen(split[i]) - 2)
-				exit_program(1, "Invalid map - coordinates must be integers. Exiting.", env);
+				exit_program(1, "Invalid map - coordinates must
+					be integers. Exiting.", env);
 			j++;
 		}
 	}
