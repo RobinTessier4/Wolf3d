@@ -25,41 +25,46 @@ static void			tabwidth(char *line, t_env *env)
 	ft_tabdel(&split);
 }
 
+static int			parse_split(t_env *env, t_parse *elem, int i, char **split)
+{
+	int				j;
+
+	j = 0;
+	if ((int)ft_strlen(split[i]) > 1)
+	{
+		while (j < (int)ft_strlen(split[i]))
+		{
+			if (split[i][j] >= 48 && split[i][j] <= 57)
+			{
+				elem->nums[i] = ft_atoi(&split[i][j]);
+				break ;
+			}
+			if (j == (int)ft_strlen(split[i]) - 2)
+				exit_program(1, "Invalid map - coordinates must be integers. Exiting.", env);
+			j++;
+		}
+	}
+	else
+		elem->nums[i] = ft_atoi(&split[i][j]);
+	return (0);
+}
+
 static int			str_to_intarray(char *line, t_parse *elem, t_env *env)
 {
 	char			**split;
 	int				i;
-	int				j;
 
-	i = 0;
 	if (!(split = ft_strsplit_multi(line, "\t ")))
-		exit_program(1, "error: could not split array", env);
+		exit_program(1, "error: could not split array. Exiting", env);
 	if ((int)ft_tablen(split) != env->map_width)
 	{
 		ft_tabdel(&split);
 		exit_program(1, "Incorrect map width. Exiting.", env);
 	}
 	i = 0;
-	i = 0;
 	while (split[i])
 	{
-		if ((int)ft_strlen(split[i]) > 1)
-		{
-			j = 0;
-			while (j < (int)ft_strlen(split[i]))
-			{
-				if (split[i][j] >= 48 && split[i][j] <= 57)
-				{
-					elem->nums[i] = ft_atoi(&split[i][j]);
-					break ;
-				}
-				if (j == (int)ft_strlen(split[i]) - 2)
-					exit_program(1, "QUE DES LETTRES. Exiting.", env);
-				j++;
-			}
-		}
-		else
-			elem->nums[i] = ft_atoi(&split[i][j]);
+		parse_split(env, elem, i, split);
 		i++;
 	}
 	ft_tabdel(&split);
@@ -96,12 +101,12 @@ t_parse				*ft_read_input(int fd, t_env *env)
 	env->map_height = 0;
 	if ((ret_read = gnl_reading(fd, env)) == -1)
 	{
-		error_msg("error: empty file", env);
+		error_msg("error: invalid file. Exiting.", env);
 		return (NULL);
 	}
 	else if (env->map_height == 0)
 	{
-		error_msg("error: empty file", env);
+		error_msg("error: empty file. Exiting.", env);
 		return (NULL);
 	}
 	return (env->map_lines);
