@@ -29,6 +29,7 @@ static int			str_to_intarray(char *line, t_parse *elem, t_env *env)
 {
 	char			**split;
 	int				i;
+	int				j;
 
 	i = 0;
 	if (!(split = ft_strsplit_multi(line, "\t ")))
@@ -38,9 +39,27 @@ static int			str_to_intarray(char *line, t_parse *elem, t_env *env)
 		ft_tabdel(&split);
 		exit_program(1, "Incorrect map width. Exiting.", env);
 	}
+	i = 0;
+	i = 0;
 	while (split[i])
 	{
-		elem->nums[i] = ft_atoi(split[i]);
+		if ((int)ft_strlen(split[i]) > 1)
+		{
+			j = 0;
+			while (j < (int)ft_strlen(split[i]))
+			{
+				if (split[i][j] >= 48 && split[i][j] <= 57)
+				{
+					elem->nums[i] = ft_atoi(&split[i][j]);
+					break ;
+				}
+				if (j == (int)ft_strlen(split[i]) - 2)
+					exit_program(1, "QUE DES LETTRES. Exiting.", env);
+				j++;
+			}
+		}
+		else
+			elem->nums[i] = ft_atoi(&split[i][j]);
 		i++;
 	}
 	ft_tabdel(&split);
